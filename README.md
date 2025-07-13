@@ -6,11 +6,20 @@
 
 ### Core Functionality
 - **Autonomous Trading**: Fully automated buy/sell operations with configurable parameters
+- **Jupiter Swap Integration**: Real token trading using Jupiter's advanced swap API
 - **Token Discovery**: Multi-DEX scanning for new tokens and trading opportunities
-- **Risk Management**: Advanced fraud detection and safety mechanisms
+- **Risk Management**: Advanced fraud detection and comprehensive safety mechanisms
 - **Portfolio Management**: Automated position monitoring with profit targets and stop losses
 - **Comprehensive Logging**: Detailed trade, error, and performance logging
 - **Telegram Integration**: Live mode control and trade notifications via Telegram
+
+### Jupiter Trading Features
+- **Real-time Swaps**: Execute real token swaps using Jupiter V6 API
+- **Price Impact Protection**: Automatic rejection of trades with excessive price impact
+- **Slippage Protection**: Configurable slippage limits (0.5% to 3%)
+- **Route Optimization**: Jupiter finds optimal trading routes across multiple DEXs
+- **Transaction Monitoring**: Real-time monitoring of swap execution and confirmation
+- **Risk Assessment**: AI-driven risk analysis for every trade
 
 ### Safety Features
 - **Demo Mode**: Safe trading simulation (enabled by default)
@@ -19,6 +28,7 @@
 - **Risk Assessment**: Multi-factor risk evaluation for each trade
 - **Position Limits**: Configurable maximum positions and daily trade limits
 - **Stop Loss Protection**: Automated loss prevention mechanisms
+- **Balance Monitoring**: Real-time wallet balance tracking and reserve management
 
 ### Telegram Bot Features
 - **Demo Mode Toggle**: Switch between demo and live trading via `/demo` and `/live` commands
@@ -180,6 +190,14 @@ To enable real trading, add these secrets in Replit:
 - `SCAN_INTERVAL_SECONDS` - Time between scans (default: 60)
 - `PROFIT_TARGET_PERCENTAGE` - Profit target (default: 0.20 = 20%)
 - `STOP_LOSS_PERCENTAGE` - Stop loss (default: -0.05 = -5%)
+
+#### Jupiter Swap Configuration (Advanced)
+- `JUPITER_ENABLED` - Enable Jupiter swaps (default: true)
+- `JUPITER_DEFAULT_SLIPPAGE_BPS` - Default slippage (default: 50 = 0.5%)
+- `JUPITER_MAX_SLIPPAGE_BPS` - Maximum slippage (default: 300 = 3%)
+- `JUPITER_MAX_PRICE_IMPACT` - Maximum price impact (default: 5.0 = 5%)
+- `JUPITER_MAX_TRADE_SIZE_SOL` - Maximum trade size (default: 1.0 SOL)
+- `JUPITER_MIN_LIQUIDITY_USD` - Minimum liquidity (default: 10000 = $10k)
 
 ## 📊 Monitoring & Logging
 
