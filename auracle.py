@@ -118,9 +118,10 @@ class Auracle:
             print("=" * 60)
 
     async def _async_main_loop(self):
-        """Async main loop that runs the scanner and monitors positions."""
+        """Enhanced async main loop with performance optimizations."""
         scan_count = 0
         last_status_time = time.time()
+        last_cleanup_time = time.time()
 
         # Start scanner task
         import asyncio
@@ -136,14 +137,22 @@ class Auracle:
                 # Update statistics
                 self.stats["scans_completed"] += 1
 
-                # Send periodic status updates
-                if time.time() - last_status_time > 300:  # Every 5 minutes
+                # Send periodic status updates (every 5 minutes)
+                if time.time() - last_status_time > 300:
                     self.send_status_update()
                     self._display_portfolio_status()
                     last_status_time = time.time()
 
-                # Sleep for a short time before next monitoring cycle
-                await asyncio.sleep(30)
+                # Periodic cleanup (every 30 minutes)
+                if time.time() - last_cleanup_time > 1800:
+                    self._perform_cleanup()
+                    last_cleanup_time = time.time()
+
+                # Adaptive sleep time based on activity
+                if len(self.trade_handler.open_positions) > 0:
+                    await asyncio.sleep(15)  # More frequent monitoring with positions
+                else:
+                    await asyncio.sleep(30)  # Less frequent when no positions
 
         except Exception as e:
             self.logger.log_error(f"Main loop error: {str(e)}")
@@ -154,6 +163,26 @@ class Auracle:
                 await scanner_task
             except asyncio.CancelledError:
                 pass
+
+    def _perform_cleanup(self):
+        """Perform periodic cleanup tasks."""
+        try:
+            # Clean up risk evaluator cache
+            self.risk.cleanup_expired_cache()
+            
+            # Clean up old log entries if needed
+            if len(self.trade_handler.trade_history) > 100:
+                self.trade_handler.trade_history = self.trade_handler.trade_history[-50:]
+                print("[system] Cleaned up old trade history")
+            
+            # Update scanner working endpoints
+            if hasattr(self.scanner, 'working_endpoints'):
+                asyncio.create_task(self.scanner._refresh_working_endpoints())
+            
+            print("[system] 🧹 Periodic cleanup completed")
+            
+        except Exception as e:
+            print(f"[system] Cleanup error: {e}")
 
     def _scan_for_opportunities(self):
         """
@@ -221,25 +250,54 @@ class Auracle:
 
     def get_status(self) -> Dict[str, Any]:
         """
-        Get current system status and performance metrics.
-
+        Get comprehensive system status and performance metrics.
+        
         Returns:
-            Dict: Current status information
+            Dict: Enhanced status information with performance data
         """
         uptime = datetime.utcnow() - self.stats["start_time"]
         portfolio = self.trade_handler.get_portfolio_summary()
+        
+        # Calculate performance metrics
+        uptime_hours = uptime.total_seconds() / 3600
+        trades_per_hour = self.stats["trades_executed"] / max(uptime_hours, 1)
+        scans_per_hour = self.stats["scans_completed"] / max(uptime_hours, 1)
+        
+        # Get risk evaluator stats
+        risk_stats = self.risk.get_risk_summary()
+        
+        # Scanner performance
+        scanner_stats = {
+            "working_endpoints": len(getattr(self.scanner, 'working_endpoints', [])),
+            "total_endpoints": len(getattr(self.scanner, 'endpoints', [])),
+            "last_seen_tokens": len(getattr(self.scanner, 'last_seen_tokens', set()))
+        }
 
         return {
             "status": "running" if self.running else "stopped",
             "trading_mode": config.get_trading_mode_string(),
             "uptime": str(uptime),
-            "statistics": self.stats,
+            "uptime_hours": round(uptime_hours, 2),
+            "statistics": {
+                **self.stats,
+                "trades_per_hour": round(trades_per_hour, 2),
+                "scans_per_hour": round(scans_per_hour, 2)
+            },
             "portfolio": portfolio,
+            "risk_evaluator": risk_stats,
+            "scanner": scanner_stats,
             "configuration": {
                 "max_buy_amount": config.MAX_BUY_AMOUNT_SOL,
                 "scan_interval": config.SCAN_INTERVAL_SECONDS,
                 "profit_target": config.PROFIT_TARGET_PERCENTAGE,
-                "stop_loss": config.STOP_LOSS_PERCENTAGE
+                "stop_loss": config.STOP_LOSS_PERCENTAGE,
+                "dynamic_allocation": config.DYNAMIC_ALLOCATION_ENABLED,
+                "high_confidence_multiplier": config.HIGH_CONFIDENCE_MULTIPLIER
+            },
+            "system_health": {
+                "memory_usage": "N/A",  # Could add actual memory monitoring
+                "cache_size": len(self.risk.risk_cache),
+                "trade_history_size": len(self.trade_handler.trade_history)
             }
         }
 
@@ -313,30 +371,61 @@ class Auracle:
                 self.logger.log_error(f"Telegram status update failed: {e}")
     
     def _display_portfolio_status(self):
-        """Display current portfolio status to console."""
+        """Display enhanced portfolio status with performance metrics."""
         try:
             portfolio = self.trade_handler.get_portfolio_summary()
+            uptime = datetime.utcnow() - self.stats["start_time"]
             
-            print("\n" + "=" * 50)
-            print("📊 PORTFOLIO STATUS")
-            print("=" * 50)
-            print(f"Open Positions: {portfolio['open_positions']}")
-            print(f"Total Invested: {portfolio['total_invested_sol']:.4f} SOL")
-            print(f"Total P&L: {portfolio['total_pnl_sol']:+.4f} SOL")
-            print(f"Portfolio Value: {portfolio['total_value']:.4f} SOL")
-            print(f"Daily Trades: {portfolio['daily_trades']}")
+            print("\n" + "=" * 60)
+            print("📊 AURACLE PORTFOLIO & PERFORMANCE STATUS")
+            print("=" * 60)
             
+            # Trading Performance
+            print(f"🤖 Bot Uptime: {uptime}")
+            print(f"📈 Trades Executed: {self.stats['trades_executed']}")
+            print(f"🔍 Scans Completed: {self.stats['scans_completed']}")
+            print(f"📊 Tokens Evaluated: {self.stats['tokens_evaluated']}")
+            
+            # Portfolio Overview
+            print(f"📋 Open Positions: {portfolio['open_positions']}")
+            print(f"💰 Total Invested: {portfolio['total_invested_sol']:.6f} SOL")
+            print(f"💼 Portfolio Value: {portfolio['total_value']:.6f} SOL")
+            print(f"📊 Unrealized P&L: {portfolio['total_pnl_sol']:+.6f} SOL")
+            print(f"🎯 Daily Trades: {portfolio['daily_trades']}")
+            
+            # Performance Metrics
+            if 'performance' in portfolio:
+                perf = portfolio['performance']
+                print(f"🏆 Win Rate: {perf.get('win_rate', 0):.1f}%")
+                print(f"💹 Total P&L: {perf.get('total_pnl', 0):+.6f} SOL")
+            
+            # Position Details
             if portfolio['positions']:
-                print("\nOpen Positions:")
+                print("\n📍 Active Positions:")
                 for pos in portfolio['positions']:
-                    age_minutes = (datetime.utcnow() - pos['buy_time']).total_seconds() / 60
-                    current_pnl = pos.get('current_pnl_percent', 0)
-                    print(f"  {pos['symbol']:>8} | {pos['buy_price_sol']:.4f} SOL | {current_pnl:+6.1f}% | {age_minutes:.0f}m")
+                    age_minutes = pos['age_minutes']
+                    age_str = f"{age_minutes:.0f}m" if age_minutes < 60 else f"{age_minutes/60:.1f}h"
+                    pnl = pos.get('current_pnl_percent', 0)
+                    pnl_color = "🟢" if pnl > 0 else "🔴" if pnl < 0 else "🟡"
+                    print(f"  {pnl_color} {pos['symbol']:>8} | {pos['buy_price_sol']:.6f} SOL | {pnl:+6.1f}% | {age_str}")
+            else:
+                print("\n📍 No active positions")
             
-            print("=" * 50)
+            # Risk & System Stats
+            risk_stats = self.risk.get_risk_summary()
+            print(f"\n🛡️  Risk Stats: {risk_stats['blacklisted_tokens']} blacklisted, {risk_stats['cached_evaluations']} cached")
+            
+            # Scanner Stats
+            if hasattr(self.scanner, 'working_endpoints'):
+                working = len(self.scanner.working_endpoints)
+                total = len(self.scanner.endpoints)
+                print(f"🌐 Scanner: {working}/{total} endpoints working")
+            
+            print("=" * 60)
             
         except Exception as e:
             print(f"❌ Error displaying portfolio status: {e}")
+            print("=" * 60)
 
 
 def main():
