@@ -1,0 +1,32 @@
+[
+  {
+    "session_id": "20250713_143320",
+    "timestamp": "2025-07-13T14:33:20.575514",
+    "error_message": "Main loop error: 'Auracle' object has no attribute 'trade'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250713_143650",
+    "timestamp": "2025-07-13T14:41:51.360867",
+    "error_message": "Main loop error: 'total_value'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250713_144055",
+    "timestamp": "2025-07-13T14:45:56.470992",
+    "error_message": "Main loop error: 'total_value'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250713_144107",
+    "timestamp": "2025-07-13T14:46:07.734597",
+    "error_message": "Main loop error: 'total_value'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250713_144724",
+    "timestamp": "2025-07-13T14:52:24.675947",
+    "error_message": "Main loop error: 'total_value'",
+    "error_data": {}
+  }
+]
