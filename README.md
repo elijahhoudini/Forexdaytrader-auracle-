@@ -77,6 +77,9 @@ auracle.py          # Main system controller and trading loop
 
 ### For Local Development
 
+**Prerequisites:**
+- Python 3.10 or higher (Python 3.11+ recommended for best compatibility)
+
 1. **Clone the repository**
    ```bash
    git clone https://github.com/elijahhoudini/Main-bot.git
@@ -282,12 +285,14 @@ LOG_LEVEL = "DEBUG"  # Enable detailed logging
 ## 📋 System Requirements
 
 ### Minimum Requirements
+- **Python**: 3.10 or higher
 - **CPU**: 1 core, 2.0 GHz
 - **RAM**: 512 MB
 - **Storage**: 1 GB free space
 - **Network**: Stable internet connection
 
 ### Recommended Requirements
+- **Python**: 3.11 or higher (for best compatibility with all dependencies)
 - **CPU**: 2+ cores, 2.5+ GHz
 - **RAM**: 1+ GB
 - **Storage**: 5+ GB free space
