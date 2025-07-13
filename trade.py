@@ -134,9 +134,9 @@ class TradeHandler:
 
         return liquidity > config.MIN_LIQUIDITY_THRESHOLD and volume > 500
 
-    def buy_token(self, token: Dict[str, Any], amount_sol: float) -> bool:
+    async def buy_token(self, token: Dict[str, Any], amount_sol: float) -> bool:
         """
-        Execute buy order for token.
+        Execute buy order for token using Jupiter.
 
         Args:
             token (Dict): Token data
@@ -149,28 +149,13 @@ class TradeHandler:
             mint = token["mint"]
 
             # Check wallet balance
-            balance = self.wallet.get_balance("SOL")
+            balance = await self.wallet.get_balance("SOL")
             if balance < amount_sol:
                 print(f"❌ Insufficient SOL balance: {balance} < {amount_sol}")
                 return False
 
-            # Execute transaction
-            if config.get_demo_mode():
-                # Demo mode - simulate transaction
-                tx_result = {
-                    "success": True,
-                    "signature": f"demo_buy_{mint[:8]}_{int(time.time())}"
-                }
-                print(f"🔶 DEMO BUY: {token.get('symbol', '?')} - {amount_sol} SOL")
-            else:
-                # Real transaction
-                tx_data = {
-                    "action": "buy",
-                    "token_mint": mint,
-                    "amount_sol": amount_sol,
-                    "timestamp": time.time()
-                }
-                tx_result = self.wallet.send_transaction(tx_data)
+            # Execute transaction via Jupiter
+            tx_result = await self.wallet.buy_token(mint, amount_sol)
 
             if tx_result["success"]:
                 # Create position record
@@ -180,7 +165,9 @@ class TradeHandler:
                     "buy_price_sol": amount_sol,
                     "buy_time": datetime.utcnow(),
                     "buy_signature": tx_result["signature"],
-                    "status": "open"
+                    "tokens_received": tx_result.get("output_amount", 0),
+                    "status": "open",
+                    "demo_mode": tx_result.get("demo_mode", False)
                 }
 
                 self.open_positions[mint] = position
@@ -192,21 +179,24 @@ class TradeHandler:
                     "token": token,
                     "amount": amount_sol,
                     "timestamp": datetime.utcnow(),
-                    "signature": tx_result["signature"]
+                    "signature": tx_result["signature"],
+                    "jupiter_result": tx_result
                 })
 
+                mode_str = "🔶 DEMO" if tx_result.get("demo_mode") else "🔥 LIVE"
+                print(f"{mode_str} BUY: {token.get('symbol', '?')} - {amount_sol} SOL -> {tx_result.get('output_amount', 0)} tokens")
                 return True
             else:
                 print(f"❌ Buy transaction failed: {tx_result.get('error', 'Unknown error')}")
                 return False
 
         except Exception as e:
-            print(f"❌ Buy error: {str(e)}")
+            print(f"❌ Buy error: {e}")
             return False
 
-    def sell_token(self, mint: str, reason: str = "manual") -> bool:
+    async def sell_token(self, mint: str, reason: str = "manual") -> bool:
         """
-        Execute sell order for token.
+        Execute sell order for token using Jupiter.
 
         Args:
             mint (str): Token mint address
@@ -221,30 +211,17 @@ class TradeHandler:
                 return False
 
             position = self.open_positions[mint]
+            token_amount = position.get("tokens_received", 1000)  # Use received tokens or default
 
-            # Execute sell transaction
-            if config.get_demo_mode():
-                # Demo mode - simulate profit/loss
-                profit_multiplier = random.uniform(0.8, 1.5)  # Random P&L for demo
-                tx_result = {
-                    "success": True,
-                    "signature": f"demo_sell_{mint[:8]}_{int(time.time())}",
-                    "amount_received": position["buy_price_sol"] * profit_multiplier
-                }
-                print(f"🔶 DEMO SELL: {position['symbol']} - Reason: {reason}")
-            else:
-                # Real transaction
-                tx_data = {
-                    "action": "sell",
-                    "token_mint": mint,
-                    "reason": reason,
-                    "timestamp": time.time()
-                }
-                tx_result = self.wallet.send_transaction(tx_data)
+            # Execute sell transaction via Jupiter
+            tx_result = await self.wallet.sell_token(mint, token_amount)
 
             if tx_result["success"]:
                 # Calculate P&L
-                amount_received = tx_result.get("amount_received", position["buy_price_sol"])
+                amount_received = tx_result.get("output_amount", 0) / 1e9  # Convert lamports to SOL
+                if amount_received == 0:  # Fallback for demo mode
+                    amount_received = tx_result.get("amount_received", position["buy_price_sol"])
+                    
                 pnl = amount_received - position["buy_price_sol"]
                 pnl_percent = (pnl / position["buy_price_sol"]) * 100
 
@@ -270,10 +247,12 @@ class TradeHandler:
                     "pnl_percent": pnl_percent,
                     "reason": reason,
                     "timestamp": datetime.utcnow(),
-                    "signature": tx_result["signature"]
+                    "signature": tx_result["signature"],
+                    "jupiter_result": tx_result
                 })
 
-                print(f"✅ Sold {position['symbol']} - P&L: {pnl_percent:.2f}%")
+                mode_str = "🔶 DEMO" if tx_result.get("demo_mode") else "🔥 LIVE"
+                print(f"{mode_str} SELL: {position['symbol']} - {reason} - P&L: {pnl_percent:.2f}%")
                 return True
             else:
                 print(f"❌ Sell transaction failed: {tx_result.get('error', 'Unknown error')}")
@@ -283,7 +262,7 @@ class TradeHandler:
             print(f"❌ Sell error: {str(e)}")
             return False
 
-    def monitor_positions(self):
+    async def monitor_positions(self):
         """Monitor open positions for stop loss and take profit."""
         if not self.open_positions:
             return
@@ -316,19 +295,19 @@ class TradeHandler:
                 # Check stop loss
                 if pnl_percent <= (config.STOP_LOSS_PERCENTAGE * 100):
                     print(f"🛑 Stop loss triggered for {position['symbol']}: {pnl_percent:.2f}%")
-                    self.sell_token(mint, "stop_loss")
+                    await self.sell_token(mint, "stop_loss")
                     continue
                 
                 # Check take profit
                 if pnl_percent >= (config.PROFIT_TARGET_PERCENTAGE * 100):
                     print(f"🎯 Take profit triggered for {position['symbol']}: {pnl_percent:.2f}%")
-                    self.sell_token(mint, "take_profit")
+                    await self.sell_token(mint, "take_profit")
                     continue
                 
                 # Check position age (close old positions)
                 if age_minutes > 1440:  # 24 hours
                     print(f"⏰ Closing aged position for {position['symbol']}")
-                    self.sell_token(mint, "aged_position")
+                    await self.sell_token(mint, "aged_position")
                     continue
                 
                 # Occasionally show position status
@@ -384,7 +363,7 @@ class TradeHandler:
             amount_sol = self.calculate_trade_amount(token_info)
 
             # Execute buy order
-            success = self.buy_token(token_info, amount_sol)
+            success = await self.buy_token(token_info, amount_sol)
 
             if success:
                 print(f"[trade] ✅ Successfully bought {symbol} for {amount_sol} SOL")

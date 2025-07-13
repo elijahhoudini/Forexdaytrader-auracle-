@@ -63,6 +63,11 @@ TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "7661187219")
 SOLANA_RPC_ENDPOINT = os.getenv("SOLANA_RPC_ENDPOINT", "https://api.mainnet-beta.solana.com")
 SOLANA_COMMITMENT = "confirmed"
 
+# Jupiter Aggregator Settings
+JUPITER_API_URL = "https://quote-api.jup.ag/v6"
+JUPITER_SLIPPAGE_BPS = int(os.getenv("JUPITER_SLIPPAGE_BPS", "50"))  # 0.5% default slippage
+JUPITER_PRIORITY_FEE = int(os.getenv("JUPITER_PRIORITY_FEE", "1000"))  # 1000 microlamports
+
 # Wallet Configuration (Live trading enabled)
 WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr")
 WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "")

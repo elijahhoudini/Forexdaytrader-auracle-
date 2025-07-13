@@ -1,0 +1,57 @@
+{
+  "timestamp": "2025-07-13T20:27:00.628900",
+  "results": {
+    "token_discovery": {
+      "auracle": {
+        "time": 0.10899186134338379,
+        "token_count": 10,
+        "quality_score": 0.825
+      },
+      "basic": {
+        "time": 0.5006821155548096,
+        "token_count": 7,
+        "quality_score": 0.4390971258304597
+      },
+      "improvement": {
+        "speed": 4.593756904264511,
+        "token_count": 1.4285714285714286,
+        "quality": 1.8788553863560056
+      }
+    },
+    "trade_execution": {
+      "auracle": {
+        "execution_time": 0.0047795772552490234,
+        "success_rate": 100
+      },
+      "basic": {
+        "execution_time": 0.2003462314605713,
+        "success_rate": 72
+      },
+      "improvement": {
+        "speed": 41.91714470993166,
+        "success_rate": 1.3888888888888888
+      }
+    },
+    "risk_management": {
+      "auracle_features": 7,
+      "basic_features": 3,
+      "improvement": 2.3333333333333335
+    },
+    "integrations": {
+      "auracle_count": 5,
+      "basic_count": 3,
+      "improvement": 1.6666666666666667
+    },
+    "overall": {
+      "discovery_improvement": 8.631004903187467,
+      "execution_improvement": 58.21825654157175,
+      "risk_improvement": 2.3333333333333335,
+      "integration_improvement": 1.6666666666666667,
+      "overall_advantage": 17.712315361189802
+    }
+  },
+  "summary": {
+    "overall_advantage": 17.712315361189802,
+    "performance_grade": "EXCEPTIONAL"
+  }
+}
