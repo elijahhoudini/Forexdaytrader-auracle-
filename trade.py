@@ -285,40 +285,56 @@ class TradeHandler:
 
     def monitor_positions(self):
         """Monitor open positions for stop loss and take profit."""
+        if not self.open_positions:
+            return
+            
         for mint, position in list(self.open_positions.items()):
             try:
                 # Calculate position age
                 age_minutes = (datetime.utcnow() - position["buy_time"]).total_seconds() / 60
-
+                
                 # Simulate current price for demo
                 if config.get_demo_mode():
-                    # Random price movement for demo
-                    price_change = random.uniform(-0.1, 0.1)  # ±10% change
+                    # More realistic price movement for demo
+                    # Base on position age - older positions more likely to move
+                    age_factor = min(age_minutes / 60, 4)  # Max 4 hours for full volatility
+                    volatility = 0.05 + (age_factor * 0.05)  # 5% to 25% volatility
+                    
+                    # Random walk with slight positive bias
+                    price_change = random.uniform(-volatility, volatility * 1.2)
                     current_value = position["buy_price_sol"] * (1 + price_change)
                     pnl_percent = price_change * 100
                 else:
                     # In real mode, you would fetch actual token price here
                     current_value = position["buy_price_sol"]
                     pnl_percent = 0
-
+                
+                # Update position with current value (for display purposes)
+                position["current_value"] = current_value
+                position["current_pnl_percent"] = pnl_percent
+                
                 # Check stop loss
                 if pnl_percent <= (config.STOP_LOSS_PERCENTAGE * 100):
                     print(f"🛑 Stop loss triggered for {position['symbol']}: {pnl_percent:.2f}%")
                     self.sell_token(mint, "stop_loss")
                     continue
-
+                
                 # Check take profit
                 if pnl_percent >= (config.PROFIT_TARGET_PERCENTAGE * 100):
                     print(f"🎯 Take profit triggered for {position['symbol']}: {pnl_percent:.2f}%")
                     self.sell_token(mint, "take_profit")
                     continue
-
+                
                 # Check position age (close old positions)
                 if age_minutes > 1440:  # 24 hours
                     print(f"⏰ Closing aged position for {position['symbol']}")
                     self.sell_token(mint, "aged_position")
                     continue
-
+                
+                # Occasionally show position status
+                if random.random() < 0.1:  # 10% chance per monitoring cycle
+                    print(f"📊 {position['symbol']}: {pnl_percent:+.2f}% (Age: {age_minutes:.0f}m)")
+                    
             except Exception as e:
                 print(f"❌ Error monitoring position {mint}: {str(e)}")
 

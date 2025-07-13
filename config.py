@@ -17,9 +17,9 @@ MIN_LIQUIDITY_THRESHOLD = int(os.getenv("MIN_LIQUIDITY_THRESHOLD", "1000"))
 POSITION_SIZE_PERCENTAGE = float(os.getenv("POSITION_SIZE_PERCENTAGE", "0.1"))
 
 # Trading Strategy
-PROFIT_TARGET_PERCENTAGE = float(os.getenv("PROFIT_TARGET_PERCENTAGE", "0.20"))  # 20% profit target
-STOP_LOSS_PERCENTAGE = float(os.getenv("STOP_LOSS_PERCENTAGE", "-0.05"))  # -5% stop loss to limit losses
-SCAN_INTERVAL_SECONDS = int(os.getenv("SCAN_INTERVAL_SECONDS", "60"))  # Longer interval for demo
+PROFIT_TARGET_PERCENTAGE = float(os.getenv("PROFIT_TARGET_PERCENTAGE", "0.15"))  # 15% profit target (more realistic)
+STOP_LOSS_PERCENTAGE = float(os.getenv("STOP_LOSS_PERCENTAGE", "-0.08"))  # -8% stop loss (less aggressive)
+SCAN_INTERVAL_SECONDS = int(os.getenv("SCAN_INTERVAL_SECONDS", "45"))  # 45 second intervals for better performance
 
 # Dynamic Allocation Settings
 DYNAMIC_ALLOCATION_ENABLED = True  # Enable dynamic allocation for high-confidence trades

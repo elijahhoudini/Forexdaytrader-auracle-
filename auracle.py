@@ -139,6 +139,7 @@ class Auracle:
                 # Send periodic status updates
                 if time.time() - last_status_time > 300:  # Every 5 minutes
                     self.send_status_update()
+                    self._display_portfolio_status()
                     last_status_time = time.time()
 
                 # Sleep for a short time before next monitoring cycle
@@ -310,6 +311,32 @@ class Auracle:
                 self.telegram_bot.send_message(message)
             except Exception as e:
                 self.logger.log_error(f"Telegram status update failed: {e}")
+    
+    def _display_portfolio_status(self):
+        """Display current portfolio status to console."""
+        try:
+            portfolio = self.trade_handler.get_portfolio_summary()
+            
+            print("\n" + "=" * 50)
+            print("📊 PORTFOLIO STATUS")
+            print("=" * 50)
+            print(f"Open Positions: {portfolio['open_positions']}")
+            print(f"Total Invested: {portfolio['total_invested_sol']:.4f} SOL")
+            print(f"Total P&L: {portfolio['total_pnl_sol']:+.4f} SOL")
+            print(f"Portfolio Value: {portfolio['total_value']:.4f} SOL")
+            print(f"Daily Trades: {portfolio['daily_trades']}")
+            
+            if portfolio['positions']:
+                print("\nOpen Positions:")
+                for pos in portfolio['positions']:
+                    age_minutes = (datetime.utcnow() - pos['buy_time']).total_seconds() / 60
+                    current_pnl = pos.get('current_pnl_percent', 0)
+                    print(f"  {pos['symbol']:>8} | {pos['buy_price_sol']:.4f} SOL | {current_pnl:+6.1f}% | {age_minutes:.0f}m")
+            
+            print("=" * 50)
+            
+        except Exception as e:
+            print(f"❌ Error displaying portfolio status: {e}")
 
 
 def main():
