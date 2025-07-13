@@ -1371,5 +1371,19 @@
       "duration_seconds": 30.057643
     },
     "uptime_seconds": 30.057652
+  },
+  {
+    "session_id": "20250713_200213",
+    "timestamp": "2025-07-13T20:02:13.297543",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000307
+  },
+  {
+    "session_id": "20250713_200213",
+    "timestamp": "2025-07-13T20:02:13.300159",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.00292
   }
 ]
