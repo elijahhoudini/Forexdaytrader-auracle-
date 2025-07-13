@@ -1,0 +1,106 @@
+{
+  "timestamp": "2025-07-13T20:25:09.896079",
+  "overall_score": 100.0,
+  "tests_passed": 6,
+  "tests_total": 6,
+  "test_results": {
+    "Jupiter Integration": {
+      "status": "PASSED",
+      "execution_time": 0.12596940994262695,
+      "details": {
+        "api_initialization": true,
+        "quote_generation": true,
+        "trade_executor": true,
+        "demo_mode_handling": true
+      }
+    },
+    "Enhanced Discovery": {
+      "status": "PASSED",
+      "execution_time": 0.08405423164367676,
+      "details": {
+        "discovery_initialization": true,
+        "token_discovery": true,
+        "token_count": 9,
+        "data_structure_validation": true,
+        "enhanced_fields": true
+      }
+    },
+    "Trade Execution": {
+      "status": "PASSED",
+      "execution_time": 0.05016922950744629,
+      "details": {
+        "wallet_initialization": true,
+        "buy_execution": true,
+        "position_tracking": true,
+        "sell_execution": true,
+        "demo_mode_safety": true
+      }
+    },
+    "Risk Management": {
+      "status": "PASSED",
+      "execution_time": 0.04293656349182129,
+      "details": {
+        "daily_limits": true,
+        "position_limits": true,
+        "stop_loss_monitoring": true,
+        "demo_mode_safety": true
+      }
+    },
+    "Performance Benchmarks": {
+      "status": "PASSED",
+      "execution_time": 0.13078713417053223,
+      "details": {
+        "discovery_time": 0.03090834617614746,
+        "avg_execution_time": 0.0043162345886230465,
+        "total_benchmark_time": 0.13075900077819824,
+        "tokens_discovered": 10,
+        "performance_score": 100,
+        "meets_benchmarks": true
+      }
+    },
+    "Error Handling": {
+      "status": "PASSED",
+      "execution_time": 0.13991761207580566,
+      "details": {
+        "network_error_handling": true,
+        "invalid_input_handling": true,
+        "graceful_degradation": true,
+        "demo_mode_fallback": true
+      }
+    }
+  },
+  "performance_metrics": {
+    "runtime_seconds": 0.5744414329528809,
+    "metrics": {
+      "trades_executed": 1,
+      "successful_trades": 1,
+      "failed_trades": 0,
+      "tokens_scanned": 0,
+      "tokens_filtered": 0,
+      "total_volume": 0.0,
+      "total_pnl": 0.0,
+      "avg_execution_time": 0.09563903013865153,
+      "discovery_sources_used": 0,
+      "jupiter_calls": 0,
+      "jupiter_success_rate": 0.0,
+      "success_rate": 100.0
+    },
+    "performance_indicators": {
+      "trades_per_minute": 104.44929031593993,
+      "success_rate": 100.0,
+      "avg_execution_time": 0.09563903013865153,
+      "tokens_per_scan": 0.0
+    },
+    "recent_trades": [
+      {
+        "action": "test_trade",
+        "success": true,
+        "amount": 0.01,
+        "timestamp": 1752438309.5819807
+      }
+    ]
+  },
+  "recommendations": [
+    "All tests passed - bot is performing optimally"
+  ]
+}
