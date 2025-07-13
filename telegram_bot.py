@@ -151,17 +151,22 @@ class AuracleTelegramBot:
         self.send_message(message)
     
     def _listen_for_commands(self):
-        """Listen for Telegram commands."""
+        """Listen for Telegram commands and send periodic updates."""
+        update_counter = 0
+        
         while self.running:
             try:
-                # Send periodic status updates every 5 minutes
-                time.sleep(300)
+                # Send periodic status updates every 5 minutes (300 seconds)
+                time.sleep(30)  # Check every 30 seconds
+                update_counter += 1
                 
-                if self.auracle_bot:
-                    self.send_status_update()
+                if update_counter >= 10:  # 10 * 30 = 300 seconds = 5 minutes
+                    if self.auracle_bot:
+                        self.send_status_update()
+                    update_counter = 0
                     
             except Exception as e:
-                print(f"❌ Telegram command error: {str(e)}")
+                print(f"⚠️ Telegram command error: {type(e).__name__}")
                 time.sleep(30)
     
     def stop(self):
