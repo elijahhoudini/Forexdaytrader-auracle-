@@ -61,6 +61,15 @@ class JupiterAPI:
             Quote data or None if failed
         """
         try:
+            # Validate inputs
+            if not input_mint or not output_mint:
+                print(f"[jupiter] ❌ Invalid mint addresses: input={input_mint}, output={output_mint}")
+                return None
+                
+            if amount <= 0:
+                print(f"[jupiter] ❌ Invalid amount: {amount}")
+                return None
+                
             params = {
                 "inputMint": input_mint,
                 "outputMint": output_mint,
@@ -78,7 +87,15 @@ class JupiterAPI:
                 print(f"[jupiter] 📊 Quote: {amount} {input_mint[:8]}... -> {quote.get('outAmount', 0)} {output_mint[:8]}...")
                 return quote
             else:
-                print(f"[jupiter] ❌ Quote failed: {response.status_code}")
+                error_text = response.text if hasattr(response, 'text') else "Unknown error"
+                print(f"[jupiter] ❌ Quote failed: {response.status_code} - {error_text}")
+                
+                # Try to handle specific error cases
+                if response.status_code == 400:
+                    print(f"[jupiter] ⚠️ Bad request - check token addresses and amount")
+                elif response.status_code == 429:
+                    print(f"[jupiter] ⚠️ Rate limited - backing off")
+                    
                 return None
                 
         except Exception as e:
@@ -113,6 +130,15 @@ class JupiterAPI:
             Base64 encoded transaction or None if failed
         """
         try:
+            # Validate inputs
+            if not quote:
+                print(f"[jupiter] ❌ Invalid quote data provided")
+                return None
+                
+            if not user_public_key:
+                print(f"[jupiter] ❌ Invalid user public key provided")
+                return None
+                
             payload = {
                 "quoteResponse": quote,
                 "userPublicKey": user_public_key,
@@ -133,7 +159,15 @@ class JupiterAPI:
                 data = response.json()
                 return data.get("swapTransaction")
             else:
-                print(f"[jupiter] ❌ Swap transaction failed: {response.status_code}")
+                error_text = response.text if hasattr(response, 'text') else "Unknown error"
+                print(f"[jupiter] ❌ Swap transaction failed: {response.status_code} - {error_text}")
+                
+                # Try to handle specific error cases
+                if response.status_code == 400:
+                    print(f"[jupiter] ⚠️ Bad request - check quote data and user public key")
+                elif response.status_code == 429:
+                    print(f"[jupiter] ⚠️ Rate limited - backing off")
+                    
                 return None
                 
         except Exception as e:
@@ -192,12 +226,14 @@ class JupiterAPI:
             transaction_bytes = base64.b64decode(swap_tx_b64)
             transaction = VersionedTransaction.from_bytes(transaction_bytes)
             
-            # Sign transaction
-            transaction.sign([wallet_keypair])
+            # Sign transaction using the correct method
+            message = transaction.message
+            signature = wallet_keypair.sign_message(message.serialize())
+            signed_transaction = VersionedTransaction.populate(message, [signature])
             
             # Send transaction
             signature = await self.rpc_client.send_transaction(
-                transaction,
+                signed_transaction,
                 opts=TxOpts(skip_preflight=False, max_retries=3)
             )
             
@@ -371,10 +407,14 @@ class JupiterTradeExecutor:
             # Execute transaction similar to buy_token
             transaction_bytes = base64.b64decode(swap_tx_b64)
             transaction = VersionedTransaction.from_bytes(transaction_bytes)
-            transaction.sign([self.wallet_keypair])
+            
+            # Sign transaction using the correct method
+            message = transaction.message
+            signature = self.wallet_keypair.sign_message(message.serialize())
+            signed_transaction = VersionedTransaction.populate(message, [signature])
             
             signature = await self.jupiter.rpc_client.send_transaction(
-                transaction,
+                signed_transaction,
                 opts=TxOpts(skip_preflight=False, max_retries=3)
             )
             
