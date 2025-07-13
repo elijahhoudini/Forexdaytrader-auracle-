@@ -11,8 +11,9 @@ import math
 import time
 from typing import Dict, Any, Optional
 from datetime import datetime
-from telegram import InlineKeyboardMarkup, InlineKeyboardButton, ParseMode, Update
+from telegram import InlineKeyboardMarkup, InlineKeyboardButton, Update
 from telegram.ext import CallbackContext
+from telegram.constants import ParseMode
 
 # Import AURACLE modules
 import config
