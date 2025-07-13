@@ -1,0 +1,1233 @@
+[
+  {
+    "session_id": "20250713_074734",
+    "timestamp": "2025-07-13T07:47:34.396173",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_074734"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_074734",
+    "timestamp": "2025-07-13T07:47:34.396383",
+    "message": "Initializing AURACLE \u2014 Traveler 5798's assistant",
+    "data": {},
+    "uptime_seconds": 0.00022
+  },
+  {
+    "session_id": "20250713_074734",
+    "timestamp": "2025-07-13T07:47:34.396875",
+    "message": "Scanned 2 tokens",
+    "data": {},
+    "uptime_seconds": 0.00071
+  },
+  {
+    "session_id": "20250713_074734",
+    "timestamp": "2025-07-13T07:47:34.397146",
+    "message": "Skipped ORC282 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.000981
+  },
+  {
+    "session_id": "20250713_074734",
+    "timestamp": "2025-07-13T07:47:34.397734",
+    "message": "Skipped RAY851 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.001568
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.882620",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_075018"
+    },
+    "uptime_seconds": 8e-06
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.884349",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001739
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.884657",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.002047
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.885151",
+    "message": "\ud83d\udcca Scan #1: 2 tokens found",
+    "data": {},
+    "uptime_seconds": 0.002539
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.885497",
+    "message": "\u23ed\ufe0f  Skipped ORC164 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.002885
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.265483",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_075144"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.267227",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001754
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.267555",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.002083
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.268228",
+    "message": "\ud83d\udcca Scan #1: 3 tokens found",
+    "data": {},
+    "uptime_seconds": 0.002752
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.268914",
+    "message": "\u2705 Successfully bought ORC737 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 0.003441
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.269743",
+    "message": "\u2705 Successfully bought RAY7 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 0.00427
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.270435",
+    "message": "\u2705 Successfully bought RAY904 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 0.004962
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.268388",
+    "message": "\ud83d\udcca Scan #2: 4 tokens found",
+    "data": {},
+    "uptime_seconds": 30.002913
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.269306",
+    "message": "\u2705 Successfully bought ORC97 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 30.003833
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.270064",
+    "message": "\u2705 Successfully bought RAY101 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 30.004591
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.270882",
+    "message": "\u2705 Successfully bought ORC497 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 30.005408
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.271729",
+    "message": "\u2705 Successfully bought RAY202 with 0.025 SOL",
+    "data": {},
+    "uptime_seconds": 30.006256
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:44.238705",
+    "message": "\ud83d\uded1 Received signal 15, initiating shutdown...",
+    "data": {},
+    "uptime_seconds": 59.973234
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:44.268304",
+    "message": "\ud83d\udd04 Shutting down AURACLE systems...",
+    "data": {},
+    "uptime_seconds": 60.002832
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:44.268789",
+    "message": "\ud83d\udcca Final session statistics",
+    "data": {
+      "session_duration": "0:01:00.001574",
+      "total_scans": 2,
+      "tokens_evaluated": 7,
+      "trades_attempted": 7,
+      "trades_successful": 7,
+      "success_rate": "100.0%",
+      "errors_encountered": 0
+    },
+    "uptime_seconds": 60.003314
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:44.269343",
+    "message": "\ud83d\udcbc Portfolio: 1 positions, 0.019 SOL",
+    "data": {},
+    "uptime_seconds": 60.00387
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:44.269799",
+    "message": "\ud83d\udee1\ufe0f  Risk: 7 tokens flagged, 0.175 SOL risk used",
+    "data": {},
+    "uptime_seconds": 60.004326
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:44.270240",
+    "message": "\u2705 AURACLE shutdown complete",
+    "data": {},
+    "uptime_seconds": 60.004767
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.392246",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_080530"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.394022",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001786
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.394499",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.002263
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.395122",
+    "message": "\ud83d\udcca Scan #1: 5 tokens found",
+    "data": {},
+    "uptime_seconds": 0.002883
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.396078",
+    "message": "\u2705 Successfully bought RAY960 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.003841
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.396700",
+    "message": "\u23ed\ufe0f  Skipped RAY145 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.004462
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.397709",
+    "message": "\u2705 Successfully bought RAY725 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.005473
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.398724",
+    "message": "\u2705 Successfully bought ORC767 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.006488
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.399735",
+    "message": "\u2705 Successfully bought ORC531 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.007498
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.439458",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_080823"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.440059",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.00061
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.440605",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.001157
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.441296",
+    "message": "\ud83d\udcca Scan #1: 3 tokens found",
+    "data": {},
+    "uptime_seconds": 0.001847
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.442439",
+    "message": "\u2705 Successfully bought ORC55 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.002991
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.443560",
+    "message": "\u2705 Successfully bought RAY154 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.004112
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.444119",
+    "message": "\u23ed\ufe0f  Skipped ORC568 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.004668
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.404127",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_080932"
+    },
+    "uptime_seconds": 8e-06
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.404927",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000809
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.405743",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.001625
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.406416",
+    "message": "\ud83d\udcca Scan #1: 1 tokens found",
+    "data": {},
+    "uptime_seconds": 0.002297
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.407644",
+    "message": "\u2705 Successfully bought RAY160 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.003527
+  },
+  {
+    "session_id": "20250713_082403",
+    "timestamp": "2025-07-13T08:24:03.886989",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_082403"
+    },
+    "uptime_seconds": 8e-06
+  },
+  {
+    "session_id": "20250713_082403",
+    "timestamp": "2025-07-13T08:24:03.887684",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000705
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.041986",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_082449"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.042719",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000743
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.043435",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.001459
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.044269",
+    "message": "\ud83d\udcca Scan #1: 2 tokens found",
+    "data": {},
+    "uptime_seconds": 0.002291
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.044962",
+    "message": "\u23ed\ufe0f  Skipped RAY403 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.002984
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.046245",
+    "message": "\u2705 Successfully bought RAY906 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.004268
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:25:04.013681",
+    "message": "\ud83d\uded1 Received signal 15, initiating shutdown...",
+    "data": {},
+    "uptime_seconds": 14.971709
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:25:49.044310",
+    "message": "\ud83d\udd04 Shutting down AURACLE systems...",
+    "data": {},
+    "uptime_seconds": 60.002341
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:25:49.045231",
+    "message": "\ud83d\udcca Final session statistics",
+    "data": {
+      "session_duration": "0:01:00.002521",
+      "total_scans": 1,
+      "tokens_evaluated": 2,
+      "trades_attempted": 1,
+      "trades_successful": 1,
+      "success_rate": "100.0%",
+      "errors_encountered": 0
+    },
+    "uptime_seconds": 60.003253
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:25:49.046056",
+    "message": "\ud83d\udcbc Portfolio: 0 positions, 0.000 SOL",
+    "data": {},
+    "uptime_seconds": 60.00408
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:25:49.046899",
+    "message": "\ud83d\udee1\ufe0f  Risk: 2 tokens flagged, 0.001 SOL risk used",
+    "data": {},
+    "uptime_seconds": 60.004923
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:25:49.047575",
+    "message": "\u2705 AURACLE shutdown complete",
+    "data": {},
+    "uptime_seconds": 60.005598
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.451100",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_082743"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.451876",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000783
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.452789",
+    "message": "\ud83d\udd04 Starting autonomous trading loop",
+    "data": {},
+    "uptime_seconds": 0.001697
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.453547",
+    "message": "\ud83d\udcca Scan #1: 4 tokens found",
+    "data": {},
+    "uptime_seconds": 0.002452
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.455014",
+    "message": "\u2705 Successfully bought RAY512 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.003922
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.456550",
+    "message": "\u2705 Successfully bought ORC871 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.005458
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.457261",
+    "message": "\u23ed\ufe0f  Skipped RAY745 \u2014 Did not meet buy criteria",
+    "data": {},
+    "uptime_seconds": 0.006166
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.458735",
+    "message": "\u2705 Successfully bought ORC277 with 0.001 SOL",
+    "data": {},
+    "uptime_seconds": 0.007642
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:53.424160",
+    "message": "\ud83d\uded1 Received signal 15, initiating shutdown...",
+    "data": {},
+    "uptime_seconds": 9.973075
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:28:43.453594",
+    "message": "\ud83d\udd04 Shutting down AURACLE systems...",
+    "data": {},
+    "uptime_seconds": 60.002507
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:28:43.454622",
+    "message": "\ud83d\udcca Final session statistics",
+    "data": {
+      "session_duration": "0:01:00.002749",
+      "total_scans": 1,
+      "tokens_evaluated": 4,
+      "trades_attempted": 3,
+      "trades_successful": 3,
+      "success_rate": "100.0%",
+      "errors_encountered": 0
+    },
+    "uptime_seconds": 60.003527
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:28:43.455473",
+    "message": "\ud83d\udcbc Portfolio: 0 positions, 0.000 SOL",
+    "data": {},
+    "uptime_seconds": 60.00438
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:28:43.456432",
+    "message": "\ud83d\udee1\ufe0f  Risk: 4 tokens flagged, 0.003 SOL risk used",
+    "data": {},
+    "uptime_seconds": 60.005339
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:28:43.457153",
+    "message": "\u2705 AURACLE shutdown complete",
+    "data": {},
+    "uptime_seconds": 60.00606
+  },
+  {
+    "session_id": "20250713_082853",
+    "timestamp": "2025-07-13T08:28:53.826262",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_082853"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_082853",
+    "timestamp": "2025-07-13T08:28:53.827174",
+    "message": "AURACLE system initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000919
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:57:00.756323",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_125700"
+    },
+    "uptime_seconds": 1.1e-05
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:57:00.757994",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.00168
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:57:00.773960",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.017651
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:57:00.796085",
+    "message": "Found 5 potential opportunities",
+    "data": {},
+    "uptime_seconds": 0.039769
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:58:00.856046",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 60.09973
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:59:00.916765",
+    "message": "Found 4 potential opportunities",
+    "data": {},
+    "uptime_seconds": 120.160449
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:00:00.976810",
+    "message": "Found 5 potential opportunities",
+    "data": {},
+    "uptime_seconds": 180.220493
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:01:01.036728",
+    "message": "Found 3 potential opportunities",
+    "data": {},
+    "uptime_seconds": 240.280412
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:02:01.097178",
+    "message": "Found 4 potential opportunities",
+    "data": {},
+    "uptime_seconds": 300.340862
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:03:01.157231",
+    "message": "Found 1 potential opportunities",
+    "data": {},
+    "uptime_seconds": 360.400914
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:04:01.217848",
+    "message": "Found 3 potential opportunities",
+    "data": {},
+    "uptime_seconds": 420.461532
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:05:01.277685",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 480.521369
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:06:01.337963",
+    "message": "Found 3 potential opportunities",
+    "data": {},
+    "uptime_seconds": 540.581646
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:07:01.397670",
+    "message": "Found 3 potential opportunities",
+    "data": {},
+    "uptime_seconds": 600.641354
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:08:01.462135",
+    "message": "Found 5 potential opportunities",
+    "data": {},
+    "uptime_seconds": 660.70582
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:09:01.522703",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 720.766386
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:10:01.583046",
+    "message": "Found 1 potential opportunities",
+    "data": {},
+    "uptime_seconds": 780.82673
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:11:01.643678",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 840.887362
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:12:01.704319",
+    "message": "Found 3 potential opportunities",
+    "data": {},
+    "uptime_seconds": 900.948004
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:13:01.764698",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 961.008382
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:14:01.824681",
+    "message": "Found 1 potential opportunities",
+    "data": {},
+    "uptime_seconds": 1021.068365
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:15:01.885679",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 1081.129363
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:33:29.579211",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_133329"
+    },
+    "uptime_seconds": 7e-06
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:33:29.580363",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001161
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:33:29.581344",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.002143
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:33:29.582449",
+    "message": "Found 1 potential opportunities",
+    "data": {},
+    "uptime_seconds": 0.003245
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:34:29.583057",
+    "message": "Found 5 potential opportunities",
+    "data": {},
+    "uptime_seconds": 60.003852
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:35:29.583581",
+    "message": "Found 3 potential opportunities",
+    "data": {},
+    "uptime_seconds": 120.004376
+  },
+  {
+    "session_id": "20250713_134304",
+    "timestamp": "2025-07-13T13:43:04.024315",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_134304"
+    },
+    "uptime_seconds": 8e-06
+  },
+  {
+    "session_id": "20250713_134304",
+    "timestamp": "2025-07-13T13:43:04.025412",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001107
+  },
+  {
+    "session_id": "20250713_134304",
+    "timestamp": "2025-07-13T13:43:04.026390",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.002085
+  },
+  {
+    "session_id": "20250713_134304",
+    "timestamp": "2025-07-13T13:43:04.027437",
+    "message": "Found 2 potential opportunities",
+    "data": {},
+    "uptime_seconds": 0.003128
+  },
+  {
+    "session_id": "20250713_134304",
+    "timestamp": "2025-07-13T13:44:04.028106",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_134304",
+      "session_start": "2025-07-13T13:43:04.024312",
+      "uptime_seconds": 60.003772,
+      "uptime_formatted": "0:01:00.003772",
+      "metrics": {
+        "trades_logged": 2,
+        "errors_logged": 0,
+        "flags_logged": 0,
+        "system_events": 4
+      },
+      "log_files": {
+        "trade_log": "data/trade_logs.json",
+        "error_log": "data/error_logs.json",
+        "system_log": "data/system_logs.json",
+        "performance_log": "data/performance_logs.json"
+      }
+    },
+    "uptime_seconds": 60.003799
+  },
+  {
+    "session_id": "20250713_135925",
+    "timestamp": "2025-07-13T13:59:25.892285",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_135925"
+    },
+    "uptime_seconds": 9e-06
+  },
+  {
+    "session_id": "20250713_135925",
+    "timestamp": "2025-07-13T13:59:25.893482",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001207
+  },
+  {
+    "session_id": "20250713_140156",
+    "timestamp": "2025-07-13T14:01:56.600059",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_140156"
+    },
+    "uptime_seconds": 1e-05
+  },
+  {
+    "session_id": "20250713_140156",
+    "timestamp": "2025-07-13T14:01:56.601342",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001309
+  },
+  {
+    "session_id": "20250713_140206",
+    "timestamp": "2025-07-13T14:02:06.184296",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_140206"
+    },
+    "uptime_seconds": 1e-05
+  },
+  {
+    "session_id": "20250713_140206",
+    "timestamp": "2025-07-13T14:02:06.186559",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.002274
+  },
+  {
+    "session_id": "20250713_140206",
+    "timestamp": "2025-07-13T14:02:06.188217",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.003932
+  },
+  {
+    "session_id": "20250713_140206",
+    "timestamp": "2025-07-13T14:02:06.191268",
+    "message": "Found 5 potential opportunities",
+    "data": {},
+    "uptime_seconds": 0.006979
+  },
+  {
+    "session_id": "20250713_142106",
+    "timestamp": "2025-07-13T14:21:06.256417",
+    "message": "AURACLE Logger initialized",
+    "data": {
+      "session_id": "20250713_142106"
+    },
+    "uptime_seconds": 1.1e-05
+  },
+  {
+    "session_id": "20250713_142106",
+    "timestamp": "2025-07-13T14:21:06.258322",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001914
+  },
+  {
+    "session_id": "20250713_142106",
+    "timestamp": "2025-07-13T14:21:06.263189",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.006783
+  },
+  {
+    "session_id": "20250713_143320",
+    "timestamp": "2025-07-13T14:33:20.070755",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000263
+  },
+  {
+    "session_id": "20250713_143320",
+    "timestamp": "2025-07-13T14:33:20.073269",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.002774
+  },
+  {
+    "session_id": "20250713_143320",
+    "timestamp": "2025-07-13T14:33:20.576222",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_143320",
+      "start_time": "2025-07-13T14:33:20.070500",
+      "duration_seconds": 0.505714
+    },
+    "uptime_seconds": 0.505725
+  },
+  {
+    "session_id": "20250713_143452",
+    "timestamp": "2025-07-13T14:34:52.171545",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000167
+  },
+  {
+    "session_id": "20250713_143452",
+    "timestamp": "2025-07-13T14:34:52.174134",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.002755
+  },
+  {
+    "session_id": "20250713_143619",
+    "timestamp": "2025-07-13T14:36:19.483617",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000114
+  },
+  {
+    "session_id": "20250713_143619",
+    "timestamp": "2025-07-13T14:36:19.485549",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.002045
+  },
+  {
+    "session_id": "20250713_143619",
+    "timestamp": "2025-07-13T14:36:50.006904",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_143619",
+      "start_time": "2025-07-13T14:36:19.483508",
+      "duration_seconds": 30.523386
+    },
+    "uptime_seconds": 30.523399
+  },
+  {
+    "session_id": "20250713_143650",
+    "timestamp": "2025-07-13T14:36:50.723284",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000126
+  },
+  {
+    "session_id": "20250713_143650",
+    "timestamp": "2025-07-13T14:36:50.726600",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.003441
+  },
+  {
+    "session_id": "20250713_144055",
+    "timestamp": "2025-07-13T14:40:55.828608",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.001077
+  },
+  {
+    "session_id": "20250713_144055",
+    "timestamp": "2025-07-13T14:40:55.838045",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.010519
+  },
+  {
+    "session_id": "20250713_144107",
+    "timestamp": "2025-07-13T14:41:07.181118",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000552
+  },
+  {
+    "session_id": "20250713_144107",
+    "timestamp": "2025-07-13T14:41:07.183946",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.003379
+  },
+  {
+    "session_id": "20250713_143650",
+    "timestamp": "2025-07-13T14:41:51.363213",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_143650",
+      "start_time": "2025-07-13T14:36:50.723164",
+      "duration_seconds": 300.640043
+    },
+    "uptime_seconds": 300.640052
+  },
+  {
+    "session_id": "20250713_144153",
+    "timestamp": "2025-07-13T14:41:53.701811",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000195
+  },
+  {
+    "session_id": "20250713_144153",
+    "timestamp": "2025-07-13T14:41:53.704250",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.00263
+  },
+  {
+    "session_id": "20250713_144509",
+    "timestamp": "2025-07-13T14:45:09.478444",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000149
+  },
+  {
+    "session_id": "20250713_144509",
+    "timestamp": "2025-07-13T14:45:09.482385",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.004088
+  },
+  {
+    "session_id": "20250713_144055",
+    "timestamp": "2025-07-13T14:45:56.476538",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_144055",
+      "start_time": "2025-07-13T14:40:55.827540",
+      "duration_seconds": 300.648991
+    },
+    "uptime_seconds": 300.649
+  },
+  {
+    "session_id": "20250713_144107",
+    "timestamp": "2025-07-13T14:46:07.739101",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_144107",
+      "start_time": "2025-07-13T14:41:07.180572",
+      "duration_seconds": 300.558522
+    },
+    "uptime_seconds": 300.558531
+  },
+  {
+    "session_id": "20250713_144724",
+    "timestamp": "2025-07-13T14:47:24.098375",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000624
+  },
+  {
+    "session_id": "20250713_144724",
+    "timestamp": "2025-07-13T14:47:24.101559",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.003805
+  },
+  {
+    "session_id": "20250713_144745",
+    "timestamp": "2025-07-13T14:47:45.619505",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000534
+  },
+  {
+    "session_id": "20250713_144745",
+    "timestamp": "2025-07-13T14:47:45.622254",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.003282
+  },
+  {
+    "session_id": "20250713_145213",
+    "timestamp": "2025-07-13T14:52:13.397934",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000616
+  },
+  {
+    "session_id": "20250713_145213",
+    "timestamp": "2025-07-13T14:52:13.402063",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.004744
+  },
+  {
+    "session_id": "20250713_144724",
+    "timestamp": "2025-07-13T14:52:24.680107",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_144724",
+      "start_time": "2025-07-13T14:47:24.097759",
+      "duration_seconds": 300.58234
+    },
+    "uptime_seconds": 300.58235
+  },
+  {
+    "session_id": "20250713_150154",
+    "timestamp": "2025-07-13T15:01:54.489115",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000288
+  },
+  {
+    "session_id": "20250713_150154",
+    "timestamp": "2025-07-13T15:01:54.490669",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.001836
+  },
+  {
+    "session_id": "20250713_150154",
+    "timestamp": "2025-07-13T15:02:24.503368",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_150154",
+      "start_time": "2025-07-13T15:01:54.488837",
+      "duration_seconds": 30.014522
+    },
+    "uptime_seconds": 30.014533
+  },
+  {
+    "session_id": "20250713_150617",
+    "timestamp": "2025-07-13T15:06:17.297014",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000202
+  },
+  {
+    "session_id": "20250713_150617",
+    "timestamp": "2025-07-13T15:06:17.298666",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.001849
+  },
+  {
+    "session_id": "20250713_150617",
+    "timestamp": "2025-07-13T15:06:47.327025",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_150617",
+      "start_time": "2025-07-13T15:06:17.296821",
+      "duration_seconds": 30.030194
+    },
+    "uptime_seconds": 30.030206
+  },
+  {
+    "session_id": "20250713_150822",
+    "timestamp": "2025-07-13T15:08:22.819857",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000169
+  },
+  {
+    "session_id": "20250713_150822",
+    "timestamp": "2025-07-13T15:08:22.821440",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.00175
+  },
+  {
+    "session_id": "20250713_150822",
+    "timestamp": "2025-07-13T15:08:52.840449",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_150822",
+      "start_time": "2025-07-13T15:08:22.819693",
+      "duration_seconds": 30.020749
+    },
+    "uptime_seconds": 30.020759
+  }
+]

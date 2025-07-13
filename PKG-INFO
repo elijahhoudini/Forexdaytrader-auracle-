@@ -1,0 +1,123 @@
+Metadata-Version: 2.4
+Name: solbot
+Version: 0.0.0
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: Topic :: Software Development :: Bot
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.10
+Description-Content-Type: text/markdown
+Requires-Dist: anchorpy==0.20.1
+Requires-Dist: anchorpy-core==0.2.0
+Requires-Dist: anyio==4.6.0
+Requires-Dist: attrs==24.2.0
+Requires-Dist: base58==2.1.1
+Requires-Dist: based58==0.1.1
+Requires-Dist: borsh-construct==0.1.0
+Requires-Dist: certifi==2024.8.30
+Requires-Dist: cffi==1.17.1
+Requires-Dist: charset-normalizer==3.4.0
+Requires-Dist: click==8.1.7
+Requires-Dist: construct==2.10.68
+Requires-Dist: construct-typing==0.5.6
+Requires-Dist: cryptography==43.0.1
+Requires-Dist: exceptiongroup==1.2.2
+Requires-Dist: frozendict==2.3.10
+Requires-Dist: future==1.0.0
+Requires-Dist: grpcio==1.65.2
+Requires-Dist: h11==0.14.0
+Requires-Dist: httpcore==0.16.3
+Requires-Dist: httpx==0.23.3
+Requires-Dist: idna==3.10
+Requires-Dist: invoke==2.2.0
+Requires-Dist: jito_py_rpc==0.1.0
+Requires-Dist: jsonalias==0.1.1
+Requires-Dist: jsonrpcclient==4.0.3
+Requires-Dist: jupiter-python-sdk==0.0.2.0
+Requires-Dist: moralis==0.1.48
+Requires-Dist: more-itertools==8.14.0
+Requires-Dist: numpy==2.1.2
+Requires-Dist: pandas==2.2.2
+Requires-Dist: pillow==10.4.0
+Requires-Dist: protobuf==4.25.4
+Requires-Dist: psycopg==3.1.20
+Requires-Dist: psycopg-pool==3.2.0
+Requires-Dist: psycopg2==2.9.10
+Requires-Dist: pycparser==2.22
+Requires-Dist: pyheck==0.1.5
+Requires-Dist: pypng==0.20220715.0
+Requires-Dist: python-dateutil==2.8.2
+Requires-Dist: python-dotenv==1.0.1
+Requires-Dist: python-telegram-bot==12.0.0
+Requires-Dist: pytz==2024.2
+Requires-Dist: qrcode==7.4.2
+Requires-Dist: requests==2.32.3
+Requires-Dist: rfc3986==1.5.0
+Requires-Dist: six==1.16.0
+Requires-Dist: sniffio==1.3.1
+Requires-Dist: solana==0.34.0
+Requires-Dist: solders==0.21.0
+Requires-Dist: sumtypes==0.1a6
+Requires-Dist: tabulate==0.9.0
+Requires-Dist: toml==0.10.2
+Requires-Dist: toolz==0.11.2
+Requires-Dist: tornado==6.4.1
+Requires-Dist: typing_extensions==4.3.0
+Requires-Dist: tzdata==2024.2
+Requires-Dist: urllib3==1.26.20
+Requires-Dist: websockets==10.4
+Requires-Dist: zenrows==1.3.2
+
+# Telegram Solana Trading Bot
+Solana Trading Bot running on Telegram
+
+## Overview
+The Solana Trading Bot is an advanced and automated cryptocurrency trading tool designed for Solana-based decentralized exchanges (DEXs). It offers seamless token management and trading capabilities with cutting-edge features such as sniping, limit orders, portfolio tracking, and more. This bot is optimized for speed, accuracy, and scalability.
+
+## Features
+1. Sniping Features
+- Automatically monitor and execute trades on newly listed tokens for early entry.
+2. Multi-DEX Trading
+- Buy and sell tokens across multiple decentralized exchanges on Solana, ensuring liquidity optimization.
+3. Limit Orders
+- Set custom buy/sell price limits to automate trades at your desired levels.
+4. Wallet Portfolio Management
+- Track the portfolio of tokens in your wallet with real-time updates.
+5. Referral System
+- Incentivize users with a built-in referral system for enhanced user engagement.
+6. Token Watchlist
+- Create and maintain a watchlist of tokens to monitor price changes and market activity.
+
+## Installation
+1. clone the repository onto ubuntu 20.04
+2. install python 3.10
+3. install the dependencies into venv via `cd solbot && make dev`
+4. run the bot in dev mode do `make run` inside project root directory
+5. to deploy the bot in background do `make solbot`
+6. to kill running bot do `make kill`
+
+## systemd commands
+- check status `systemctl status dogbot.service`
+
+- start service `sudo systemctl start service.service`
+
+- stop service `sudo systemctl stop service.service`
+
+- restart service `sudo systemctl stop service.service`
+
+Here are the commands to check the logs
+
+- check the logs `journalctl -u dogbot.service -e`
+
+- follow logs in real time `journalctl -u dogbot.service -f`
+
+- check specific after time `journalctl -u dogbot.service --since "2024-11-18 17:15:00"`
+
+- check time range  `journalctl -u dogbot.service --since "2024-11-18 17:15:00" --until "2024-11-18 18:00:00"`
+
+- list boots `journalctl -u dogbot.service --list-boots`
+
+- check previous boot logs `journalctl -b -1`
+
+## Author
+[AnotherRusty](https://t.me/idioRusty)

@@ -1,0 +1,23 @@
+[
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.885851",
+    "mint": "ORCA_Token_2527",
+    "reason": "Trade rejected: Risk level too high: high",
+    "flag_id": "flag_000000",
+    "token_data": {
+      "mint": "ORCA_Token_2527",
+      "symbol": "ORC404",
+      "name": "Orca Token 671",
+      "liquidity": 1726,
+      "volume_24h": 3291,
+      "price_change_24h": 0.0981923811870421,
+      "source": "orca",
+      "age_minutes": 5,
+      "holders": 113,
+      "discovered_at": "2025-07-13T07:50:18.885094",
+      "scanner_id": 1,
+      "quality_score": 45.142
+    }
+  }
+]

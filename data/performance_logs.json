@@ -1,0 +1,345 @@
+[
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.886052",
+    "metric_name": "uptime_seconds",
+    "value": 0.001731,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.886337",
+    "metric_name": "trade_success_rate",
+    "value": 0.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_075018",
+    "timestamp": "2025-07-13T07:50:18.886593",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.270915",
+    "metric_name": "uptime_seconds",
+    "value": 0.003718,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.271101",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:51:44.272321",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.272346",
+    "metric_name": "uptime_seconds",
+    "value": 30.005149,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.272561",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_075144",
+    "timestamp": "2025-07-13T07:52:14.273030",
+    "metric_name": "scans_completed",
+    "value": 2,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.400416",
+    "metric_name": "uptime_seconds",
+    "value": 0.006423,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.400641",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_080530",
+    "timestamp": "2025-07-13T08:05:30.401023",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.444695",
+    "metric_name": "uptime_seconds",
+    "value": 0.004669,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.444954",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_080823",
+    "timestamp": "2025-07-13T08:08:23.445330",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.408239",
+    "metric_name": "uptime_seconds",
+    "value": 0.003344,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.408519",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_080932",
+    "timestamp": "2025-07-13T08:09:32.408809",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.046932",
+    "metric_name": "uptime_seconds",
+    "value": 0.004246,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.047215",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_082449",
+    "timestamp": "2025-07-13T08:24:49.047604",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.459862",
+    "metric_name": "uptime_seconds",
+    "value": 0.007999,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.460152",
+    "metric_name": "trade_success_rate",
+    "value": 100.0,
+    "unit": "percent"
+  },
+  {
+    "session_id": "20250713_082743",
+    "timestamp": "2025-07-13T08:27:43.460569",
+    "metric_name": "scans_completed",
+    "value": 1,
+    "unit": "count"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:57:01.309740",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.5137379169464111,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:58:01.061239",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.2052760124206543,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T12:59:01.326927",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.41027116775512695,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:00:01.491934",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.5152411460876465,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:01:01.346747",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.31012392044067383,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:02:01.509028",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.41196537017822266,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:03:01.270683",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.11352920532226562,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:04:01.529381",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.31163859367370605,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:05:01.483954",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.2063460350036621,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:06:01.652010",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.31413722038269043,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:07:01.708984",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.31140828132629395,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:08:01.878331",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.41634631156921387,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:09:01.917134",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.39450788497924805,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:10:01.687500",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.10452818870544434,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:11:01.853329",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.209747314453125,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:12:02.016208",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.3119800090789795,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:13:01.975052",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.2104504108428955,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:14:01.934806",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.11021995544433594,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_125700",
+    "timestamp": "2025-07-13T13:15:01.888354",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.002773284912109375,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:33:29.585157",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.0027523040771484375,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:34:29.593437",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.010481119155883789,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_133329",
+    "timestamp": "2025-07-13T13:35:29.591944",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.008446455001831055,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_134304",
+    "timestamp": "2025-07-13T13:43:04.032385",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.005005359649658203,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_140206",
+    "timestamp": "2025-07-13T14:02:06.211394",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.020205020904541016,
+    "unit": "seconds"
+  },
+  {
+    "session_id": "20250713_142106",
+    "timestamp": "2025-07-13T14:21:06.266560",
+    "metric_name": "scan_cycle_duration",
+    "value": 0.00021791458129882812,
+    "unit": "seconds"
+  }
+]
