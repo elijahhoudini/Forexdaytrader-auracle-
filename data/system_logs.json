@@ -1296,5 +1296,55 @@
     "message": "AURACLE main loop starting",
     "data": {},
     "uptime_seconds": 0.002777
+  },
+  {
+    "session_id": "20250713_184436",
+    "timestamp": "2025-07-13T18:44:36.253014",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000182
+  },
+  {
+    "session_id": "20250713_184436",
+    "timestamp": "2025-07-13T18:44:36.255529",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.002694
+  },
+  {
+    "session_id": "20250713_184436",
+    "timestamp": "2025-07-13T18:45:06.279682",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_184436",
+      "start_time": "2025-07-13T18:44:36.252840",
+      "duration_seconds": 30.026835
+    },
+    "uptime_seconds": 30.026844
+  },
+  {
+    "session_id": "20250713_184658",
+    "timestamp": "2025-07-13T18:46:58.758098",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.000536
+  },
+  {
+    "session_id": "20250713_184658",
+    "timestamp": "2025-07-13T18:46:58.760684",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.003119
+  },
+  {
+    "session_id": "20250713_184658",
+    "timestamp": "2025-07-13T18:47:28.799881",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250713_184658",
+      "start_time": "2025-07-13T18:46:58.757570",
+      "duration_seconds": 30.042305
+    },
+    "uptime_seconds": 30.042313
   }
 ]
