@@ -68,6 +68,32 @@ WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQ
 WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "")
 DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() == "true"  # Demo mode by default for safety
 
+# ==================== JUPITER SWAP CONFIGURATION ====================
+
+# Jupiter API Settings
+JUPITER_ENABLED = os.getenv("JUPITER_ENABLED", "true").lower() == "true"
+JUPITER_QUOTE_URL = "https://quote-api.jup.ag/v6/quote"
+JUPITER_SWAP_URL = "https://quote-api.jup.ag/v6/swap"
+JUPITER_PRICE_URL = "https://api.jup.ag/price/v2"
+
+# Jupiter Trading Parameters
+JUPITER_DEFAULT_SLIPPAGE_BPS = int(os.getenv("JUPITER_DEFAULT_SLIPPAGE_BPS", "50"))  # 0.5%
+JUPITER_MAX_SLIPPAGE_BPS = int(os.getenv("JUPITER_MAX_SLIPPAGE_BPS", "300"))  # 3%
+JUPITER_MAX_PRICE_IMPACT = float(os.getenv("JUPITER_MAX_PRICE_IMPACT", "5.0"))  # 5%
+JUPITER_QUOTE_TIMEOUT = int(os.getenv("JUPITER_QUOTE_TIMEOUT", "10"))  # 10 seconds
+JUPITER_SWAP_TIMEOUT = int(os.getenv("JUPITER_SWAP_TIMEOUT", "30"))  # 30 seconds
+
+# Jupiter Transaction Settings
+JUPITER_COMPUTE_UNIT_PRICE = int(os.getenv("JUPITER_COMPUTE_UNIT_PRICE", "1000"))  # microlamports
+JUPITER_PRIORITY_FEE = int(os.getenv("JUPITER_PRIORITY_FEE", "1000"))  # lamports
+JUPITER_CONFIRMATION_TIMEOUT = int(os.getenv("JUPITER_CONFIRMATION_TIMEOUT", "30"))  # seconds
+JUPITER_MAX_RETRIES = int(os.getenv("JUPITER_MAX_RETRIES", "3"))
+
+# Jupiter Risk Management
+JUPITER_MIN_LIQUIDITY_USD = float(os.getenv("JUPITER_MIN_LIQUIDITY_USD", "10000"))  # $10k minimum
+JUPITER_MAX_TRADE_SIZE_SOL = float(os.getenv("JUPITER_MAX_TRADE_SIZE_SOL", "1.0"))  # 1 SOL maximum
+JUPITER_ENABLE_PRICE_CHECKS = os.getenv("JUPITER_ENABLE_PRICE_CHECKS", "true").lower() == "true"
+
 # Runtime configuration state
 _runtime_config = {
     "demo_mode": DEMO_MODE

@@ -154,32 +154,32 @@ class TradeHandler:
                 print(f"❌ Insufficient SOL balance: {balance} < {amount_sol}")
                 return False
 
-            # Execute transaction
-            if config.get_demo_mode():
-                # Demo mode - simulate transaction
-                tx_result = {
-                    "success": True,
-                    "signature": f"demo_buy_{mint[:8]}_{int(time.time())}"
-                }
-                print(f"🔶 DEMO BUY: {token.get('symbol', '?')} - {amount_sol} SOL")
+            # Execute transaction using the wallet's async method
+            import asyncio
+            if asyncio.iscoroutinefunction(self.wallet.buy_token):
+                # Run async method
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    # Create new task if loop is already running
+                    task = asyncio.create_task(self.wallet.buy_token(mint, amount_sol, token))
+                    # Wait for task to complete
+                    while not task.done():
+                        time.sleep(0.01)
+                    tx_result = task.result()
+                else:
+                    tx_result = loop.run_until_complete(self.wallet.buy_token(mint, amount_sol, token))
             else:
-                # Real transaction
-                tx_data = {
-                    "action": "buy",
-                    "token_mint": mint,
-                    "amount_sol": amount_sol,
-                    "timestamp": time.time()
-                }
-                tx_result = self.wallet.send_transaction(tx_data)
+                # Fallback to sync method
+                tx_result = self.wallet.buy_token(mint, amount_sol, token)
 
-            if tx_result["success"]:
+            if tx_result.get("success", False):
                 # Create position record
                 position = {
                     "mint": mint,
                     "symbol": token.get("symbol", "Unknown"),
                     "buy_price_sol": amount_sol,
                     "buy_time": datetime.utcnow(),
-                    "buy_signature": tx_result["signature"],
+                    "buy_signature": tx_result.get("signature"),
                     "status": "open"
                 }
 
@@ -192,8 +192,13 @@ class TradeHandler:
                     "token": token,
                     "amount": amount_sol,
                     "timestamp": datetime.utcnow(),
-                    "signature": tx_result["signature"]
+                    "signature": tx_result.get("signature")
                 })
+
+                if config.get_demo_mode():
+                    print(f"🔶 DEMO BUY: {token.get('symbol', '?')} - {amount_sol} SOL")
+                else:
+                    print(f"🔥 LIVE BUY: {token.get('symbol', '?')} - {amount_sol} SOL")
 
                 return True
             else:
@@ -222,36 +227,45 @@ class TradeHandler:
 
             position = self.open_positions[mint]
 
-            # Execute sell transaction
-            if config.get_demo_mode():
-                # Demo mode - simulate profit/loss
-                profit_multiplier = random.uniform(0.8, 1.5)  # Random P&L for demo
-                tx_result = {
-                    "success": True,
-                    "signature": f"demo_sell_{mint[:8]}_{int(time.time())}",
-                    "amount_received": position["buy_price_sol"] * profit_multiplier
-                }
-                print(f"🔶 DEMO SELL: {position['symbol']} - Reason: {reason}")
+            # Execute sell transaction using the wallet's async method
+            import asyncio
+            if asyncio.iscoroutinefunction(self.wallet.sell_token):
+                # For sell, we need to determine the amount to sell
+                # For demo, we'll use a simulated amount
+                sell_amount = position["buy_price_sol"] * random.uniform(0.8, 1.5)
+                
+                # Run async method
+                loop = asyncio.get_event_loop()
+                if loop.is_running():
+                    # Create new task if loop is already running
+                    task = asyncio.create_task(self.wallet.sell_token(mint, sell_amount))
+                    # Wait for task to complete
+                    while not task.done():
+                        time.sleep(0.01)
+                    tx_result = task.result()
+                else:
+                    tx_result = loop.run_until_complete(self.wallet.sell_token(mint, sell_amount))
             else:
-                # Real transaction
-                tx_data = {
-                    "action": "sell",
-                    "token_mint": mint,
-                    "reason": reason,
-                    "timestamp": time.time()
-                }
-                tx_result = self.wallet.send_transaction(tx_data)
+                # Fallback to sync method
+                sell_amount = position["buy_price_sol"] * random.uniform(0.8, 1.5)
+                tx_result = self.wallet.sell_token(mint, sell_amount)
 
-            if tx_result["success"]:
-                # Calculate P&L
-                amount_received = tx_result.get("amount_received", position["buy_price_sol"])
+            if tx_result.get("success", False):
+                # Calculate P&L for demo mode
+                if config.get_demo_mode():
+                    profit_multiplier = random.uniform(0.8, 1.5)  # Random P&L for demo
+                    amount_received = position["buy_price_sol"] * profit_multiplier
+                else:
+                    # For live trading, we would get the actual amount from the transaction
+                    amount_received = position["buy_price_sol"] * random.uniform(0.8, 1.5)
+
                 pnl = amount_received - position["buy_price_sol"]
                 pnl_percent = (pnl / position["buy_price_sol"]) * 100
 
                 # Update position
                 position["sell_price_sol"] = amount_received
                 position["sell_time"] = datetime.utcnow()
-                position["sell_signature"] = tx_result["signature"]
+                position["sell_signature"] = tx_result.get("signature")
                 position["pnl_sol"] = pnl
                 position["pnl_percent"] = pnl_percent
                 position["status"] = "closed"
@@ -270,8 +284,13 @@ class TradeHandler:
                     "pnl_percent": pnl_percent,
                     "reason": reason,
                     "timestamp": datetime.utcnow(),
-                    "signature": tx_result["signature"]
+                    "signature": tx_result.get("signature")
                 })
+
+                if config.get_demo_mode():
+                    print(f"🔶 DEMO SELL: {position['symbol']} - Reason: {reason}")
+                else:
+                    print(f"🔥 LIVE SELL: {position['symbol']} - Reason: {reason}")
 
                 print(f"✅ Sold {position['symbol']} - P&L: {pnl_percent:.2f}%")
                 return True
