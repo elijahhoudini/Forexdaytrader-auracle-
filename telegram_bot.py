@@ -48,10 +48,13 @@ class AuracleTelegramBot:
         self.running = True
         print("📱 Telegram bot thread started")
 
-        # Send startup message
-        self.send_message("🚀 AURACLE Bot Started")
-        self.send_message(f"🔧 Mode: {config.get_trading_mode_string()}")
-        self.send_message(f"💼 Wallet: {config.WALLET_ADDRESS[:8]}...")
+        # Try to send startup messages, but don't fail if network is unavailable
+        try:
+            self.send_message("🚀 AURACLE Bot Started")
+            self.send_message(f"🔧 Mode: {config.get_trading_mode_string()}")
+            self.send_message(f"💼 Wallet: {config.WALLET_ADDRESS[:8]}...")
+        except Exception as e:
+            print(f"⚠️ Telegram startup messages failed: {type(e).__name__}")
         
         # Start command listening
         self._listen_for_commands()
@@ -64,8 +67,10 @@ class AuracleTelegramBot:
             message (str): Message to send
         """
         try:
-            print(f"📱 TELEGRAM SENT: {message[:50]}...")
-            # Real telegram API call would go here
+            # Always log the message locally for debugging
+            print(f"📱 TELEGRAM: {message[:50]}...")
+            
+            # Try to send to Telegram API
             url = f"{self.base_url}/sendMessage"
             payload = {
                 "chat_id": self.chat_id,
@@ -73,16 +78,21 @@ class AuracleTelegramBot:
                 "parse_mode": "HTML"
             }
             
-            response = requests.post(url, data=payload, timeout=10)
+            response = requests.post(url, data=payload, timeout=5)
             
             if response.status_code == 200:
                 print(f"📱 TELEGRAM SENT: {message[:50]}...")
             else:
-                print(f"❌ Telegram API error: {response.status_code}")
-                print(f"Response: {response.text}")
+                print(f"⚠️ Telegram API error: {response.status_code}")
+                # Don't print full response in production to avoid spam
             
+        except requests.exceptions.RequestException as e:
+            # Network-related errors (DNS, connection, timeout)
+            print(f"⚠️ Telegram network error: {type(e).__name__}")
+            # Don't print full error to avoid spam
         except Exception as e:
-            print(f"❌ Telegram send error: {str(e)}")
+            # Other errors
+            print(f"⚠️ Telegram error: {type(e).__name__}")
     
     def send_trade_notification(self, action: str, token: Dict[str, Any], amount: float, pnl: Optional[float] = None):
         """
