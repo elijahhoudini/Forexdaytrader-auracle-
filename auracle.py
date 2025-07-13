@@ -131,7 +131,7 @@ class Auracle:
                 scan_count += 1
 
                 # Monitor existing positions
-                self.trade_handler.monitor_positions()
+                await self.trade_handler.monitor_positions()
 
                 # Update statistics
                 self.stats["scans_completed"] += 1
