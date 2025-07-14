@@ -183,6 +183,22 @@ class TokenScanner:
             
             if ai_result["decision"] in ["BUY", "BUY_HIGH_CONFIDENCE"]:
                 print(f"[AI] ✅ {symbol} passed AI filters - {ai_result['reasoning']}")
+                
+                # Additional risk evaluation through auracle instance if available
+                if self.auracle_instance and hasattr(self.auracle_instance, 'risk'):
+                    risk_result = self.auracle_instance.risk.evaluate(token)
+                    if not risk_result.get("safe", False):
+                        print(f"[RISK] ❌ {symbol} rejected by risk assessment - {risk_result.get('reason', 'Unknown')}")
+                        if self.auracle_instance.logger:
+                            self.auracle_instance.logger.log_flag(
+                                mint, 
+                                f"Risk assessment failed: {risk_result.get('reason', 'Unknown')}", 
+                                token
+                            )
+                        return
+                    else:
+                        print(f"[RISK] ✅ {symbol} passed risk assessment")
+                
                 print(f"[scanner] ✅ Token passed all filters: {name}")
                 
                 # High confidence allocation

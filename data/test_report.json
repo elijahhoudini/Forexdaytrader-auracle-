@@ -1,12 +1,12 @@
 {
-  "timestamp": "2025-07-13T20:25:09.896079",
+  "timestamp": "2025-07-14T06:57:24.100067",
   "overall_score": 100.0,
   "tests_passed": 6,
   "tests_total": 6,
   "test_results": {
     "Jupiter Integration": {
       "status": "PASSED",
-      "execution_time": 0.12596940994262695,
+      "execution_time": 0.12801885604858398,
       "details": {
         "api_initialization": true,
         "quote_generation": true,
@@ -16,18 +16,18 @@
     },
     "Enhanced Discovery": {
       "status": "PASSED",
-      "execution_time": 0.08405423164367676,
+      "execution_time": 0.05016326904296875,
       "details": {
         "discovery_initialization": true,
         "token_discovery": true,
-        "token_count": 9,
+        "token_count": 10,
         "data_structure_validation": true,
         "enhanced_fields": true
       }
     },
     "Trade Execution": {
       "status": "PASSED",
-      "execution_time": 0.05016922950744629,
+      "execution_time": 0.049440860748291016,
       "details": {
         "wallet_initialization": true,
         "buy_execution": true,
@@ -38,7 +38,7 @@
     },
     "Risk Management": {
       "status": "PASSED",
-      "execution_time": 0.04293656349182129,
+      "execution_time": 0.04602646827697754,
       "details": {
         "daily_limits": true,
         "position_limits": true,
@@ -48,11 +48,11 @@
     },
     "Performance Benchmarks": {
       "status": "PASSED",
-      "execution_time": 0.13078713417053223,
+      "execution_time": 0.10345292091369629,
       "details": {
-        "discovery_time": 0.03090834617614746,
-        "avg_execution_time": 0.0043162345886230465,
-        "total_benchmark_time": 0.13075900077819824,
+        "discovery_time": 0.02079916000366211,
+        "avg_execution_time": 0.003160524368286133,
+        "total_benchmark_time": 0.10342931747436523,
         "tokens_discovered": 10,
         "performance_score": 100,
         "meets_benchmarks": true
@@ -60,7 +60,7 @@
     },
     "Error Handling": {
       "status": "PASSED",
-      "execution_time": 0.13991761207580566,
+      "execution_time": 0.12007379531860352,
       "details": {
         "network_error_handling": true,
         "invalid_input_handling": true,
@@ -70,7 +70,7 @@
     }
   },
   "performance_metrics": {
-    "runtime_seconds": 0.5744414329528809,
+    "runtime_seconds": 0.4977419376373291,
     "metrics": {
       "trades_executed": 1,
       "successful_trades": 1,
@@ -79,16 +79,16 @@
       "tokens_filtered": 0,
       "total_volume": 0.0,
       "total_pnl": 0.0,
-      "avg_execution_time": 0.09563903013865153,
+      "avg_execution_time": 0.08286269505818684,
       "discovery_sources_used": 0,
       "jupiter_calls": 0,
       "jupiter_success_rate": 0.0,
       "success_rate": 100.0
     },
     "performance_indicators": {
-      "trades_per_minute": 104.44929031593993,
+      "trades_per_minute": 120.5443935160592,
       "success_rate": 100.0,
-      "avg_execution_time": 0.09563903013865153,
+      "avg_execution_time": 0.08286269505818684,
       "tokens_per_scan": 0.0
     },
     "recent_trades": [
@@ -96,7 +96,7 @@
         "action": "test_trade",
         "success": true,
         "amount": 0.01,
-        "timestamp": 1752438309.5819807
+        "timestamp": 1752476243.830099
       }
     ]
   },

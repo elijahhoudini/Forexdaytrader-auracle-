@@ -158,44 +158,124 @@ def get_trading_mode_string() -> str:
 
 def validate_config() -> bool:
     """
-    Validates configuration settings.
+    Validates configuration settings with comprehensive checks.
     Returns True if all settings are valid.
     """
+    print("🔍 Validating AURACLE configuration...")
+    
+    # Trading parameter validation
     if MAX_BUY_AMOUNT_SOL <= 0:
         print("❌ MAX_BUY_AMOUNT_SOL must be positive")
         return False
+    if MAX_BUY_AMOUNT_SOL > 1.0:
+        print("⚠️  MAX_BUY_AMOUNT_SOL is quite high (>1 SOL) - consider reducing for safety")
+        
     if MIN_LIQUIDITY_THRESHOLD < 0:
         print("❌ MIN_LIQUIDITY_THRESHOLD must be non-negative")
         return False
+    if MIN_LIQUIDITY_THRESHOLD < 1000:
+        print("⚠️  MIN_LIQUIDITY_THRESHOLD is very low (<$1000) - consider increasing for safety")
+        
     if PROFIT_TARGET_PERCENTAGE <= 0:
         print("❌ PROFIT_TARGET_PERCENTAGE must be positive")
         return False
+    if PROFIT_TARGET_PERCENTAGE > 1.0:
+        print("⚠️  PROFIT_TARGET_PERCENTAGE is very high (>100%) - consider reducing")
+        
     if STOP_LOSS_PERCENTAGE >= 0:
         print("❌ STOP_LOSS_PERCENTAGE must be negative")
         return False
+    if STOP_LOSS_PERCENTAGE < -0.5:
+        print("⚠️  STOP_LOSS_PERCENTAGE is very aggressive (<-50%) - consider reducing")
+
+    # Risk management validation
+    if MAX_DAILY_TRADES <= 0:
+        print("❌ MAX_DAILY_TRADES must be positive")
+        return False
+    if MAX_DAILY_TRADES > 200:
+        print("⚠️  MAX_DAILY_TRADES is very high (>200) - consider reducing for safety")
+        
+    if MAX_OPEN_POSITIONS <= 0:
+        print("❌ MAX_OPEN_POSITIONS must be positive")
+        return False
+    if MAX_OPEN_POSITIONS > 50:
+        print("⚠️  MAX_OPEN_POSITIONS is very high (>50) - consider reducing for safety")
+
+    # Scan interval validation
+    if SCAN_INTERVAL_SECONDS <= 0:
+        print("❌ SCAN_INTERVAL_SECONDS must be positive")
+        return False
+    if SCAN_INTERVAL_SECONDS < 10:
+        print("⚠️  SCAN_INTERVAL_SECONDS is very low (<10s) - may cause rate limiting")
+
+    # Dynamic allocation validation
+    if DYNAMIC_ALLOCATION_ENABLED:
+        if HIGH_CONFIDENCE_MULTIPLIER <= 0:
+            print("❌ HIGH_CONFIDENCE_MULTIPLIER must be positive")
+            return False
+        if HIGH_CONFIDENCE_MULTIPLIER > 5.0:
+            print("⚠️  HIGH_CONFIDENCE_MULTIPLIER is very high (>5x) - consider reducing")
+            
+        if not HIGH_CONFIDENCE_PATTERNS:
+            print("⚠️  HIGH_CONFIDENCE_PATTERNS is empty - dynamic allocation may not work")
 
     # Show current trading mode
     print(f"📊 Trading mode: {get_trading_mode_string()}")
 
-    # Validate Telegram configuration
+    # Telegram configuration validation
     if TELEGRAM_ENABLED:
         if not TELEGRAM_BOT_TOKEN:
-            print("⚠️  TELEGRAM_BOT_TOKEN not configured - disabling Telegram notifications")
+            print("❌ TELEGRAM_BOT_TOKEN required when TELEGRAM_ENABLED is true")
             return False
         if not TELEGRAM_CHAT_ID:
-            print("⚠️  TELEGRAM_CHAT_ID not configured - disabling Telegram notifications")
+            print("❌ TELEGRAM_CHAT_ID required when TELEGRAM_ENABLED is true")
             return False
+        if len(TELEGRAM_BOT_TOKEN) < 20:
+            print("⚠️  TELEGRAM_BOT_TOKEN seems too short - check configuration")
         print("✅ Telegram bot configured and enabled")
 
-    # Validate wallet configuration for live trading
+    # Wallet configuration validation
     if not get_demo_mode():
         if not WALLET_ADDRESS:
             print("❌ WALLET_ADDRESS required for live trading")
             return False
+        if len(WALLET_ADDRESS) < 32:
+            print("❌ WALLET_ADDRESS seems invalid (too short)")
+            return False
+        if not WALLET_PRIVATE_KEY:
+            print("❌ WALLET_PRIVATE_KEY required for live trading")
+            return False
         print("✅ Live trading enabled with wallet:", WALLET_ADDRESS[:8] + "...")
     else:
-        print("⚠️  Demo mode enabled - no real trades will be executed")
+        print("✅ Demo mode enabled - safe for testing")
 
+    # Solana network validation
+    if not SOLANA_RPC_ENDPOINT:
+        print("❌ SOLANA_RPC_ENDPOINT is required")
+        return False
+    if not SOLANA_RPC_ENDPOINT.startswith("http"):
+        print("❌ SOLANA_RPC_ENDPOINT must be a valid HTTP(S) URL")
+        return False
+
+    # Jupiter configuration validation
+    if JUPITER_SLIPPAGE_BPS <= 0:
+        print("❌ JUPITER_SLIPPAGE_BPS must be positive")
+        return False
+    if JUPITER_SLIPPAGE_BPS > 1000:
+        print("⚠️  JUPITER_SLIPPAGE_BPS is very high (>10%) - consider reducing")
+        
+    if JUPITER_PRIORITY_FEE < 0:
+        print("❌ JUPITER_PRIORITY_FEE must be non-negative")
+        return False
+
+    # Security checks
+    if not get_demo_mode():
+        print("⚠️  🔥 LIVE TRADING ENABLED - Real money at risk!")
+        print("⚠️  Ensure you have tested thoroughly in demo mode")
+        print("⚠️  Start with small amounts and monitor closely")
+    
+    # Final validation summary
+    print("✅ Configuration validation passed")
     return True
 
 # Environment validation
