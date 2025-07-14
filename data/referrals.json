@@ -1,0 +1,23 @@
+{
+  "codes": {
+    "7GU6RT": "test_user_789"
+  },
+  "users": {
+    "test_user_789": {
+      "code": "7GU6RT",
+      "referred_by": null,
+      "earnings": 0.01,
+      "referrals_made": 1
+    },
+    "test_user_987": {
+      "code": null,
+      "referred_by": "test_user_789",
+      "earnings": 0.0,
+      "referrals_made": 0
+    }
+  },
+  "stats": {
+    "total_referrals": 1,
+    "total_earnings": 0.01
+  }
+}

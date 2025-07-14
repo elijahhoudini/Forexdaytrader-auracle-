@@ -8,6 +8,10 @@ Configuration includes trading parameters, risk management, and system settings.
 
 import os
 from typing import Dict, Any
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # ==================== ADVANCED INTELLIGENCE CONFIGURATION ====================
 
