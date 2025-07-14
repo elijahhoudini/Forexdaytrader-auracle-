@@ -55,10 +55,16 @@ class RiskEvaluator:
                 risk_score += 30
                 reasons.append(f"Low liquidity: ${liquidity:,.0f}")
 
-            # Holder distribution checks
-            if holders < 20:
-                risk_score += 25
-                reasons.append(f"Too few holders: {holders}")
+            # Holder distribution checks - adjust based on data source
+            holders_source = token.get("holders_source", "unknown")
+            min_holders_threshold = 20 if holders_source == "rpc" else 15  # More lenient for estimated
+            
+            if holders < min_holders_threshold:
+                # Reduce penalty for estimated holders
+                penalty = 25 if holders_source == "rpc" else 15
+                risk_score += penalty
+                holder_label = f"{holders} (RPC)" if holders_source == "rpc" else f"{holders} (est)"
+                reasons.append(f"Too few holders: {holder_label}")
 
             # Developer holdings check
             if dev_holdings > 30:

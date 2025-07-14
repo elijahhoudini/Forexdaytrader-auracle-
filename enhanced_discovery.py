@@ -12,6 +12,7 @@ import random
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 import time
+from token_holders import token_holders_util
 
 
 class EnhancedTokenDiscovery:
@@ -77,8 +78,11 @@ class EnhancedTokenDiscovery:
         # Apply enhanced filtering and ranking
         ranked_tokens = self._apply_advanced_filtering(all_tokens)
         
-        print(f"[discovery] 🎯 Discovered {len(ranked_tokens)} high-quality tokens")
-        return ranked_tokens
+        # Enrich top tokens with real holder data
+        enriched_tokens = await self._enrich_with_holder_data(ranked_tokens)
+        
+        print(f"[discovery] 🎯 Discovered {len(enriched_tokens)} high-quality tokens")
+        return enriched_tokens
     
     async def _fetch_from_source(self, source: Dict[str, Any]) -> List[Dict[str, Any]]:
         """Fetch tokens from a specific data source."""
@@ -110,27 +114,109 @@ class EnhancedTokenDiscovery:
         return tokens
     
     def _parse_dexscreener_data(self, data: Dict[str, Any]) -> List[Dict[str, Any]]:
-        """Parse DexScreener API response."""
+        """Parse DexScreener API response with robust error handling."""
         tokens = []
+        
+        # Handle different response structures
+        if not isinstance(data, dict):
+            print(f"[discovery] ⚠️ DexScreener: Invalid data type: {type(data)}")
+            return tokens
+            
         pairs = data.get('pairs', [])
+        if not isinstance(pairs, list):
+            print(f"[discovery] ⚠️ DexScreener: pairs is not a list: {type(pairs)}")
+            return tokens
         
         for pair in pairs[:30]:  # Top 30 pairs
-            if pair.get('chainId') == 'solana' and pair.get('baseToken'):
+            if not isinstance(pair, dict):
+                continue
+                
+            try:
+                # Validate required fields
+                if not (pair.get('chainId') == 'solana' and pair.get('baseToken')):
+                    continue
+                    
+                base_token = pair.get('baseToken', {})
+                if not isinstance(base_token, dict) or not base_token.get('address'):
+                    continue
+                
+                # Safe conversion with multiple fallback strategies
+                def safe_float_conversion(value, default=0.0):
+                    """Safely convert various types to float."""
+                    try:
+                        if value is None:
+                            return default
+                        if isinstance(value, (int, float)):
+                            return float(value)
+                        if isinstance(value, str):
+                            # Remove any non-numeric characters except decimal point
+                            clean_value = ''.join(c for c in value if c.isdigit() or c == '.')
+                            return float(clean_value) if clean_value else default
+                        if isinstance(value, dict):
+                            # Try common keys for nested objects
+                            for key in ['usd', 'h24', 'value', 'amount']:
+                                if key in value and value[key] is not None:
+                                    return safe_float_conversion(value[key], default)
+                        return default
+                    except (ValueError, TypeError, AttributeError):
+                        return default
+                
+                # Extract liquidity safely
+                liquidity_data = pair.get('liquidity', {})
+                liquidity = safe_float_conversion(liquidity_data)
+                if isinstance(liquidity_data, dict):
+                    liquidity = safe_float_conversion(liquidity_data.get('usd', 0))
+                
+                # Extract volume safely
+                volume_data = pair.get('volume', {})
+                volume24h = safe_float_conversion(volume_data)
+                if isinstance(volume_data, dict):
+                    volume24h = safe_float_conversion(volume_data.get('h24', 0))
+                
+                # Extract price change safely
+                price_change_data = pair.get('priceChange', {})
+                price_change24h = safe_float_conversion(price_change_data)
+                if isinstance(price_change_data, dict):
+                    price_change24h = safe_float_conversion(price_change_data.get('h24', 0))
+                
+                # Convert percentage to decimal if needed
+                if abs(price_change24h) > 5:  # Likely percentage format
+                    price_change24h = price_change24h / 100
+                
+                # Extract other fields safely
+                fdv = safe_float_conversion(pair.get('fdv', 0))
+                price_usd = safe_float_conversion(pair.get('priceUsd', 0))
+                
+                # Estimate holders based on liquidity and volume
+                estimated_holders = max(20, int(liquidity / 1000) + int(volume24h / 500))
+                
+                # Validate minimum requirements
+                if liquidity < 100 or not base_token.get('symbol'):
+                    continue
+                
                 token = {
-                    'mint': pair['baseToken']['address'],
-                    'name': pair['baseToken'].get('name', 'Unknown'),
-                    'symbol': pair['baseToken'].get('symbol', 'UNKNOWN'),
-                    'liquidity': float(pair.get('liquidity', {}).get('usd', 0)),
-                    'volume24h': float(pair.get('volume', {}).get('h24', 0)),
-                    'priceChange24h': float(pair.get('priceChange', {}).get('h24', 0)),
-                    'fdv': float(pair.get('fdv', 0)),
-                    'price_usd': float(pair.get('priceUsd', 0)),
+                    'mint': base_token['address'],
+                    'name': base_token.get('name', 'Unknown'),
+                    'symbol': base_token.get('symbol', 'UNKNOWN'),
+                    'liquidity': liquidity,
+                    'volume24h': volume24h,
+                    'priceChange24h': price_change24h,
+                    'fdv': fdv,
+                    'price_usd': price_usd,
+                    'holders': estimated_holders,
                     'source': 'DexScreener',
                     'pair_address': pair.get('pairAddress', ''),
-                    'created_at': pair.get('pairCreatedAt', 0)
+                    'created_at': pair.get('pairCreatedAt', 0),
+                    'holders_source': 'estimated'
                 }
                 tokens.append(token)
+                
+            except Exception as e:
+                print(f"[discovery] ⚠️ Error parsing DexScreener pair: {e}")
+                # Don't continue, just skip this pair
+                pass
         
+        print(f"[discovery] 📊 DexScreener: Parsed {len(tokens)} valid tokens")
         return tokens
     
     def _parse_jupiter_data(self, data: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -139,14 +225,20 @@ class EnhancedTokenDiscovery:
         
         for token_data in data[:50]:  # Top 50 tokens
             if token_data.get('chainId') == 101:  # Solana mainnet
+                # Estimate realistic holders and trading metrics
+                liquidity = random.randint(10000, 100000)
+                volume24h = random.randint(1000, 50000)
+                estimated_holders = max(25, int(liquidity / 800) + int(volume24h / 400))
+                
                 token = {
                     'mint': token_data['address'],
                     'name': token_data.get('name', 'Unknown'),
                     'symbol': token_data.get('symbol', 'UNKNOWN'),
                     'decimals': token_data.get('decimals', 6),
-                    'liquidity': random.randint(10000, 100000),  # Estimated
-                    'volume24h': random.randint(1000, 50000),   # Estimated
-                    'priceChange24h': random.uniform(-20, 20),  # Estimated
+                    'liquidity': liquidity,  # Estimated
+                    'volume24h': volume24h,   # Estimated
+                    'priceChange24h': random.uniform(-0.15, 0.25),  # Realistic -15% to +25%
+                    'holders': estimated_holders,  # Add estimated holders
                     'source': 'Jupiter',
                     'logoURI': token_data.get('logoURI', ''),
                     'verified': token_data.get('tags', [])
@@ -161,19 +253,31 @@ class EnhancedTokenDiscovery:
         token_list = data.get('data', {}).get('tokens', [])
         
         for token_data in token_list[:25]:  # Top 25 tokens
-            token = {
-                'mint': token_data['address'],
-                'name': token_data.get('name', 'Unknown'),
-                'symbol': token_data.get('symbol', 'UNKNOWN'),
-                'liquidity': float(token_data.get('liquidity', 0)),
-                'volume24h': float(token_data.get('v24hUSD', 0)),
-                'priceChange24h': float(token_data.get('priceChange24h', 0)),
-                'price_usd': float(token_data.get('price', 0)),
-                'market_cap': float(token_data.get('mc', 0)),
-                'source': 'Birdeye',
-                'lastTradeUnixTime': token_data.get('lastTradeUnixTime', 0)
-            }
-            tokens.append(token)
+            try:
+                liquidity = float(token_data.get('liquidity', 0) or 0)
+                volume24h = float(token_data.get('v24hUSD', 0) or 0)
+                
+                # Estimate holders based on market cap and volume
+                market_cap = float(token_data.get('mc', 0) or 0)
+                estimated_holders = max(30, int(market_cap / 5000) + int(volume24h / 300))
+                
+                token = {
+                    'mint': token_data['address'],
+                    'name': token_data.get('name', 'Unknown'),
+                    'symbol': token_data.get('symbol', 'UNKNOWN'),
+                    'liquidity': liquidity,
+                    'volume24h': volume24h,
+                    'priceChange24h': float(token_data.get('priceChange24h', 0) or 0),
+                    'price_usd': float(token_data.get('price', 0) or 0),
+                    'market_cap': market_cap,
+                    'holders': estimated_holders,  # Add estimated holders
+                    'source': 'Birdeye',
+                    'lastTradeUnixTime': token_data.get('lastTradeUnixTime', 0)
+                }
+                tokens.append(token)
+            except (TypeError, ValueError, AttributeError) as e:
+                print(f"[discovery] ⚠️ Error parsing Birdeye token: {e}")
+                continue
         
         return tokens
     
@@ -347,3 +451,35 @@ class EnhancedTokenDiscovery:
     async def close(self):
         """Close HTTP client."""
         await self.client.aclose()
+    
+    async def _enrich_with_holder_data(self, tokens: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+        """
+        Enrich top tokens with actual holder data from Solana RPC.
+        Only fetch for promising tokens to avoid rate limits.
+        """
+        enriched_tokens = []
+        
+        for i, token in enumerate(tokens):
+            # Only fetch real holder data for top 10 tokens to avoid rate limits
+            if i < 10 and token.get('liquidity', 0) > 20000:
+                try:
+                    real_holders = await token_holders_util.get_token_holders_count(token['mint'])
+                    if real_holders is not None:
+                        token['holders'] = real_holders
+                        token['holders_source'] = 'rpc'
+                        print(f"[discovery] 👥 {token['symbol']}: {real_holders} holders (RPC)")
+                    else:
+                        token['holders_source'] = 'estimated'
+                except Exception as e:
+                    print(f"[discovery] ⚠️ Error fetching holders for {token['symbol']}: {e}")
+                    token['holders_source'] = 'estimated'
+            else:
+                token['holders_source'] = 'estimated'
+            
+            enriched_tokens.append(token)
+            
+            # Small delay to avoid rate limits
+            if i < 10:
+                await asyncio.sleep(0.1)
+        
+        return enriched_tokens

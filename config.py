@@ -9,6 +9,43 @@ Configuration includes trading parameters, risk management, and system settings.
 import os
 from typing import Dict, Any
 
+# ==================== ADVANCED INTELLIGENCE CONFIGURATION ====================
+
+# Unified Intelligence Core Settings
+AUTONOMOUS_MODE = True  # Enable autonomous trading mode
+TRAVELER_ID = "5798"
+
+# Enhanced Encryption and Backup
+AURACLE_ENC_KEY = os.getenv("AURACLE_ENC_KEY", None)  # Encryption key for backups
+BACKUP_RETENTION_DAYS = int(os.getenv("BACKUP_RETENTION_DAYS", "30"))  # Keep backups for 30 days
+AUTO_BACKUP_INTERVAL_MINUTES = int(os.getenv("AUTO_BACKUP_INTERVAL_MINUTES", "30"))  # Backup every 30 minutes
+
+# LLC Automation Settings
+LLC_GOAL_SOL = float(os.getenv("LLC_GOAL_SOL", "500"))  # 500 SOL goal for LLC funding
+LLC_CONTRIBUTION_THRESHOLD = float(os.getenv("LLC_CONTRIBUTION_THRESHOLD", "0.1"))  # 10% of goal before contributing
+PROFIT_TARGET_MULTIPLIER = float(os.getenv("PROFIT_TARGET_MULTIPLIER", "1.3"))  # 30% profit target
+STOP_LOSS_MULTIPLIER = float(os.getenv("STOP_LOSS_MULTIPLIER", "0.85"))  # 15% stop loss
+
+# Advanced Token Scoring
+AURACLE_SCORE_THRESHOLD = float(os.getenv("AURACLE_SCORE_THRESHOLD", "0.4"))  # Minimum Auracle score
+MIN_LIQUIDITY_USD = float(os.getenv("MIN_LIQUIDITY_USD", "15000"))  # Minimum liquidity in USD
+MIN_VOLUME_24H_USD = float(os.getenv("MIN_VOLUME_24H_USD", "10000"))  # Minimum 24h volume
+MAX_VOLATILITY_PERCENT = float(os.getenv("MAX_VOLATILITY_PERCENT", "150"))  # Maximum 24h price change
+MIN_TOKEN_AGE_HOURS = float(os.getenv("MIN_TOKEN_AGE_HOURS", "24"))  # Minimum token age
+
+# Portfolio Diversification
+MAX_PORTFOLIO_POSITIONS = int(os.getenv("MAX_PORTFOLIO_POSITIONS", "5"))  # Maximum concurrent positions
+DIVERSIFICATION_ENABLED = True  # Enable portfolio diversification
+
+# Advanced Monitoring
+POSITION_MONITOR_INTERVAL_SECONDS = int(os.getenv("POSITION_MONITOR_INTERVAL_SECONDS", "10"))
+NETWORK_HEALTH_CHECK_INTERVAL_MINUTES = int(os.getenv("NETWORK_HEALTH_CHECK_INTERVAL_MINUTES", "5"))
+INTELLIGENT_REPORTING_INTERVAL_HOURS = int(os.getenv("INTELLIGENT_REPORTING_INTERVAL_HOURS", "24"))
+
+# Wallet Configuration for Advanced Features
+WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", None)  # Private key for advanced transactions
+SOLANA_RPC_ENDPOINT = os.getenv("SOLANA_RPC_ENDPOINT", "https://api.mainnet-beta.solana.com")
+
 # ==================== TRADING CONFIGURATION ====================
 
 # Trading Amounts
@@ -16,10 +53,29 @@ MAX_BUY_AMOUNT_SOL = float(os.getenv("MAX_BUY_AMOUNT_SOL", "0.01"))  # Minimum t
 MIN_LIQUIDITY_THRESHOLD = int(os.getenv("MIN_LIQUIDITY_THRESHOLD", "1000"))
 POSITION_SIZE_PERCENTAGE = float(os.getenv("POSITION_SIZE_PERCENTAGE", "0.1"))
 
-# Trading Strategy
-PROFIT_TARGET_PERCENTAGE = float(os.getenv("PROFIT_TARGET_PERCENTAGE", "0.15"))  # 15% profit target (more realistic)
-STOP_LOSS_PERCENTAGE = float(os.getenv("STOP_LOSS_PERCENTAGE", "-0.08"))  # -8% stop loss (less aggressive)
-SCAN_INTERVAL_SECONDS = int(os.getenv("SCAN_INTERVAL_SECONDS", "45"))  # 45 second intervals for better performance
+# Trading Strategy - Enhanced for Profit Maximization
+PROFIT_TARGET_PERCENTAGE = float(os.getenv("PROFIT_TARGET_PERCENTAGE", "0.20"))  # 20% profit target (increased for higher profits)
+STOP_LOSS_PERCENTAGE = float(os.getenv("STOP_LOSS_PERCENTAGE", "-0.05"))  # -5% stop loss (tighter to preserve capital)
+SCAN_INTERVAL_SECONDS = int(os.getenv("SCAN_INTERVAL_SECONDS", "30"))  # 30 second intervals for faster response
+
+# Advanced Profit Strategy
+TRAILING_STOP_ENABLED = True  # Enable trailing stop to lock in profits
+TRAILING_STOP_PERCENTAGE = float(os.getenv("TRAILING_STOP_PERCENTAGE", "0.10"))  # 10% trailing stop
+QUICK_PROFIT_TARGET = float(os.getenv("QUICK_PROFIT_TARGET", "0.05"))  # 5% quick profit for fast exit
+QUICK_PROFIT_TIME_MINUTES = int(os.getenv("QUICK_PROFIT_TIME_MINUTES", "5"))  # Take quick profit within 5 minutes
+
+# Profit-Only Mode Settings
+PROFIT_ONLY_MODE = True  # Only sell when profitable (except for stop loss)
+MIN_HOLD_TIME_MINUTES = int(os.getenv("MIN_HOLD_TIME_MINUTES", "2"))  # Minimum hold time before selling
+MAX_HOLD_TIME_HOURS = int(os.getenv("MAX_HOLD_TIME_HOURS", "6"))  # Maximum hold time before forced exit
+
+# AI Decision Parameters - Balanced for Demo and Live Trading
+AI_CONFIDENCE_THRESHOLD = float(os.getenv("AI_CONFIDENCE_THRESHOLD", "0.60"))  # Reduced to 60% for more opportunities
+VOLUME_MOMENTUM_FACTOR = float(os.getenv("VOLUME_MOMENTUM_FACTOR", "1.0"))  # Reduced volume requirement
+LIQUIDITY_SAFETY_MULTIPLIER = float(os.getenv("LIQUIDITY_SAFETY_MULTIPLIER", "1.5"))  # Reduced liquidity requirement
+
+# Demo Mode Adjustments
+DEMO_MODE_RELAXED_CRITERIA = True  # Enable relaxed criteria for demo mode
 
 # Dynamic Allocation Settings
 DYNAMIC_ALLOCATION_ENABLED = True  # Enable dynamic allocation for high-confidence trades

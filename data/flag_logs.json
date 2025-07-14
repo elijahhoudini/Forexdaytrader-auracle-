@@ -19,5 +19,1569 @@
       "scanner_id": 1,
       "quality_score": 45.142
     }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:44:33.651258",
+    "flagged_mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+      "name": "PayPal USD",
+      "symbol": "PYUSD",
+      "decimals": 6,
+      "liquidity": 91294,
+      "volume24h": 20737,
+      "priceChange24h": 12.587701992117665,
+      "source": "Jupiter",
+      "logoURI": "https://424565.fs1.hubspotusercontent-na1.net/hubfs/424565/PYUSDLOGO.png",
+      "verified": [
+        "community",
+        "token-2022"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:44:33.651880",
+    "flagged_mint": "5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm",
+      "name": "Infinity",
+      "symbol": "INF",
+      "decimals": 9,
+      "liquidity": 97401,
+      "volume24h": 20165,
+      "priceChange24h": 6.108408042831712,
+      "source": "Jupiter",
+      "logoURI": "https://cloudflare-ipfs.com/ipfs/bafkreiflz2xxkfn33qjch2wj55bvbn33q3s4mmb6bye5pt3mpgy4t2wg4e",
+      "verified": [
+        "old-registry"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:44:33.652316",
+    "flagged_mint": "CATTzAwLyADd2ekzVjTjX8tVUBYfrozdkJBkutJggdB7",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "CATTzAwLyADd2ekzVjTjX8tVUBYfrozdkJBkutJggdB7",
+      "name": "CatDog",
+      "symbol": "CATDOG",
+      "decimals": 8,
+      "liquidity": 55283,
+      "volume24h": 42574,
+      "priceChange24h": 5.7757964083195965,
+      "source": "Jupiter",
+      "logoURI": "https://arweave.net/NXpl4sd9v7OZOekpRcmcnyN8rMZEI84W2-yjlI3at14",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:44:33.652761",
+    "flagged_mint": "HypqSbWbQjKGFDxCCpa6ZKVNbGvuomA2tnRK2PHBBkSm",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "HypqSbWbQjKGFDxCCpa6ZKVNbGvuomA2tnRK2PHBBkSm",
+      "name": "thumb  dog",
+      "symbol": "thumb",
+      "decimals": 6,
+      "liquidity": 53186,
+      "volume24h": 40121,
+      "priceChange24h": 0.3627474330795586,
+      "source": "Jupiter",
+      "logoURI": "https://olive-quiet-hippopotamus-631.mypinata.cloud/ipfs/QmQgWvDUoW7o5y6BHjQryFXTP8YDEYuURSdo677mZwXVcS",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.610715",
+    "flagged_mint": "5mbK36SZ7J19An8jFochhQS4of8g6BwUjbeCSxBSoWdp",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "5mbK36SZ7J19An8jFochhQS4of8g6BwUjbeCSxBSoWdp",
+      "name": "michi",
+      "symbol": "$michi",
+      "decimals": 6,
+      "liquidity": 86303,
+      "volume24h": 23111,
+      "priceChange24h": 13.417432976384227,
+      "source": "Jupiter",
+      "logoURI": "https://i.ibb.co/GxG0314/5mb-K36-SZ7-J19-An8j-Fochh-QS4of8g6-Bw-Ujbe-CSx-BSo-Wdp.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.611453",
+    "flagged_mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+      "name": "Wrapped BTC (Portal)",
+      "symbol": "WBTC",
+      "decimals": 8,
+      "liquidity": 97215,
+      "volume24h": 36541,
+      "priceChange24h": 13.18506129276387,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-token-list/main/assets/WBTC_wh.png",
+      "verified": [
+        "wormhole",
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.612036",
+    "flagged_mint": "Faf89929Ni9fbg4gmVZTca7eW6NFg877Jqn6MizT3Gvw",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "Faf89929Ni9fbg4gmVZTca7eW6NFg877Jqn6MizT3Gvw",
+      "name": "LandWolf",
+      "symbol": "WOLF",
+      "decimals": 8,
+      "liquidity": 97898,
+      "volume24h": 32178,
+      "priceChange24h": 2.7437317271874377,
+      "source": "Jupiter",
+      "logoURI": "https://ipfs.io/ipfs/QmSFSkXjqqoMoZTXahkn9uhNFKMnyCXqih6qwpRGBFC1AN?filename=LandWolf.jpg",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.612586",
+    "flagged_mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
+      "name": "MANEKI",
+      "symbol": "MANEKI",
+      "decimals": 5,
+      "liquidity": 70642,
+      "volume24h": 26438,
+      "priceChange24h": 15.990323311266017,
+      "source": "Jupiter",
+      "logoURI": "https://img.fotofolio.xyz/?url=https%3A%2F%2Fi.ibb.co%2FJnz56gp%2FManeki-PFP.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.613188",
+    "flagged_mint": "9WPTUkh8fKuCnepRWoPYLH3aK9gSjPHFDenBq2X1Czdp",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "9WPTUkh8fKuCnepRWoPYLH3aK9gSjPHFDenBq2X1Czdp",
+      "name": "SelfieDogCoin",
+      "symbol": "SELFIE",
+      "decimals": 6,
+      "liquidity": 62992,
+      "volume24h": 44975,
+      "priceChange24h": 1.4223922313703525,
+      "source": "Jupiter",
+      "logoURI": "https://cf-ipfs.com/ipfs/QmcrXYhDD6mcCWziAZfmMp9zwv1RvMAXaShBHEQzQjpaRj",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.613784",
+    "flagged_mint": "6ogzHhzdrQr9Pgv6hZ2MNze7UrzBMAFyBBWUYp1Fhitx",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "6ogzHhzdrQr9Pgv6hZ2MNze7UrzBMAFyBBWUYp1Fhitx",
+      "name": "RETARDIO",
+      "symbol": "RETARDIO",
+      "decimals": 6,
+      "liquidity": 69393,
+      "volume24h": 48037,
+      "priceChange24h": 15.219210575883999,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreidx64y72zvdmaysswocovwowtjlxjnh26qh62edql5gmp5rpo5gpm.ipfs.nftstorage.link",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.614481",
+    "flagged_mint": "GkYA8QhoWn1mzjtB1rW8sBvU2QKfXYT7LrxbWgmKg288",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "GkYA8QhoWn1mzjtB1rW8sBvU2QKfXYT7LrxbWgmKg288",
+      "name": "Pocket Shot\ud83d\udca5",
+      "symbol": "PCKT",
+      "decimals": 6,
+      "liquidity": 64531,
+      "volume24h": 42493,
+      "priceChange24h": 10.489231457541635,
+      "source": "Jupiter",
+      "logoURI": "https://gateway.pinata.cloud/ipfs/QmeKSAVN5krUVGx2Xatwa1xuVir22xpZCuWygE7vuJ5Zf1",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.615209",
+    "flagged_mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+      "name": "USDT",
+      "symbol": "USDT",
+      "decimals": 6,
+      "liquidity": 90486,
+      "volume24h": 40840,
+      "priceChange24h": -9.058695736327707,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg",
+      "verified": [
+        "old-registry",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:45:22.616078",
+    "flagged_mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      "name": "Bonk",
+      "symbol": "Bonk",
+      "decimals": 5,
+      "liquidity": 94104,
+      "volume24h": 23074,
+      "priceChange24h": -9.071375284554822,
+      "source": "Jupiter",
+      "logoURI": "https://arweave.net/hQiPZOsRZXGXBJd_82PhVdlM_hACsT_q6wqwf5cSY7I?ext=png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:46:11.972182",
+    "flagged_mint": "MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5",
+      "name": "cat in a dogs world",
+      "symbol": "MEW",
+      "decimals": 5,
+      "liquidity": 82398,
+      "volume24h": 34548,
+      "priceChange24h": 0.03970737174396888,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreidlwyr565dxtao2ipsze6bmzpszqzybz7sqi2zaet5fs7k53henju.ipfs.nftstorage.link/",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:46:11.973271",
+    "flagged_mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+      "name": "JITO",
+      "symbol": "JTO",
+      "decimals": 9,
+      "liquidity": 96058,
+      "volume24h": 30149,
+      "priceChange24h": 16.740636151022933,
+      "source": "Jupiter",
+      "logoURI": "https://metadata.jito.network/token/jto/image",
+      "verified": [
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:46:11.974152",
+    "flagged_mint": "WENWENvqqNya429ubCdR81ZmD69brwQaaBYY6p3LCpk",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "WENWENvqqNya429ubCdR81ZmD69brwQaaBYY6p3LCpk",
+      "name": "Wen",
+      "symbol": "WEN",
+      "decimals": 5,
+      "liquidity": 88391,
+      "volume24h": 36098,
+      "priceChange24h": 2.726195359600677,
+      "source": "Jupiter",
+      "logoURI": "https://shdw-drive.genesysgo.net/GwJapVHVvfM4Mw4sWszkzywncUWuxxPd6s9VuFfXRgie/wen_logo.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:46:11.975061",
+    "flagged_mint": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
+      "name": "Render Token",
+      "symbol": "RENDER",
+      "decimals": 8,
+      "liquidity": 67810,
+      "volume24h": 35909,
+      "priceChange24h": 4.2931227271647465,
+      "source": "Jupiter",
+      "logoURI": "https://shdw-drive.genesysgo.net/5zseP54TGrcz9C8HdjZwJJsZ6f3VbP11p1abwKWGykZH/rndr.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:46:11.975964",
+    "flagged_mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+      "name": "Popcat",
+      "symbol": "POPCAT",
+      "decimals": 9,
+      "liquidity": 94047,
+      "volume24h": 37358,
+      "priceChange24h": -4.374119097194264,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreidvkvuzyslw5jh5z242lgzwzhbi2kxxnpkic5wsvyno5ikvpr7reu.ipfs.nftstorage.link",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:46:11.976871",
+    "flagged_mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+      "name": "Jupiter",
+      "symbol": "JUP",
+      "decimals": 6,
+      "liquidity": 58119,
+      "volume24h": 34977,
+      "priceChange24h": -8.29054534762879,
+      "source": "Jupiter",
+      "logoURI": "https://static.jup.ag/jup/icon.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:47:00.579249",
+    "flagged_mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+      "name": "Jito Staked SOL",
+      "symbol": "JitoSOL",
+      "decimals": 9,
+      "liquidity": 72383,
+      "volume24h": 41860,
+      "priceChange24h": 7.5514283859554645,
+      "source": "Jupiter",
+      "logoURI": "https://storage.googleapis.com/token-metadata/JitoSOL-256.png",
+      "verified": [
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:47:00.580464",
+    "flagged_mint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v",
+      "name": "Jupiter Staked SOL",
+      "symbol": "JupSOL",
+      "decimals": 9,
+      "liquidity": 75647,
+      "volume24h": 22552,
+      "priceChange24h": 0.4265049231990439,
+      "source": "Jupiter",
+      "logoURI": "https://static.jup.ag/jupSOL/icon.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:47:00.581591",
+    "flagged_mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
+      "name": "Neiro",
+      "symbol": "Neiro",
+      "decimals": 6,
+      "liquidity": 77456,
+      "volume24h": 38838,
+      "priceChange24h": 19.42725042859297,
+      "source": "Jupiter",
+      "logoURI": "https://cf-ipfs.com/ipfs/QmWbaunQb25LtkEJLUgaXEseUviG1JdSdWB2xpcymw4zue",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:47:49.079142",
+    "flagged_mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+      "name": "dogwifhat",
+      "symbol": "$WIF",
+      "decimals": 6,
+      "liquidity": 53703,
+      "volume24h": 33833,
+      "priceChange24h": 17.443127760957438,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreibk3covs5ltyqxa272uodhculbr6kea6betidfwy3ajsav2vjzyum.ipfs.nftstorage.link",
+      "verified": [
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_194429",
+    "timestamp": "2025-07-14T19:47:49.080665",
+    "flagged_mint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
+      "name": "aura",
+      "symbol": "aura",
+      "decimals": 6,
+      "liquidity": 58530,
+      "volume24h": 42508,
+      "priceChange24h": 3.820682544150536,
+      "source": "Jupiter",
+      "logoURI": "https://ipfs.io/ipfs/QmSBgFtpXnxLMeyU1Czs1PW5Zv7nFjy8ZXe5ZDhA8fyyPD",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.079178",
+    "flagged_mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "liquidity": 85993,
+      "volume24h": 35969,
+      "priceChange24h": 10.712241603523168,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v/logo.png",
+      "verified": [
+        "old-registry",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.080509",
+    "flagged_mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+      "name": "Popcat",
+      "symbol": "POPCAT",
+      "decimals": 9,
+      "liquidity": 88519,
+      "volume24h": 40148,
+      "priceChange24h": 19.155562893505326,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreidvkvuzyslw5jh5z242lgzwzhbi2kxxnpkic5wsvyno5ikvpr7reu.ipfs.nftstorage.link",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.081669",
+    "flagged_mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
+      "name": "Jupiter Perps",
+      "symbol": "JLP",
+      "decimals": 6,
+      "liquidity": 98993,
+      "volume24h": 27202,
+      "priceChange24h": 2.456995745721411,
+      "source": "Jupiter",
+      "logoURI": "https://static.jup.ag/jlp/icon.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.082840",
+    "flagged_mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+      "name": "Mumu the Bull",
+      "symbol": "MUMU",
+      "decimals": 6,
+      "liquidity": 75222,
+      "volume24h": 30477,
+      "priceChange24h": 13.84123606319119,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreihszutctvdmdlyjtzfmj7rgvdorpc7jchj2td3feypc7veidbkpsu.ipfs.nftstorage.link",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.084043",
+    "flagged_mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "3NZ9JMVBmGAqocybic2c7LQCJScmgsAZ6vQqTDzcqmJh",
+      "name": "Wrapped BTC (Portal)",
+      "symbol": "WBTC",
+      "decimals": 8,
+      "liquidity": 83637,
+      "volume24h": 26861,
+      "priceChange24h": 3.827825482056472,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-token-list/main/assets/WBTC_wh.png",
+      "verified": [
+        "wormhole",
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.085349",
+    "flagged_mint": "Faf89929Ni9fbg4gmVZTca7eW6NFg877Jqn6MizT3Gvw",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "Faf89929Ni9fbg4gmVZTca7eW6NFg877Jqn6MizT3Gvw",
+      "name": "LandWolf",
+      "symbol": "WOLF",
+      "decimals": 8,
+      "liquidity": 94595,
+      "volume24h": 44060,
+      "priceChange24h": 19.565631083445552,
+      "source": "Jupiter",
+      "logoURI": "https://ipfs.io/ipfs/QmSFSkXjqqoMoZTXahkn9uhNFKMnyCXqih6qwpRGBFC1AN?filename=LandWolf.jpg",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.086953",
+    "flagged_mint": "BZLbGTNCSFfoth2GYDtwr7e4imWzpR5jqcUuGEwr646K",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "BZLbGTNCSFfoth2GYDtwr7e4imWzpR5jqcUuGEwr646K",
+      "name": "IO",
+      "symbol": "IO",
+      "decimals": 8,
+      "liquidity": 72850,
+      "volume24h": 20008,
+      "priceChange24h": 7.139107789013764,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreicnqsbhpzxiasdm5esr7fqi3vcjvcbfefo4sq4y3ff747rfqf7w7i.ipfs.nftstorage.link",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:51:29.088639",
+    "flagged_mint": "MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "MEW1gQWJ3nEXg2qgERiKu7FAFj79PHvQVREQUzScPP5",
+      "name": "cat in a dogs world",
+      "symbol": "MEW",
+      "decimals": 5,
+      "liquidity": 98381,
+      "volume24h": 46522,
+      "priceChange24h": -1.0429408987863908,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreidlwyr565dxtao2ipsze6bmzpszqzybz7sqi2zaet5fs7k53henju.ipfs.nftstorage.link/",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:52:17.585966",
+    "flagged_mint": "So11111111111111111111111111111111111111112",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "So11111111111111111111111111111111111111112",
+      "name": "Wrapped SOL",
+      "symbol": "SOL",
+      "decimals": 9,
+      "liquidity": 70942,
+      "volume24h": 43215,
+      "priceChange24h": 9.364645272584063,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/So11111111111111111111111111111111111111112/logo.png",
+      "verified": [
+        "old-registry"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:52:17.587702",
+    "flagged_mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB",
+      "name": "USDT",
+      "symbol": "USDT",
+      "decimals": 6,
+      "liquidity": 65684,
+      "volume24h": 30672,
+      "priceChange24h": 4.69011384841496,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/Es9vMFrzaCERmJfrF4H2FYD4KCoNkY11McCe8BenwNYB/logo.svg",
+      "verified": [
+        "old-registry",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:52:17.589185",
+    "flagged_mint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "jupSoLaHXQiZZTSfEWMTRRgpnyFm8f6sZdosWBjx93v",
+      "name": "Jupiter Staked SOL",
+      "symbol": "JupSOL",
+      "decimals": 9,
+      "liquidity": 99134,
+      "volume24h": 25963,
+      "priceChange24h": 9.48917924954511,
+      "source": "Jupiter",
+      "logoURI": "https://static.jup.ag/jupSOL/icon.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:52:17.590657",
+    "flagged_mint": "5mbK36SZ7J19An8jFochhQS4of8g6BwUjbeCSxBSoWdp",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "5mbK36SZ7J19An8jFochhQS4of8g6BwUjbeCSxBSoWdp",
+      "name": "michi",
+      "symbol": "$michi",
+      "decimals": 6,
+      "liquidity": 95506,
+      "volume24h": 39663,
+      "priceChange24h": 9.027545614543676,
+      "source": "Jupiter",
+      "logoURI": "https://i.ibb.co/GxG0314/5mb-K36-SZ7-J19-An8j-Fochh-QS4of8g6-Bw-Ujbe-CSx-BSo-Wdp.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:52:17.592230",
+    "flagged_mint": "4vBGqbM9SbBHo1bfJgTZs62e9WzkucigSVPkVNPSWDKK",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "4vBGqbM9SbBHo1bfJgTZs62e9WzkucigSVPkVNPSWDKK",
+      "name": "Dildo Tape Wall",
+      "symbol": "DTW",
+      "decimals": 6,
+      "liquidity": 67651,
+      "volume24h": 46923,
+      "priceChange24h": 0.9231088809028236,
+      "source": "Jupiter",
+      "logoURI": "https://gateway.pinata.cloud/ipfs/QmUMWVuyQgfhyttXKTRdQ4BVBm1EyvECnq5A8u3Nq6i578",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:52:17.593905",
+    "flagged_mint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "DtR4D9FtVoTX2569gaL837ZgrB6wNjj6tkmnX9Rdk9B2",
+      "name": "aura",
+      "symbol": "aura",
+      "decimals": 6,
+      "liquidity": 79022,
+      "volume24h": 21100,
+      "priceChange24h": 16.986591944478818,
+      "source": "Jupiter",
+      "logoURI": "https://ipfs.io/ipfs/QmSBgFtpXnxLMeyU1Czs1PW5Zv7nFjy8ZXe5ZDhA8fyyPD",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:06.183155",
+    "flagged_mint": "GinNabffZL4fUj9Vactxha74GDAW8kDPGaHqMtMzps2f",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "GinNabffZL4fUj9Vactxha74GDAW8kDPGaHqMtMzps2f",
+      "name": "Ginnan Doge's Sister",
+      "symbol": "GINNAN",
+      "decimals": 6,
+      "liquidity": 86238,
+      "volume24h": 43998,
+      "priceChange24h": 8.145047036625776,
+      "source": "Jupiter",
+      "logoURI": "https://arweave.net/7cny9RwsBTSiwEQnhhN0jO9wVMrMfCLv-qvEDv-tsIg",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:06.184884",
+    "flagged_mint": "5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "5oVNBeEEQvYi1cX3ir8Dx5n1P7pdxydbGF2X4TxVusJm",
+      "name": "Infinity",
+      "symbol": "INF",
+      "decimals": 9,
+      "liquidity": 75830,
+      "volume24h": 39274,
+      "priceChange24h": 6.130860654081388,
+      "source": "Jupiter",
+      "logoURI": "https://cloudflare-ipfs.com/ipfs/bafkreiflz2xxkfn33qjch2wj55bvbn33q3s4mmb6bye5pt3mpgy4t2wg4e",
+      "verified": [
+        "old-registry"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:06.186458",
+    "flagged_mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "jtojtomepa8beP8AuQc6eXt5FriJwfFMwQx2v2f9mCL",
+      "name": "JITO",
+      "symbol": "JTO",
+      "decimals": 9,
+      "liquidity": 73785,
+      "volume24h": 24957,
+      "priceChange24h": 8.171264431124861,
+      "source": "Jupiter",
+      "logoURI": "https://metadata.jito.network/token/jto/image",
+      "verified": [
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:06.188299",
+    "flagged_mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "2b1kV6DkPAnxd5ixfnxCpjxmKwqjjaYmCZfHsFu24GXo",
+      "name": "PayPal USD",
+      "symbol": "PYUSD",
+      "decimals": 6,
+      "liquidity": 75362,
+      "volume24h": 43127,
+      "priceChange24h": -4.669239536277811,
+      "source": "Jupiter",
+      "logoURI": "https://424565.fs1.hubspotusercontent-na1.net/hubfs/424565/PYUSDLOGO.png",
+      "verified": [
+        "community",
+        "token-2022"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:06.190132",
+    "flagged_mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+      "name": "Jupiter",
+      "symbol": "JUP",
+      "decimals": 6,
+      "liquidity": 82971,
+      "volume24h": 47051,
+      "priceChange24h": -7.030597527061451,
+      "source": "Jupiter",
+      "logoURI": "https://static.jup.ag/jup/icon.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:55.278157",
+    "flagged_mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "EKpQGSJtjMFqKZ9KQanSqYXRcF8fBopzLHYxdM65zcjm",
+      "name": "dogwifhat",
+      "symbol": "$WIF",
+      "decimals": 6,
+      "liquidity": 68220,
+      "volume24h": 42765,
+      "priceChange24h": 2.807014392480095,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreibk3covs5ltyqxa272uodhculbr6kea6betidfwy3ajsav2vjzyum.ipfs.nftstorage.link",
+      "verified": [
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:55.280301",
+    "flagged_mint": "CATTzAwLyADd2ekzVjTjX8tVUBYfrozdkJBkutJggdB7",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "CATTzAwLyADd2ekzVjTjX8tVUBYfrozdkJBkutJggdB7",
+      "name": "CatDog",
+      "symbol": "CATDOG",
+      "decimals": 8,
+      "liquidity": 65460,
+      "volume24h": 26736,
+      "priceChange24h": 5.765670295441044,
+      "source": "Jupiter",
+      "logoURI": "https://arweave.net/NXpl4sd9v7OZOekpRcmcnyN8rMZEI84W2-yjlI3at14",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:55.282109",
+    "flagged_mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "25hAyBQfoDhfWx9ay6rarbgvWGwDdNqcHsXS3jQ3mTDJ",
+      "name": "MANEKI",
+      "symbol": "MANEKI",
+      "decimals": 5,
+      "liquidity": 55477,
+      "volume24h": 27818,
+      "priceChange24h": 1.2019379283276308,
+      "source": "Jupiter",
+      "logoURI": "https://img.fotofolio.xyz/?url=https%3A%2F%2Fi.ibb.co%2FJnz56gp%2FManeki-PFP.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:55.284034",
+    "flagged_mint": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "rndrizKT3MK1iimdxRdWabcF7Zg7AR5T4nud4EkHBof",
+      "name": "Render Token",
+      "symbol": "RENDER",
+      "decimals": 8,
+      "liquidity": 99468,
+      "volume24h": 33717,
+      "priceChange24h": 15.943798668185579,
+      "source": "Jupiter",
+      "logoURI": "https://shdw-drive.genesysgo.net/5zseP54TGrcz9C8HdjZwJJsZ6f3VbP11p1abwKWGykZH/rndr.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:53:55.286319",
+    "flagged_mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "J1toso1uCk3RLmjorhTtrVwY9HJ7X8V9yYac6Y7kGCPn",
+      "name": "Jito Staked SOL",
+      "symbol": "JitoSOL",
+      "decimals": 9,
+      "liquidity": 49306,
+      "volume24h": 27075,
+      "priceChange24h": 7.2272511632056045,
+      "source": "Jupiter",
+      "logoURI": "https://storage.googleapis.com/token-metadata/JitoSOL-256.png",
+      "verified": [
+        "community",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.65,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:54:43.707991",
+    "flagged_mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So",
+      "name": "Marinade staked SOL (mSOL)",
+      "symbol": "mSOL",
+      "decimals": 9,
+      "liquidity": 87852,
+      "volume24h": 45556,
+      "priceChange24h": 0.37861422048329274,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/mSoLzYCxHdYgdzU16g5QSh3i5K3z3KZK7ytfqcJm7So/logo.png",
+      "verified": [
+        "old-registry",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:54:43.710059",
+    "flagged_mint": "3S8qX1MsMqRbiwKg2cQyx7nis1oHMgaCuc9c4VfvVdPN",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "3S8qX1MsMqRbiwKg2cQyx7nis1oHMgaCuc9c4VfvVdPN",
+      "name": "MOTHER IGGY",
+      "symbol": "MOTHER",
+      "decimals": 6,
+      "liquidity": 78157,
+      "volume24h": 45561,
+      "priceChange24h": 15.893816168153535,
+      "source": "Jupiter",
+      "logoURI": "https://cf-ipfs.com/ipfs/QmUFTFWsJiceS99iDMDm2NYuhvHXJVXTgmsDeR28X8njSn",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:55:32.315689",
+    "flagged_mint": "6ogzHhzdrQr9Pgv6hZ2MNze7UrzBMAFyBBWUYp1Fhitx",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "6ogzHhzdrQr9Pgv6hZ2MNze7UrzBMAFyBBWUYp1Fhitx",
+      "name": "RETARDIO",
+      "symbol": "RETARDIO",
+      "decimals": 6,
+      "liquidity": 91067,
+      "volume24h": 45838,
+      "priceChange24h": 16.175835596546804,
+      "source": "Jupiter",
+      "logoURI": "https://bafkreidx64y72zvdmaysswocovwowtjlxjnh26qh62edql5gmp5rpo5gpm.ipfs.nftstorage.link",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:56:20.287145",
+    "flagged_mint": "GkYA8QhoWn1mzjtB1rW8sBvU2QKfXYT7LrxbWgmKg288",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "GkYA8QhoWn1mzjtB1rW8sBvU2QKfXYT7LrxbWgmKg288",
+      "name": "Pocket Shot\ud83d\udca5",
+      "symbol": "PCKT",
+      "decimals": 6,
+      "liquidity": 67521,
+      "volume24h": 32959,
+      "priceChange24h": 9.287727511604853,
+      "source": "Jupiter",
+      "logoURI": "https://gateway.pinata.cloud/ipfs/QmeKSAVN5krUVGx2Xatwa1xuVir22xpZCuWygE7vuJ5Zf1",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:57:08.673595",
+    "flagged_mint": "9WPTUkh8fKuCnepRWoPYLH3aK9gSjPHFDenBq2X1Czdp",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "9WPTUkh8fKuCnepRWoPYLH3aK9gSjPHFDenBq2X1Czdp",
+      "name": "SelfieDogCoin",
+      "symbol": "SELFIE",
+      "decimals": 6,
+      "liquidity": 73359,
+      "volume24h": 43679,
+      "priceChange24h": 18.882247914656453,
+      "source": "Jupiter",
+      "logoURI": "https://cf-ipfs.com/ipfs/QmcrXYhDD6mcCWziAZfmMp9zwv1RvMAXaShBHEQzQjpaRj",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:57:08.676058",
+    "flagged_mint": "WENWENvqqNya429ubCdR81ZmD69brwQaaBYY6p3LCpk",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "WENWENvqqNya429ubCdR81ZmD69brwQaaBYY6p3LCpk",
+      "name": "Wen",
+      "symbol": "WEN",
+      "decimals": 5,
+      "liquidity": 84692,
+      "volume24h": 48259,
+      "priceChange24h": 16.455714507629438,
+      "source": "Jupiter",
+      "logoURI": "https://shdw-drive.genesysgo.net/GwJapVHVvfM4Mw4sWszkzywncUWuxxPd6s9VuFfXRgie/wen_logo.png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T19:57:58.956854",
+    "flagged_mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "DezXAZ8z7PnrnRJjz3wXBoRgixCa6xjnB7YaB1pPB263",
+      "name": "Bonk",
+      "symbol": "Bonk",
+      "decimals": 5,
+      "liquidity": 70257,
+      "volume24h": 32472,
+      "priceChange24h": 18.610576322739135,
+      "source": "Jupiter",
+      "logoURI": "https://arweave.net/hQiPZOsRZXGXBJd_82PhVdlM_hACsT_q6wqwf5cSY7I?ext=png",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T20:00:23.149108",
+    "flagged_mint": "bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1",
+      "name": "BlazeStake Staked SOL (bSOL)",
+      "symbol": "bSOL",
+      "decimals": 9,
+      "liquidity": 75045,
+      "volume24h": 26827,
+      "priceChange24h": 18.37792336243014,
+      "source": "Jupiter",
+      "logoURI": "https://raw.githubusercontent.com/solana-labs/token-list/main/assets/mainnet/bSo13r4TkiE4KumL71LsHTPpL2euBYLFx6h9HP3piy1/logo.png",
+      "verified": [
+        "old-registry",
+        "solana-fm"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T20:00:23.151438",
+    "flagged_mint": "5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC",
+      "name": "PONKE",
+      "symbol": "PONKE",
+      "decimals": 9,
+      "liquidity": 50035,
+      "volume24h": 38497,
+      "priceChange24h": -6.358977354205901,
+      "source": "Jupiter",
+      "logoURI": "https://gateway.irys.xyz/YBMDVBvnfgO1gXCSmmc8p0RQhc69WWe8_kOkoT8w7nE",
+      "verified": [
+        "community"
+      ],
+      "opportunity_score": 0.7000000000000001,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "DIP_OPPORTUNITY",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T20:01:17.546339",
+    "flagged_mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
+      "name": "Neiro",
+      "symbol": "Neiro",
+      "decimals": 6,
+      "liquidity": 60389,
+      "volume24h": 32602,
+      "priceChange24h": 5.89380446079344,
+      "source": "Jupiter",
+      "logoURI": "https://cf-ipfs.com/ipfs/QmWbaunQb25LtkEJLUgaXEseUviG1JdSdWB2xpcymw4zue",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
+  },
+  {
+    "session_id": "20250714_195125",
+    "timestamp": "2025-07-14T20:02:06.159931",
+    "flagged_mint": "HypqSbWbQjKGFDxCCpa6ZKVNbGvuomA2tnRK2PHBBkSm",
+    "flag_reason": "Risk assessment failed: Too few holders: 0",
+    "token_data": {
+      "mint": "HypqSbWbQjKGFDxCCpa6ZKVNbGvuomA2tnRK2PHBBkSm",
+      "name": "thumb  dog",
+      "symbol": "thumb",
+      "decimals": 6,
+      "liquidity": 92677,
+      "volume24h": 49077,
+      "priceChange24h": 6.35067494363777,
+      "source": "Jupiter",
+      "logoURI": "https://olive-quiet-hippopotamus-631.mypinata.cloud/ipfs/QmQgWvDUoW7o5y6BHjQryFXTP8YDEYuURSdo677mZwXVcS",
+      "verified": [
+        "unknown"
+      ],
+      "opportunity_score": 0.75,
+      "risk_level": "LOW",
+      "trading_signals": [
+        "HIGH_VOLUME",
+        "BULLISH_MOMENTUM",
+        "LOW_RISK"
+      ]
+    }
   }
 ]

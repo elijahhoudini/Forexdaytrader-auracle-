@@ -18,6 +18,7 @@ python-dotenv>=1.0.0
 base58>=2.1.0
 anchorpy>=0.20.1
 anchorpy-core>=0.2.0
+aiofiles>=23.0.0
 
 # Additional dependencies from AnotherRusty's bot
 anyio>=4.6.0
