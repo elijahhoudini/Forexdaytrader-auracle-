@@ -1,10 +1,23 @@
-# AURACLE: Autonomous AI Solana Trading Bot
+# AURACLE + Solana Trading Bot: Unified Trading Platform
 
-🤖 **AURACLE** is an autonomous AI-powered Solana trading bot designed for Traveler 5798. It features automated token discovery, risk assessment, and intelligent trading execution on the Solana blockchain.
+🤖 **AURACLE** is an autonomous AI-powered Solana trading bot with an integrated Telegram-based Solana Trading Bot. This unified platform combines automated token discovery, risk assessment, and intelligent trading execution on the Solana blockchain with comprehensive Telegram-based controls.
+
+## 🎯 Two Bot Modes
+
+### 1. AURACLE Bot (Autonomous Mode)
+- **Fully Autonomous**: Automated trading with minimal user intervention
+- **AI-Powered**: Intelligent token discovery and risk assessment
+- **Advanced Risk Management**: Multi-layered fraud detection and safety mechanisms
+
+### 2. Solana Trading Bot (Telegram Mode)
+- **Telegram Interface**: Full bot control via Telegram commands
+- **Multi-DEX Trading**: Buy and sell across multiple Solana DEXs
+- **Advanced Features**: Sniping, limit orders, portfolio tracking, and more
+- **User-Controlled**: Manual trading decisions with bot assistance
 
 ## 🎯 Features
 
-### Core Functionality
+### AURACLE Bot Features
 - **Autonomous Trading**: Fully automated buy/sell operations with configurable parameters
 - **Token Discovery**: Multi-DEX scanning for new tokens and trading opportunities
 - **Risk Management**: Advanced fraud detection and safety mechanisms
@@ -12,7 +25,16 @@
 - **Comprehensive Logging**: Detailed trade, error, and performance logging
 - **Telegram Integration**: Live mode control and trade notifications via Telegram
 
-### Safety Features
+### Solana Trading Bot Features
+- **Telegram Interface**: Complete bot control via Telegram commands
+- **Sniping Features**: Automatically monitor and execute trades on newly listed tokens
+- **Multi-DEX Trading**: Buy and sell tokens across multiple decentralized exchanges
+- **Limit Orders**: Set custom buy/sell price limits for automated execution
+- **Portfolio Management**: Track wallet portfolio with real-time updates
+- **Referral System**: Built-in referral system for user engagement
+- **Token Watchlist**: Create and maintain watchlists to monitor price changes
+
+### Safety Features (Both Bots)
 - **Demo Mode**: Safe trading simulation (enabled by default)
 - **Blacklist Management**: Permanent and temporary token blacklisting
 - **Fraud Detection**: Pattern-based suspicious token identification
@@ -29,16 +51,27 @@
 
 ## 🏗️ Architecture
 
-### Modular Design
+### Unified Architecture
 ```
-auracle.py          # Main system controller and trading loop
-├── wallet.py       # Wallet interface and transaction signing
-├── trade.py        # Trade execution engine and position management
-├── scanner.py      # Token discovery and opportunity detection
-├── risk.py         # Risk assessment and fraud detection
-├── logger.py       # Comprehensive logging system
-├── config.py       # Global configuration and constants
-└── data/           # Log files and data storage
+start_unified.py     # Main entry point - choose which bot to run
+├── AURACLE Bot/
+│   ├── auracle.py          # Main system controller and trading loop
+│   ├── wallet.py           # Wallet interface and transaction signing
+│   ├── trade.py            # Trade execution engine and position management
+│   ├── scanner.py          # Token discovery and opportunity detection
+│   ├── risk.py             # Risk assessment and fraud detection
+│   ├── logger.py           # Comprehensive logging system
+│   └── config.py           # Global configuration and constants
+├── Solana Trading Bot/
+│   └── src/solbot/
+│       ├── main.py         # Telegram bot main controller
+│       ├── callback_handlers/  # Telegram callback handlers
+│       ├── command_handlers/   # Telegram command handlers
+│       ├── message_handlers/   # Telegram message handlers
+│       ├── web3/              # Web3 and blockchain interactions
+│       ├── database/          # Database operations
+│       └── utils/             # Utility functions
+└── data/                   # Log files and data storage
     ├── trade_logs.json
     ├── error_logs.json
     ├── system_logs.json
@@ -49,11 +82,38 @@ auracle.py          # Main system controller and trading loop
 
 ### For Replit (Recommended - One-Click Setup)
 
+#### Option 1: AURACLE Bot (Autonomous)
 1. **Copy this repository to Replit**
    - Fork or import this repository to your Replit account
-   - That's it! Click the "Run" button to start the bot
+   - Click the "Run" button - it will start AURACLE bot by default
 
-2. **Optional: Configure Telegram control**
+#### Option 2: Solana Trading Bot (Telegram)
+1. **Copy this repository to Replit**
+   - Fork or import this repository to your Replit account
+   - Create a `.env` file from `.env.example` and configure your Telegram bot
+   - Run: `python start_unified.py --bot solbot`
+
+#### Option 3: Choose at Runtime
+1. **Copy this repository to Replit**
+   - Fork or import this repository to your Replit account
+   - Use the unified startup script: `python start_unified.py`
+   - Add `--bot auracle` or `--bot solbot` to choose which bot to run
+
+2. **Configure Environment Variables**
+   - Copy `.env.example` to `.env` and fill in your configuration
+   - Required for Telegram bot:
+     ```
+     TELEGRAM_BOT_TOKEN=your_telegram_bot_token
+     TELEGRAM_CHAT_ID=your_telegram_chat_id
+     ```
+   - Optional for enhanced features:
+     ```
+     PURCHASED_RPC=your_premium_rpc_endpoint
+     MORALIS_API_KEY=your_moralis_api_key
+     DATABASE_URI=your_database_connection_string
+     ```
+
+3. **Optional: Configure for live trading**
    - Go to "Secrets" tab in Replit
    - Add your Telegram bot configuration:
      ```
@@ -82,8 +142,8 @@ auracle.py          # Main system controller and trading loop
 
 1. **Clone the repository**
    ```bash
-   git clone https://github.com/elijahhoudini/Main-bot.git
-   cd Main-bot
+   git clone https://github.com/elijahhoudini/Final-.git
+   cd Final-
    ```
 
 2. **Install dependencies**
@@ -91,9 +151,22 @@ auracle.py          # Main system controller and trading loop
    pip install -r requirements.txt
    ```
 
-3. **Run the bot**
+3. **Configure environment**
    ```bash
-   python3 start.py
+   cp .env.example .env
+   # Edit .env with your configuration
+   ```
+
+4. **Run the bot**
+   ```bash
+   # Run AURACLE bot (autonomous)
+   python start_unified.py --bot auracle
+   
+   # Run Solana Trading Bot (Telegram)
+   python start_unified.py --bot solbot
+   
+   # Default (AURACLE)
+   python start_unified.py
    ```
 
 ### Default Configuration
