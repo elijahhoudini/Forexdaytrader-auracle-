@@ -225,15 +225,22 @@ def validate_config() -> bool:
     # Telegram configuration validation (now optional)
     if TELEGRAM_ENABLED:
         if not TELEGRAM_BOT_TOKEN:
-            print("❌ TELEGRAM_BOT_TOKEN required when TELEGRAM_ENABLED is true")
-            return False
+            if not get_demo_mode():
+                print("❌ TELEGRAM_BOT_TOKEN required when TELEGRAM_ENABLED is true and not in demo mode")
+                return False
+            else:
+                print("⚠️  TELEGRAM_BOT_TOKEN not set - disabling Telegram integration in demo mode")
+                # Disable Telegram in demo mode if token is missing
+                import os
+                os.environ["TELEGRAM_ENABLED"] = "false"
         if not TELEGRAM_CHAT_ID:
             print("⚠️  TELEGRAM_CHAT_ID not set - some features may not work")
-        if len(TELEGRAM_BOT_TOKEN) < 20:
+        if TELEGRAM_BOT_TOKEN and len(TELEGRAM_BOT_TOKEN) < 20:
             print("⚠️  TELEGRAM_BOT_TOKEN seems too short - check configuration")
-        print("✅ Telegram bot configured and enabled")
+        if TELEGRAM_ENABLED and TELEGRAM_BOT_TOKEN:
+            print("✅ Telegram bot configured and enabled")
     else:
-        print("ℹ️  Telegram integration disabled - suitable for local testing")
+        print("ℹ️  Telegram integration disabled - suitable for demo mode")
 
     # Wallet configuration validation
     if not get_demo_mode():
