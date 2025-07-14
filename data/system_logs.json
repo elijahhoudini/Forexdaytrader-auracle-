@@ -1535,5 +1535,30 @@
       "duration_seconds": 30.176017
     },
     "uptime_seconds": 30.176025
+  },
+  {
+    "session_id": "20250714_081933",
+    "timestamp": "2025-07-14T08:19:33.672959",
+    "message": "AURACLE initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.109442
+  },
+  {
+    "session_id": "20250714_081933",
+    "timestamp": "2025-07-14T08:19:33.675111",
+    "message": "AURACLE main loop starting",
+    "data": {},
+    "uptime_seconds": 0.111586
+  },
+  {
+    "session_id": "20250714_081933",
+    "timestamp": "2025-07-14T08:20:03.736988",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250714_081933",
+      "start_time": "2025-07-14T08:19:33.563530",
+      "duration_seconds": 30.173452
+    },
+    "uptime_seconds": 30.173459
   }
 ]

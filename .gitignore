@@ -123,3 +123,11 @@ Thumbs.db
 
 # Pip artifacts
 =*
+# Local development files
+.env.local
+launch_local.py
+data/logs/*
+data/backups/*
+*.local
+.vscode/
+.idea/

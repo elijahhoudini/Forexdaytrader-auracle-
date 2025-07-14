@@ -6,26 +6,40 @@ VENV = venv
 dev: $(VENV)/pyvenv.cfg
 
 .PHONY: run
-run: $(VENV)/pyvenv.cfg  ## run AURACLE bot by default
-	@. $(VENV)/bin/activate && python -u start_unified.py --bot auracle
+run: $(VENV)/pyvenv.cfg  ## run AURACLE bot by default (local mode)
+	@. $(VENV)/bin/activate && python -u start_local.py --bot auracle
 
 .PHONY: run-auracle
-run-auracle: $(VENV)/pyvenv.cfg  ## run AURACLE bot
-	@. $(VENV)/bin/activate && python -u start_unified.py --bot auracle
+run-auracle: $(VENV)/pyvenv.cfg  ## run AURACLE bot (local mode)
+	@. $(VENV)/bin/activate && python -u start_local.py --bot auracle
 
 .PHONY: run-solbot
-run-solbot: $(VENV)/pyvenv.cfg  ## run Solana Trading Bot (Telegram)
-	@. $(VENV)/bin/activate && PYTHONPATH=src/ python -u start_unified.py --bot solbot
+run-solbot: $(VENV)/pyvenv.cfg  ## run Solana Trading Bot (Telegram, local mode)
+	@. $(VENV)/bin/activate && python -u start_local.py --bot solbot
 
 .PHONY: test
-test: $(VENV)/pyvenv.cfg  ## run test bot with test configuration
-	@. $(VENV)/bin/activate && PYTHONPATH=src/ python -u src/solbot/web3/jito.py
+test: $(VENV)/pyvenv.cfg  ## run demo test (local mode)
+	@. $(VENV)/bin/activate && python -u start_local.py --test
 
-$(VENV)/pyvenv.cfg: requirements.txt  ## create python 3 virtual environment
+.PHONY: setup
+setup: $(VENV)/pyvenv.cfg  ## run local setup wizard
+	@. $(VENV)/bin/activate && python -u start_local.py --setup
+
+# Original unified startup (still supported)
+.PHONY: run-unified
+run-unified: $(VENV)/pyvenv.cfg  ## run with original unified startup
+	@. $(VENV)/bin/activate && python -u start_unified.py --bot auracle
+
+$(VENV)/pyvenv.cfg: requirements.local.txt  ## create python 3 virtual environment (local deps)
 	python3 -m venv $(VENV)
 	$(VENV)/bin/python -m pip install --upgrade pip
-	$(VENV)/bin/python -m pip install -r requirements.txt
-	$(VENV)/bin/python solbot_tasks.py fix-venv
+	$(VENV)/bin/python -m pip install -r requirements.local.txt
+	@echo "✅ Local development environment ready"
+
+.PHONY: install
+install:  ## install dependencies without virtual environment
+	python -m pip install --upgrade pip
+	python -m pip install -r requirements.local.txt
 
 .PHONY: dist
 dist:
@@ -33,14 +47,15 @@ dist:
 	$(VENV)/bin/python -m build --sdist
 
 .PHONY: solbot
-solbot:  ## run solbot in background
-	PYTHONPATH=src/ nohup python -u start_unified.py --bot solbot >> solbot.log 2>&1 &
+solbot:  ## run solbot in background (local mode)
+	nohup python -u start_local.py --bot solbot >> solbot.log 2>&1 &
 
 .PHONY: auracle
-auracle:  ## run AURACLE bot in background
-	nohup python -u start_unified.py --bot auracle >> auracle.log 2>&1 &
+auracle:  ## run AURACLE bot in background (local mode)
+	nohup python -u start_local.py --bot auracle >> auracle.log 2>&1 &
 
 kill:  ## kill running bot
+	pkill -U $$USER -f "start_local.py"
 	pkill -U $$USER -f "start_unified.py"
 	pkill -U $$USER -f "src/solbot/main.py"
 	pkill -U $$USER -f "make run"
@@ -52,6 +67,7 @@ clean:  ## clean up logs and temporary files
 	rm -rf build/
 	rm -rf dist/
 	rm -rf *.egg-info/
+	rm -rf data/logs/*
 	find . -name "__pycache__" -type d -exec rm -rf {} + 2>/dev/null || true
 
 .PHONY: help
