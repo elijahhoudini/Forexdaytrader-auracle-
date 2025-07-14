@@ -88,9 +88,9 @@ coverage.xml
 .pytest_cache
 .hypothesis
 
-# Replit files
-.replit
-replit.nix
+# Replit files - Keep these for deployment
+# .replit
+# replit.nix
 .config/
 .upm/
 

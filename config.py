@@ -231,8 +231,7 @@ def validate_config() -> bool:
             else:
                 print("⚠️  TELEGRAM_BOT_TOKEN not set - disabling Telegram integration in demo mode")
                 # Disable Telegram in demo mode if token is missing
-                import os
-                os.environ["TELEGRAM_ENABLED"] = "false"
+                globals()['TELEGRAM_ENABLED'] = False
         if not TELEGRAM_CHAT_ID:
             print("⚠️  TELEGRAM_CHAT_ID not set - some features may not work")
         if TELEGRAM_BOT_TOKEN and len(TELEGRAM_BOT_TOKEN) < 20:

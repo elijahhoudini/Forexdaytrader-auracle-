@@ -1,0 +1,16 @@
+run = "python start.py"
+modules = ["python-3.12"]
+
+[nix]
+channel = "stable-24_05"
+
+[deployment]
+run = ["sh", "-c", "python start.py"]
+
+[languages]
+
+[languages.python]
+pattern = "**/*.py"
+
+[languages.python.languageServer]
+start = "pylsp"

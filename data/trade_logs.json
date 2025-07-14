@@ -1945,3 +1945,4 @@
 {"timestamp": "2025-07-14T17:27:03.430219", "action": "BUY", "token": "$LIGHT", "symbol": "LIGHT", "address": "TOKEN123ABC", "amount_sol": 0.01, "price": 0.0070816611296211675, "tokens": 1.412098068089139}
 {"timestamp": "2025-07-14T17:33:43.614615", "action": "BUY", "token": "$LIGHT", "symbol": "LIGHT", "address": "TOKEN123ABC", "amount_sol": 0.01, "price": 0.0076700644583514565, "tokens": 1.3037700079706138}
 {"timestamp": "2025-07-14T17:33:43.620097", "action": "BUY", "token": "$MOON", "symbol": "MOON", "address": "TOKEN456DEF", "amount_sol": 0.01, "price": 0.0022632691796878497, "tokens": 4.418387388361468}
+{"timestamp": "2025-07-14T17:35:19.785406", "action": "BUY", "token": "$LIGHT", "symbol": "LIGHT", "address": "TOKEN123ABC", "amount_sol": 0.01, "price": 0.0013868786987118738, "tokens": 7.210435930184775}
