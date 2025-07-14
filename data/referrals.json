@@ -1,6 +1,7 @@
 {
   "codes": {
-    "7GU6RT": "test_user_789"
+    "7GU6RT": "test_user_789",
+    "3I05T2": "demo_user_789"
   },
   "users": {
     "test_user_789": {
@@ -14,10 +15,22 @@
       "referred_by": "test_user_789",
       "earnings": 0.0,
       "referrals_made": 0
+    },
+    "demo_user_789": {
+      "code": "3I05T2",
+      "referred_by": null,
+      "earnings": 0.05,
+      "referrals_made": 1
+    },
+    "demo_user_987": {
+      "code": null,
+      "referred_by": "demo_user_789",
+      "earnings": 0.0,
+      "referrals_made": 0
     }
   },
   "stats": {
-    "total_referrals": 1,
-    "total_earnings": 0.01
+    "total_referrals": 2,
+    "total_earnings": 0.060000000000000005
   }
 }
