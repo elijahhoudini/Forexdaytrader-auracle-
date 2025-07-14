@@ -55,7 +55,7 @@ FLAG_LOG_FILE = "data/flag_logs.json"
 # ==================== EXTERNAL SERVICES ====================
 
 # Telegram Bot (Optional - only required for Telegram functionality)
-TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "true").lower() == "true"
+TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "false").lower() == "true"  # Default to disabled for local use
 TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
 TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
@@ -233,7 +233,7 @@ def validate_config() -> bool:
             print("⚠️  TELEGRAM_BOT_TOKEN seems too short - check configuration")
         print("✅ Telegram bot configured and enabled")
     else:
-        print("ℹ️  Telegram integration disabled")
+        print("ℹ️  Telegram integration disabled - suitable for local testing")
 
     # Wallet configuration validation
     if not get_demo_mode():

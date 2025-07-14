@@ -1,7 +1,10 @@
 #!/usr/bin/env python3
 """
-AURACLE Bot - Replit Startup Script
-==================================
+AURACLE Bot - Replit Startup Script (LEGACY)
+============================================
+
+⚠️ DEPRECATED: This script is for Replit deployment only.
+For local usage, use start_local.py instead.
 
 This script starts the AURACLE bot optimized for Replit deployment.
 """
@@ -12,7 +15,10 @@ import sys
 def main():
     """Start AURACLE bot with Replit optimizations."""
     
-    print("🚀 AURACLE Bot - Replit Deployment")
+    print("🚀 AURACLE Bot - Replit Deployment (LEGACY)")
+    print("=" * 50)
+    print("⚠️  This script is deprecated. For local usage, use:")
+    print("   python start_local.py --bot auracle")
     print("=" * 50)
     
     # Set environment variables for Replit
