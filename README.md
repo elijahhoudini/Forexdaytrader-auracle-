@@ -78,62 +78,48 @@ start_unified.py     # Main entry point - choose which bot to run
     └── performance_logs.json
 ```
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Streamlined Setup)
 
-### For Replit (Recommended - One-Click Setup)
+### Minimal Requirements
+The repository has been streamlined to require **only two essential components**:
 
-#### Option 1: AURACLE Bot (Autonomous)
-1. **Copy this repository to Replit**
-   - Fork or import this repository to your Replit account
-   - Click the "Run" button - it will start AURACLE bot by default
+1. **WALLET_PRIVATE_KEY** - Your Solana wallet private key for trading
+2. **TELEGRAM_BOT_TOKEN** - Your Telegram bot token for the interface
 
-#### Option 2: Solana Trading Bot (Telegram)
-1. **Copy this repository to Replit**
-   - Fork or import this repository to your Replit account
-   - Create a `.env` file from `.env.example` and configure your Telegram bot
-   - Run: `python start_unified.py --bot solbot`
+### One-Click Setup
+1. **Copy this repository to Replit** or clone locally
+2. **Create a `.env` file** with minimal configuration:
+   ```env
+   WALLET_PRIVATE_KEY=your_solana_private_key_here
+   TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
+   DEMO_MODE=true
+   ```
+3. **Run the bot**:
+   ```bash
+   # Install dependencies (if running locally)
+   pip install -r requirements.txt
+   
+   # Run Telegram bot
+   python start_unified.py --bot solbot
+   
+   # Run AURACLE bot (autonomous)
+   python start_unified.py --bot auracle
+   ```
 
-#### Option 3: Choose at Runtime
-1. **Copy this repository to Replit**
-   - Fork or import this repository to your Replit account
-   - Use the unified startup script: `python start_unified.py`
-   - Add `--bot auracle` or `--bot solbot` to choose which bot to run
+### What's Removed ✅
+- **Database dependency** - Uses file-based storage automatically
+- **Moralis API requirement** - Uses free Jupiter/Solana APIs
+- **Premium RPC requirement** - Falls back to free public endpoints
+- **Complex setup** - Works out of the box with minimal configuration
 
-2. **Configure Environment Variables**
-   - Copy `.env.example` to `.env` and fill in your configuration
-   - Required for Telegram bot:
-     ```
-     TELEGRAM_BOT_TOKEN=your_telegram_bot_token
-     TELEGRAM_CHAT_ID=your_telegram_chat_id
-     ```
-   - Optional for enhanced features:
-     ```
-     PURCHASED_RPC=your_premium_rpc_endpoint
-     MORALIS_API_KEY=your_moralis_api_key
-     DATABASE_URI=your_database_connection_string
-     ```
+### Enhanced Features (Optional)
+All other configuration is now **optional** with sensible defaults:
+- `TELEGRAM_CHAT_ID` - Enhances Telegram features
+- `PURCHASED_RPC` - For faster RPC performance
+- `MORALIS_API_KEY` - For enhanced token metadata
+- `DATABASE_URI` - For persistent storage across restarts
 
-3. **Optional: Configure for live trading**
-   - Go to "Secrets" tab in Replit
-   - Add your Telegram bot configuration:
-     ```
-     TELEGRAM_ENABLED=true
-     TELEGRAM_BOT_TOKEN=your_bot_token
-     TELEGRAM_CHAT_ID=your_chat_id
-     ```
-
-3. **Optional: Configure for live trading**
-   - Use Telegram commands to control the bot:
-     - `/demo` - Switch to safe demo mode
-     - `/live` - Switch to live trading mode
-     - `/status` - Check bot status
-     - `/config` - View configuration
-   - Or configure via Replit Secrets:
-     ```
-     WALLET_ADDRESS=your_wallet_address
-     SOLANA_RPC_ENDPOINT=https://api.mainnet-beta.solana.com
-     DEMO_MODE=false
-     ```
+See [STREAMLINED_SETUP.md](STREAMLINED_SETUP.md) for detailed setup instructions.
 
 ### For Local Development
 
@@ -199,43 +185,50 @@ This allows you to test the bot immediately without any setup!
 
 The bot **always starts in demo mode** for maximum safety. Use the `/live` command to enable real trading when you're ready.
 
-## ⚙️ Configuration
+## ⚙️ Configuration (Streamlined)
 
-### Default Settings (Safe Demo Mode)
-
-```python
-# Trading Parameters
-MAX_BUY_AMOUNT_SOL = 0.01             # Minimum trade amount: 0.01 SOL per trade
-PROFIT_TARGET_PERCENTAGE = 0.20      # 20% profit target
-STOP_LOSS_PERCENTAGE = -0.05         # -5% stop loss to limit losses
-SCAN_INTERVAL_SECONDS = 60           # 1 minute between scans
-
-# Safety Settings
-DEMO_MODE = True                     # Safe demo mode by default
-AUTONOMOUS_MODE = True               # Fully automated
-ENABLE_FRAUD_DETECTION = True        # Advanced safety checks
-MAX_DAILY_TRADES = 50                # Daily trade limit
-MAX_OPEN_POSITIONS = 10              # Concurrent positions limit
+### Required Configuration
+```env
+WALLET_PRIVATE_KEY=your_solana_private_key_here
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token_here
+DEMO_MODE=true  # Keep enabled for testing
 ```
 
-### Customization via Environment Variables
+### Optional Configuration
+All other settings have sensible defaults and are optional:
 
-You can override any setting using environment variables:
+```env
+# Enhanced Telegram features
+TELEGRAM_CHAT_ID=your_telegram_chat_id_here
+TELEGRAM_ENABLED=true
 
-```bash
-# Trading amounts
-export MAX_BUY_AMOUNT_SOL=0.01
-export MIN_LIQUIDITY_THRESHOLD=1000
+# Premium services (will use free alternatives otherwise)
+PURCHASED_RPC=your_premium_rpc_endpoint
+MORALIS_API_KEY=your_moralis_api_key
+DATABASE_URI=your_postgresql_connection_string
 
-# Trading strategy
-export PROFIT_TARGET_PERCENTAGE=0.15
-export STOP_LOSS_PERCENTAGE=-0.05
-export SCAN_INTERVAL_SECONDS=30
-
-# Safety settings
-export DEMO_MODE=false
-export MAX_DAILY_TRADES=100
+# Trading parameters (has defaults)
+MAX_BUY_AMOUNT_SOL=0.01
+PROFIT_TARGET_PERCENTAGE=0.20
+STOP_LOSS_PERCENTAGE=-0.05
+SCAN_INTERVAL_SECONDS=60
+MAX_DAILY_TRADES=50
+MAX_OPEN_POSITIONS=10
 ```
+
+### Automatic Fallbacks
+- **No database?** → Uses file-based storage in `data/storage/`
+- **No Moralis API?** → Uses free Jupiter/Solana APIs
+- **No premium RPC?** → Uses free public RPC endpoints
+- **Missing config?** → Uses conservative defaults
+
+### File Storage
+When using file storage (default), data is stored in:
+- `data/storage/priv_keys.json` - Encrypted private keys
+- `data/storage/orders.json` - Trading orders
+- `data/storage/watchlists.json` - Token watchlists
+- `data/storage/strategies.json` - Trading strategies
+- And more...
 
 ## 🔧 Replit Deployment
 
