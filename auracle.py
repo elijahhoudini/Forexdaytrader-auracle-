@@ -175,7 +175,7 @@ class Auracle:
             self.logger.log_error(f"Scanner error: {str(e)}")
             return []
 
-    def _process_token(self, token: Dict[str, Any]):
+    async def _process_token(self, token: Dict[str, Any]):
         """
         Process a single token through the trading pipeline.
 
@@ -199,7 +199,7 @@ class Auracle:
                 # Calculate dynamic trade amount based on confidence
                 trade_amount = self.trade_handler.calculate_trade_amount(token)
 
-                success = self.trade_handler.buy_token(token, trade_amount)
+                success = await self.trade_handler.buy_token(token, trade_amount)
 
                 if success:
                     self.stats["trades_executed"] += 1
@@ -267,8 +267,19 @@ class Auracle:
         try:
             # Close any open positions if in demo mode
             if config.get_demo_mode():
+                import asyncio
+                # Create a new event loop for shutdown cleanup
+                loop = asyncio.new_event_loop()
+                asyncio.set_event_loop(loop)
+                
+                # Close all open positions
                 for mint in list(self.trade_handler.open_positions.keys()):
-                    self.trade_handler.sell_token(mint, "shutdown")
+                    try:
+                        loop.run_until_complete(self.trade_handler.sell_token(mint, "shutdown"))
+                    except Exception as e:
+                        print(f"⚠️ Error closing position {mint}: {e}")
+                
+                loop.close()
 
             # Log session summary
             session_summary = self.logger.get_session_summary()

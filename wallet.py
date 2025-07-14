@@ -192,27 +192,3 @@ class Wallet:
             await self.jupiter_executor.close()
         if self.rpc_client:
             await self.rpc_client.close()
-        """Execute sell transaction"""
-        try:
-            tx_data = {
-                "action": "sell",
-                "token_mint": mint,
-                "amount": amount,
-                "timestamp": time.time()
-            }
-            
-            result = self.send_transaction(tx_data)
-            
-            if result["success"]:
-                if self.demo_mode:
-                    print(f"[wallet] 🎯 Demo sell: {amount} tokens of {mint[:8]}...")
-                else:
-                    print(f"[wallet] 🔥 Live sell: {amount} tokens of {mint[:8]}...")
-                return True
-            else:
-                print(f"[wallet] Sell failed: {result.get('error', 'Unknown error')}")
-                return False
-
-        except Exception as e:
-            print(f"[wallet] Error selling token: {e}")
-            return False
