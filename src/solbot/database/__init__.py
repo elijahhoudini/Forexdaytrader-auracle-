@@ -3,9 +3,17 @@ import logging
 import os
 
 from dotenv import find_dotenv, load_dotenv
-from psycopg_pool import ConnectionPool
 from solbot.state import PRIORITY_MAPPING, DK_list
-from solbot.web3.basic import get_token_information
+
+# Try to import database functionality, fall back to file storage if not available
+try:
+    from psycopg_pool import ConnectionPool
+    DATABASE_AVAILABLE = True
+except ImportError:
+    DATABASE_AVAILABLE = False
+
+# Import file storage as fallback
+from solbot.storage.file_storage import *
 
 load_dotenv(find_dotenv())
 
@@ -16,14 +24,18 @@ class Database:
     def __init__(self) -> None:
         self.pool = None
         try:
-            self.pool = ConnectionPool(
-                conninfo=os.environ["DATABASE_URI"],
-                check=ConnectionPool.check_connection,
-            )
-            self.pool.wait()
-            logger.info("database connected")
+            if DATABASE_AVAILABLE and os.environ.get("DATABASE_URI"):
+                self.pool = ConnectionPool(
+                    conninfo=os.environ["DATABASE_URI"],
+                    check=ConnectionPool.check_connection,
+                )
+                self.pool.wait()
+                logger.info("database connected")
+            else:
+                logger.info("Using file-based storage (database not available or configured)")
         except Exception:
-            logger.exception("Unable to connect to the database")
+            logger.info("Unable to connect to database, using file-based storage")
+            self.pool = None
 
     def close(self) -> None:
         if self.pool:
@@ -34,11 +46,15 @@ db: Database | None = None
 
 
 def connect_db():
-    """establish database connection"""
+    """establish database connection or initialize file storage"""
     global db
 
     if not db:
         db = Database()
+        # Initialize file storage if database is not available
+        if not db.pool:
+            from solbot.storage.file_storage import connect_db as init_file_storage
+            init_file_storage()
     else:
         logger.warning('Database connection already exists')
 
@@ -48,45 +64,56 @@ def set_referral(tg_id, referrer_id):
     if tg_id != referrer_id:
         logger.info(f'{tg_id} -> db: add_referral')
 
-        query = """
-            INSERT INTO referral (tg_id, referrer_id)
-            SELECT %s, %s
-            WHERE NOT EXISTS (SELECT 1 FROM referral WHERE tg_id = %s);
-            """
-        with db.pool.connection() as conn:
-            conn.execute(query, (tg_id, referrer_id, tg_id))
+        if db.pool:
+            query = """
+                INSERT INTO referral (tg_id, referrer_id)
+                SELECT %s, %s
+                WHERE NOT EXISTS (SELECT 1 FROM referral WHERE tg_id = %s);
+                """
+            with db.pool.connection() as conn:
+                conn.execute(query, (tg_id, referrer_id, tg_id))
+        else:
+            # Use file storage
+            from solbot.storage.file_storage import set_referral as file_set_referral
+            file_set_referral(tg_id, referrer_id)
 
 
 def get_referral_list(id_list: list[int]):
     try:
-        if len(id_list) > 1:
-            query_input = ', '.join('%s' for _ in id_list)
-            query = f"""
-                SELECT tg_id
-                FROM referral
-                WHERE referrer_id IN ({query_input});
-                """
-            with db.pool.connection() as conn:
-                with conn.cursor() as cur:
-                    cur.execute(query, id_list)
-                    referral_list = cur.fetchall()
-                    return_value = [item[0] for item in referral_list]
-                    return return_value
+        if db.pool:
+            if len(id_list) > 1:
+                query_input = ', '.join('%s' for _ in id_list)
+                query = f"""
+                    SELECT tg_id
+                    FROM referral
+                    WHERE referrer_id IN ({query_input});
+                    """
+                with db.pool.connection() as conn:
+                    with conn.cursor() as cur:
+                        cur.execute(query, id_list)
+                        referral_list = cur.fetchall()
+                        return_value = [item[0] for item in referral_list]
+                        return return_value
 
+            else:
+                query = """
+                    SELECT tg_id
+                    FROM referral
+                    WHERE referrer_id = %s;
+                    """
+                with db.pool.connection() as conn:
+                    with conn.cursor() as cur:
+                        cur.execute(query, (id_list[0],))
+                        referral_list = cur.fetchall()
+                        return_value = [item[0] for item in referral_list]
+                        return return_value
         else:
-            query = """
-                SELECT tg_id
-                FROM referral
-                WHERE referrer_id = %s;
-                """
-            with db.pool.connection() as conn:
-                with conn.cursor() as cur:
-                    cur.execute(query, (id_list[0],))
-                    referral_list = cur.fetchall()
-                    return_value = [item[0] for item in referral_list]
-                    return return_value
+            # Use file storage
+            from solbot.storage.file_storage import get_referral_list as file_get_referral_list
+            return file_get_referral_list(id_list)
     except Exception:
         logger.exception("Failed to get referral list")
+        return []
 
 
 def get_level_one_info(tg_id:int):
@@ -221,26 +248,69 @@ def decode_password(encoded_text:str, password:str) -> str:
         return ''
 
 
-def get_fee_tip_info(tg_id):
-    query = """
-        WITH upsert AS (
-            INSERT INTO fee (tg_id)
-            VALUES (%s)  -- replace with the specific tg_id you want
-            ON CONFLICT (tg_id) DO NOTHING
-            RETURNING *
-        )
-        SELECT fee, tip FROM upsert
-        UNION
-        SELECT fee, tip FROM fee WHERE tg_id = %s;
-        """
-    with db.pool.connection() as conn:
-        with conn.cursor() as cur:
-            cur.execute(query, (tg_id, tg_id))
-            conn.commit()
-            result = cur.fetchone()
-            fee, tip = result
+def get_priv_key(tg_id):
+    """Get private key for user"""
+    try:
+        if db.pool:
+            # Database implementation would go here
+            # For now, use file storage
+            from solbot.storage.file_storage import get_priv_key as file_get_priv_key
+            return file_get_priv_key(tg_id)
+        else:
+            # Use file storage
+            from solbot.storage.file_storage import get_priv_key as file_get_priv_key
+            return file_get_priv_key(tg_id)
+    except Exception:
+        logger.exception("Failed to get private key")
+        return None
 
-    return PRIORITY_MAPPING[fee], PRIORITY_MAPPING[tip]
+
+def delete_priv_key(tg_id):
+    """Delete private key for user"""
+    try:
+        if db.pool:
+            # Database implementation would go here
+            # For now, use file storage
+            from solbot.storage.file_storage import delete_priv_key as file_delete_priv_key
+            file_delete_priv_key(tg_id)
+        else:
+            # Use file storage
+            from solbot.storage.file_storage import delete_priv_key as file_delete_priv_key
+            file_delete_priv_key(tg_id)
+    except Exception:
+        logger.exception("Failed to delete private key")
+
+
+def get_fee_tip_info(tg_id):
+    try:
+        if db.pool:
+            query = """
+                WITH upsert AS (
+                    INSERT INTO fee (tg_id)
+                    VALUES (%s)  -- replace with the specific tg_id you want
+                    ON CONFLICT (tg_id) DO NOTHING
+                    RETURNING *
+                )
+                SELECT fee, tip FROM upsert
+                UNION
+                SELECT fee, tip FROM fee WHERE tg_id = %s;
+                """
+            with db.pool.connection() as conn:
+                with conn.cursor() as cur:
+                    cur.execute(query, (tg_id, tg_id))
+                    conn.commit()
+                    result = cur.fetchone()
+                    fee, tip = result
+
+            return PRIORITY_MAPPING[fee], PRIORITY_MAPPING[tip]
+        else:
+            # Use file storage
+            from solbot.storage.file_storage import get_fee_tip_info as file_get_fee_tip_info
+            fee, tip = file_get_fee_tip_info(tg_id)
+            return PRIORITY_MAPPING[fee], PRIORITY_MAPPING[tip]
+    except Exception:
+        logger.exception("Failed to get fee tip info")
+        return "STANDARD", "STANDARD"
 
 
 def update_fee_info(tg_id, fee):

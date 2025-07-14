@@ -3,16 +3,16 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Env variables
-TELEGRAM_BOT_TOKEN=os.getenv('TELEGRAM_BOT_TOKEN')
-MORALIS_API_KEY=os.getenv('MORALIS_API_KEY')
-REWARD_ACCOUNT=os.getenv('REWARD_ACCOUNT')
-TAX_ACCOUNT=os.getenv('TAX_ACCOUNT')
-PURCHASED_RPC=os.getenv('PURCHASED_RPC')
-PURCHASED_WSS=os.getenv('PURCHASED_WSS')
-BOT_NAME=os.getenv('BOT_NAME')
-BOT_USER_NAME=os.getenv('BOT_USER_NAME')
-DOG_SCANNER_BOT=os.getenv('DOG_SCANNER_BOT')
+# Env variables - only wallet private key and Telegram bot token are required
+TELEGRAM_BOT_TOKEN = os.getenv('TELEGRAM_BOT_TOKEN')
+MORALIS_API_KEY = os.getenv('MORALIS_API_KEY')  # Optional - fallback to free APIs
+REWARD_ACCOUNT = os.getenv('REWARD_ACCOUNT')
+TAX_ACCOUNT = os.getenv('TAX_ACCOUNT')
+PURCHASED_RPC = os.getenv('PURCHASED_RPC')  # Optional - fallback to free RPCs
+PURCHASED_WSS = os.getenv('PURCHASED_WSS')  # Optional
+BOT_NAME = os.getenv('BOT_NAME', 'DOGBOT_SOLBOT')  # Default value
+BOT_USER_NAME = os.getenv('BOT_USER_NAME', 'solbot')  # Default value
+DOG_SCANNER_BOT = os.getenv('DOG_SCANNER_BOT')
 
 # Global Constants
 LAMPORTS_PER_SOL = 1e9
