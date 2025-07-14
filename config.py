@@ -54,12 +54,12 @@ FLAG_LOG_FILE = "data/flag_logs.json"
 
 # ==================== EXTERNAL SERVICES ====================
 
-# Telegram Bot (Enabled for live trading)
+# Telegram Bot (Optional - only required for Telegram functionality)
 TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "true").lower() == "true"
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "7661187219:AAHuqb1IB9QtYxHeDbTbnkobwK1rFtyvqvk")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "7661187219")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
 
-# Solana Network
+# Solana Network (Free public RPC used as fallback)
 SOLANA_RPC_ENDPOINT = os.getenv("SOLANA_RPC_ENDPOINT", "https://api.mainnet-beta.solana.com")
 SOLANA_COMMITMENT = "confirmed"
 
@@ -222,17 +222,18 @@ def validate_config() -> bool:
     # Show current trading mode
     print(f"📊 Trading mode: {get_trading_mode_string()}")
 
-    # Telegram configuration validation
+    # Telegram configuration validation (now optional)
     if TELEGRAM_ENABLED:
         if not TELEGRAM_BOT_TOKEN:
             print("❌ TELEGRAM_BOT_TOKEN required when TELEGRAM_ENABLED is true")
             return False
         if not TELEGRAM_CHAT_ID:
-            print("❌ TELEGRAM_CHAT_ID required when TELEGRAM_ENABLED is true")
-            return False
+            print("⚠️  TELEGRAM_CHAT_ID not set - some features may not work")
         if len(TELEGRAM_BOT_TOKEN) < 20:
             print("⚠️  TELEGRAM_BOT_TOKEN seems too short - check configuration")
         print("✅ Telegram bot configured and enabled")
+    else:
+        print("ℹ️  Telegram integration disabled")
 
     # Wallet configuration validation
     if not get_demo_mode():
@@ -256,6 +257,30 @@ def validate_config() -> bool:
     if not SOLANA_RPC_ENDPOINT.startswith("http"):
         print("❌ SOLANA_RPC_ENDPOINT must be a valid HTTP(S) URL")
         return False
+    print(f"✅ Solana RPC endpoint: {SOLANA_RPC_ENDPOINT}")
+
+    # Database/Storage info
+    try:
+        database_uri = os.getenv("DATABASE_URI")
+        if database_uri:
+            print("✅ Database configured - using PostgreSQL storage")
+        else:
+            print("ℹ️  No database configured - using file-based storage")
+    except Exception:
+        print("ℹ️  Using file-based storage")
+
+    # Premium features info
+    moralis_key = os.getenv("MORALIS_API_KEY")
+    if moralis_key:
+        print("✅ Moralis API configured - enhanced token info available")
+    else:
+        print("ℹ️  No Moralis API - using free Jupiter/Solana APIs for token info")
+        
+    purchased_rpc = os.getenv("PURCHASED_RPC")
+    if purchased_rpc:
+        print("✅ Premium RPC configured - enhanced performance available")
+    else:
+        print("ℹ️  No premium RPC - using free public RPC endpoints")
 
     # Jupiter configuration validation
     if JUPITER_SLIPPAGE_BPS <= 0:

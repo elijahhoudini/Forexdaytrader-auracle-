@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 from solana.rpc.api import Client
 from solana.rpc.async_api import AsyncClient
 from solders.system_program import TransferParams, transfer
-from solana.transaction import Transaction as SolanaTransaction
+from solders.transaction import Transaction as SolanaTransaction
 from solana.rpc.types import TokenAccountOpts
 from solana.rpc.commitment import Confirmed
 from solders.keypair import Keypair  # type: ignore
@@ -35,20 +35,50 @@ def get_solfare_wallet_pubkey(json_priv_key: str):
 
 
 def get_rpc() -> str:
-    our_rpc = "http://185.26.8.223:8899"
-    alternative_rpc = PURCHASED_RPC
-    headers = {"Content-Type": "application/json"}
-    payload = {
-        "jsonrpc": "2.0",
-        "id": 1,
-        "method": "getHealth"
-    }
-    try:
-        response = requests.post(alternative_rpc, headers=headers, data=json.dumps(payload))
-        return alternative_rpc
-    except Exception as e2:
-        print("RPC is not available: ", e2)
-        return ''
+    """Get RPC endpoint - use free public endpoints if premium ones aren't available"""
+    # Try premium RPC first if available
+    if PURCHASED_RPC:
+        headers = {"Content-Type": "application/json"}
+        payload = {
+            "jsonrpc": "2.0",
+            "id": 1,
+            "method": "getHealth"
+        }
+        try:
+            response = requests.post(PURCHASED_RPC, headers=headers, data=json.dumps(payload), timeout=5)
+            if response.status_code == 200:
+                return PURCHASED_RPC
+        except Exception as e:
+            print(f"Premium RPC not available: {e}")
+    
+    # Fallback to free public RPC endpoints
+    free_rpcs = [
+        "https://api.mainnet-beta.solana.com",
+        "https://rpc.ankr.com/solana",
+        "https://solana-api.projectserum.com",
+        "https://rpc.runnode.com/solana",
+        "https://solana-mainnet.g.alchemy.com/v2/demo"
+    ]
+    
+    for rpc in free_rpcs:
+        try:
+            headers = {"Content-Type": "application/json"}
+            payload = {
+                "jsonrpc": "2.0",
+                "id": 1,
+                "method": "getHealth"
+            }
+            response = requests.post(rpc, headers=headers, data=json.dumps(payload), timeout=5)
+            if response.status_code == 200:
+                print(f"Using free RPC: {rpc}")
+                return rpc
+        except Exception as e:
+            print(f"RPC {rpc} not available: {e}")
+            continue
+    
+    # Last resort fallback
+    print("Warning: All RPC endpoints failed, using default mainnet")
+    return "https://api.mainnet-beta.solana.com"
 
 
 def get_client():
@@ -60,39 +90,52 @@ def get_async_client():
 
 
 def get_token_information(token_address: str):
-    url = f"https://api.dexscreener.com/latest/dex/tokens/{token_address}"
+    """Get token information using free APIs instead of Moralis"""
     try:
-        response = requests.get(url).json()
-        if response['pairs'] is not None:
-            for pair in response["pairs"]:
-                base_symbol = pair['baseToken']['symbol']
-                quote_symbol = pair['quoteToken']['symbol']
-                base_name = pair['baseToken']['name']
-                quote_name = pair['quoteToken']['name']
-                pair_address = pair['pairAddress']
-                price_change = pair['priceChange']
-                image_url = pair.get('info', {}).get('imageUrl', '')
+        # Try to use the new token info provider first
+        from solbot.utils.token_info import get_token_information as get_token_info_new
+        name, symbol, decimals, price = get_token_info_new(token_address)
+        
+        # Try to get additional info from dexscreener as fallback
+        url = f"https://api.dexscreener.com/latest/dex/tokens/{token_address}"
+        try:
+            response = requests.get(url, timeout=10).json()
+            if response.get('pairs'):
+                for pair in response["pairs"]:
+                    base_symbol = pair['baseToken']['symbol']
+                    quote_symbol = pair['quoteToken']['symbol']
+                    base_name = pair['baseToken']['name']
+                    quote_name = pair['quoteToken']['name']
+                    pair_address = pair['pairAddress']
+                    price_change = pair.get('priceChange', {})
+                    image_url = pair.get('info', {}).get('imageUrl', '')
 
-                # Check if either token is SOL or USDC
-                if "SOL" in [base_symbol, quote_symbol] or "USDC" in [base_symbol, quote_symbol] or "USDT" in [base_symbol, quote_symbol]:
+                    # Check if either token is SOL or USDC
+                    if "SOL" in [base_symbol, quote_symbol] or "USDC" in [base_symbol, quote_symbol] or "USDT" in [base_symbol, quote_symbol]:
+                        # Try to get liquidity in USD, handle if key is missing or invalid
+                        token_liquidity = pair.get('liquidity', {}).get('usd', 0)
+                        market_cap = pair.get('marketCap', {})
 
-                    # Try to get liquidity in USD, handle if key is missing or invalid
-                    token_liquidity = pair.get('liquidity', {}).get('usd', 0)
-                    market_cap = pair.get('marketCap', {})
-
-                    if token_address in [WSOL, USDT, USDC]:
-                        token_symbol = TOKEN_MAPPING[token_address]['symbol']
-                        token_name = TOKEN_MAPPING[token_address]['name']
-                    else:
-                        token_symbol = base_symbol if base_symbol not in ["SOL", "USDC", "USDT"] else quote_symbol
-                        token_name = base_name if base_symbol not in ["SOL", "USDC", "USDT"] else quote_name
-                    return token_symbol, token_name, pair_address, pair['priceUsd'], token_liquidity, market_cap, price_change, image_url
-        else:
-            print("The token address is not in Dexscreener")
-            return 0
-    except requests.exceptions.RequestException as e:
-        print("Error in get token info: ", e)
-        return 0
+                        if token_address in [WSOL, USDT, USDC]:
+                            token_symbol = TOKEN_MAPPING[token_address]['symbol']
+                            token_name = TOKEN_MAPPING[token_address]['name']
+                        else:
+                            token_symbol = base_symbol if base_symbol not in ["SOL", "USDC", "USDT"] else quote_symbol
+                            token_name = base_name if base_symbol not in ["SOL", "USDC", "USDT"] else quote_name
+                        
+                        # Use dexscreener price if available, otherwise use our price
+                        final_price = pair.get('priceUsd', price)
+                        return token_symbol, token_name, pair_address, final_price, token_liquidity, market_cap, price_change, image_url
+        except Exception as e:
+            print(f"Warning: Could not get additional info from dexscreener: {e}")
+        
+        # Return basic info if dexscreener fails
+        return symbol, name, token_address, price, 0, {}, {}, ''
+        
+    except Exception as e:
+        print(f"Error in get_token_information: {e}")
+        # Return minimal fallback info
+        return "UNK", "Unknown Token", token_address, 0.0, 0, {}, {}, ''
 
 
 async def get_token_authority(token_address: str):
