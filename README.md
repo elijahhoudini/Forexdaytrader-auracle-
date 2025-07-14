@@ -15,6 +15,29 @@
 - **Advanced Features**: Sniping, limit orders, portfolio tracking, and more
 - **User-Controlled**: Manual trading decisions with bot assistance
 
+## 🎯 Local Terminal Features
+
+### ✅ What's New for Local Usage
+- **Local Setup Script**: `python setup_local.py` - One-command setup wizard
+- **Local Launcher**: `python start_local.py` - Optimized for terminal usage
+- **Simplified Dependencies**: Uses `requirements.local.txt` for minimal setup
+- **File Storage**: No database required - uses local `./data/` directory
+- **Environment Configuration**: Uses `.env` file for all settings
+- **Make Commands**: `make test`, `make run`, `make setup` for easy development
+
+### ✅ Removed Replit Dependencies
+- No more Replit-specific startup scripts
+- No always-online requirements
+- No complex database setup
+- No premium API requirements for basic functionality
+
+### ✅ Local Optimizations
+- **Terminal Interface**: Clean progress indicators and colored output
+- **Local Data Persistence**: All data stored in `./data/` directory
+- **Environment Variables**: Automatic `.env` file loading
+- **Error Handling**: Graceful network failure handling
+- **Testing**: Built-in demo mode for safe testing
+
 ## 🎯 Features
 
 ### AURACLE Bot Features
@@ -78,15 +101,33 @@ start_unified.py     # Main entry point - choose which bot to run
     └── performance_logs.json
 ```
 
-## 🚀 Quick Start (Streamlined Setup)
+## 🚀 Quick Start
 
-### Minimal Requirements
-The repository has been streamlined to require **only two essential components**:
+### For Local Development (Recommended)
 
-1. **WALLET_PRIVATE_KEY** - Your Solana wallet private key for trading
-2. **TELEGRAM_BOT_TOKEN** - Your Telegram bot token for the interface
+**New! Optimized for local laptop/terminal usage**
 
-### One-Click Setup
+```bash
+# Clone the repository
+git clone https://github.com/elijahhoudini/Final-.git
+cd Final-
+
+# One-command setup
+python setup_local.py
+
+# Test the bot
+python start_local.py --test
+
+# Run the bot
+python start_local.py --bot auracle
+```
+
+See [README_LOCAL.md](README_LOCAL.md) for detailed local setup instructions.
+
+### For Replit Deployment (Legacy)
+
+**Works on Replit but local setup is recommended**
+
 1. **Copy this repository to Replit** or clone locally
 2. **Create a `.env` file** with minimal configuration:
    ```env
@@ -97,12 +138,12 @@ The repository has been streamlined to require **only two essential components**
 3. **Run the bot**:
    ```bash
    # Install dependencies (if running locally)
-   pip install -r requirements.txt
+   pip install -r requirements.local.txt
    
-   # Run Telegram bot
-   python start_unified.py --bot solbot
+   # Run local launcher (recommended)
+   python start_local.py --bot auracle
    
-   # Run AURACLE bot (autonomous)
+   # Or use original launcher
    python start_unified.py --bot auracle
    ```
 
@@ -124,7 +165,7 @@ See [STREAMLINED_SETUP.md](STREAMLINED_SETUP.md) for detailed setup instructions
 ### For Local Development
 
 **Prerequisites:**
-- Python 3.10 or higher (Python 3.11+ recommended for best compatibility)
+- Python 3.8 or higher (Python 3.10+ recommended for best compatibility)
 
 1. **Clone the repository**
    ```bash
@@ -132,28 +173,44 @@ See [STREAMLINED_SETUP.md](STREAMLINED_SETUP.md) for detailed setup instructions
    cd Final-
    ```
 
-2. **Install dependencies**
+2. **Quick setup** (Recommended)
    ```bash
-   pip install -r requirements.txt
+   # Run automated setup
+   python setup_local.py
+   
+   # Test the bot
+   python start_local.py --test
+   
+   # Run the bot
+   python start_local.py --bot auracle
    ```
 
-3. **Configure environment**
+3. **Manual setup** (Alternative)
    ```bash
-   cp .env.example .env
+   # Install dependencies
+   pip install -r requirements.local.txt
+   
+   # Copy environment template
+   cp .env.local .env
+   
    # Edit .env with your configuration
+   nano .env
+   
+   # Run the bot
+   python start_local.py --bot auracle
    ```
 
-4. **Run the bot**
+4. **Using Make** (For developers)
    ```bash
-   # Run AURACLE bot (autonomous)
-   python start_unified.py --bot auracle
+   # Install dependencies and run test
+   make install
+   make test
    
-   # Run Solana Trading Bot (Telegram)
-   python start_unified.py --bot solbot
-   
-   # Default (AURACLE)
-   python start_unified.py
+   # Run the bot
+   make run
    ```
+
+See [README_LOCAL.md](README_LOCAL.md) for detailed local setup instructions.
 
 ### Default Configuration
 
@@ -230,12 +287,16 @@ When using file storage (default), data is stored in:
 - `data/storage/strategies.json` - Trading strategies
 - And more...
 
-## 🔧 Replit Deployment
+## 🔧 Replit Deployment (Legacy)
+
+**⚠️ Note: Local setup is now recommended for better performance and control**
 
 ### One-Click Setup
 1. **Import repository** - Fork or import this repo to Replit
 2. **Click "Run"** - The bot will start automatically in safe demo mode
 3. **Done!** - The bot is now running with all safety features enabled
+
+For new users, we recommend using the local setup instead: [README_LOCAL.md](README_LOCAL.md)
 
 ### Going Live (Optional)
 To enable real trading, add these secrets in Replit:
