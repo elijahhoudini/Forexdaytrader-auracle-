@@ -8,10 +8,18 @@ Configuration includes trading parameters, risk management, and system settings.
 
 import os
 from typing import Dict, Any
-from dotenv import load_dotenv
 
-# Load environment variables from .env file
-load_dotenv()
+# Try to load dotenv, fallback to minimal implementation
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+except ImportError:
+    try:
+        from minimal_dotenv import load_dotenv
+        load_dotenv()
+    except ImportError:
+        def load_dotenv():
+            pass
 
 # ==================== ADVANCED INTELLIGENCE CONFIGURATION ====================
 

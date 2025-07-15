@@ -6,6 +6,34 @@
       "amount": 0.01,
       "success": true,
       "timestamp": "2025-07-14T23:44:02.687135"
+    },
+    {
+      "action": "snipe",
+      "token": "TEST",
+      "amount": 0.01,
+      "success": true,
+      "timestamp": "2025-07-15T01:13:32.417042"
+    },
+    {
+      "action": "snipe",
+      "token": "TEST",
+      "amount": 0.01,
+      "success": true,
+      "timestamp": "2025-07-15T01:14:10.603768"
+    },
+    {
+      "action": "snipe",
+      "token": "TEST",
+      "amount": 0.01,
+      "success": true,
+      "timestamp": "2025-07-15T01:14:21.800556"
+    },
+    {
+      "action": "snipe",
+      "token": "TEST",
+      "amount": 0.01,
+      "success": true,
+      "timestamp": "2025-07-15T01:14:53.537288"
     }
   ],
   "test_user_sniper": [
@@ -17,6 +45,186 @@
       "signature": "demo_1752536643",
       "demo_mode": true,
       "timestamp": "2025-07-14T23:44:03.832218"
+    },
+    {
+      "action": "snipe",
+      "token": "CAI",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542052",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:12.512676"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GEM",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542053",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:13.215836"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "DMAX",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542053",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:13.216908"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MOON",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542053",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:13.218271"
+    },
+    {
+      "action": "snipe",
+      "token": "MOON",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542063",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:23.709596"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "LIGHT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542064",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:24.613396"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "CAI",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542064",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:24.614447"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "DMAX",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542064",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:24.615567"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GEM",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542064",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:24.616499"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MOON",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542064",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:24.617541"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "TVAULT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542064",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:24.618564"
+    },
+    {
+      "action": "snipe",
+      "token": "MOON",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542095",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:55.546788"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SPEED",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.450753"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "DMAX",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.451829"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GEM",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.452859"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "LIGHT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.453914"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SGEM",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.454886"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "CAI",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.455968"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "STORM",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.457018"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "TVAULT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752542096",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T01:14:56.457976"
     }
   ],
   "demo_123": [

@@ -1,33 +1,7 @@
 {
   "test_user_123": {
-    "username": "testuser",
-    "first_seen": "2025-07-14T23:44:02.686843",
-    "test_data": true
-  },
-  "demo_123": {
-    "username": "demo_user",
-    "created": "2025-07-14T23:49:50.672506",
-    "trades": 15,
-    "profit": 0.25
-  },
-  "7875402821": {
-    "username": "Unknown",
-    "first_seen": "2025-07-15T00:41:40.994474",
-    "last_active": "2025-07-15T00:41:40.994479"
-  },
-  "8144081672": {
-    "username": "Unknown",
-    "first_seen": "2025-07-15T00:41:41.210182",
-    "last_active": "2025-07-15T00:41:41.210187"
-  },
-  "1790424765": {
-    "username": "iwinneverdie",
-    "first_seen": "2025-07-15T00:41:41.663549",
-    "last_active": "2025-07-15T00:41:41.663554"
-  },
-  "8009894017": {
-    "username": "Unknown",
-    "first_seen": "2025-07-15T00:42:47.517211",
-    "last_active": "2025-07-15T00:42:47.517216"
+    "username": "TestUser",
+    "created_at": "2025-07-15T01:14:53.536826",
+    "total_trades": 5
   }
 }
