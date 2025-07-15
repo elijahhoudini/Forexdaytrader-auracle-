@@ -1,0 +1,20 @@
+{
+  "test_user_456": {
+    "address": "CrqCAVvvVTSQSQdq6u2VgLkX1LJUvJssTwK3BZpjLE2h",
+    "private_key": "98p7K34ouFt/dBLNkHClBM/gRvHfvI/ftACHDFmBik2wNIHav6UHNzTqo/DVGPa7DcpGVBkjajVC99O6fmqILg==",
+    "created_at": "2025-07-14T23:44:02.687645",
+    "balance_sol": 0.0
+  },
+  "test_user_sniper": {
+    "address": "87i98RYUdK9R7UpXupSdJTXap2sJhLa2aMdJ8XGoZeUi",
+    "private_key": "a5nR5Grh8ePy6/QVkLsr8+hsMS/x20qlg8Yd6FilP0Bpuc+GKUyUW3TuvBIkqllmu+f9TerpwHiWAS4PX3jUuw==",
+    "created_at": "2025-07-14T23:44:02.753738",
+    "balance_sol": 0.0
+  },
+  "demo_user_123": {
+    "address": "FXcdkbbaxqJXFCEGAQ4Wi4LXhoM3iqKpKqVeQeRRTrm6",
+    "private_key": "olJXlKNnkUKNwhQV3VGzXEwdn30PDqg7OJOJI/Wl803X21UUCUsmJsXJ6rgKKut+oNC14ayU377kRRB8KZfsMQ==",
+    "created_at": "2025-07-14T23:49:48.491915",
+    "balance_sol": 0.0
+  }
+}
