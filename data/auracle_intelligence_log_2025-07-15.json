@@ -4,312 +4,35 @@
   "mission_status": {
     "llc_goal_sol": 500.0,
     "llc_reserve": 0.0,
-    "total_profit": 0.005634510083629319,
+    "total_profit": 0.0,
     "funding_percentage": 0.0,
     "llc_contributions": 0
   },
   "trading_stats": {
-    "scans_completed": 13,
-    "tokens_evaluated": 20,
-    "trades_executed": 9,
+    "scans_completed": 18,
+    "tokens_evaluated": 50,
+    "trades_executed": 0,
     "llc_contributions": 0,
-    "start_time": "2025-07-15 00:39:17.046368"
+    "start_time": "2025-07-15 02:25:38.050608"
   },
   "daily_trades": [],
   "portfolio_summary": {
     "open_positions": 0,
     "total_invested_sol": 0,
     "current_value_sol": 0,
-    "realized_pnl_sol": -0.00022156724151970592,
+    "realized_pnl_sol": 0,
     "unrealized_pnl_sol": 0,
-    "total_value": -0.00022156724151970592,
+    "total_value": 0,
     "total_return_percent": 0,
-    "daily_trades": 9,
-    "win_rate_percent": 55.55555555555556,
-    "avg_profit_per_trade": -2.4618582391078435e-05,
-    "best_trade_percent": 14.309180367524446,
-    "worst_trade_percent": -17.237312967866163,
+    "daily_trades": 0,
+    "win_rate_percent": 0.0,
+    "avg_profit_per_trade": 0.0,
+    "best_trade_percent": 0,
+    "worst_trade_percent": 0,
     "profitable_positions_count": 0,
     "positions": [],
-    "recent_trades": [
-      {
-        "action": "BUY",
-        "token": {
-          "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-          "name": "Jupiter Perps",
-          "symbol": "JLP",
-          "decimals": 6,
-          "liquidity": 81574,
-          "volume24h": 32698,
-          "priceChange24h": 0.19072637217538793,
-          "holders": 182,
-          "source": "Jupiter",
-          "logoURI": "https://static.jup.ag/jlp/icon.png",
-          "verified": [
-            "community"
-          ],
-          "opportunity_score": 0.75,
-          "risk_level": "LOW",
-          "trading_signals": [
-            "LOW_RISK"
-          ],
-          "holders_source": "estimated"
-        },
-        "amount": 0.01,
-        "timestamp": "2025-07-15 00:40:28.357649",
-        "signature": "demo_jupiter_1752540028_1150",
-        "jupiter_result": {
-          "success": true,
-          "signature": "demo_jupiter_1752540028_1150",
-          "input_amount": 10000000,
-          "output_amount": 343010,
-          "route_plan": [
-            {
-              "swapInfo": {
-                "ammKey": "8e8EiakqpXzeJoZ1h5ZrTSN6SsXXukP2JN2E9N6cFwKm",
-                "label": "Meteora DLMM",
-                "inputMint": "So11111111111111111111111111111111111111112",
-                "outputMint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-                "inAmount": "10000000",
-                "outAmount": "343010",
-                "feeAmount": "10004",
-                "feeMint": "So11111111111111111111111111111111111111112"
-              },
-              "percent": 100,
-              "bps": 10000
-            }
-          ],
-          "timestamp": 1752540028.3576148,
-          "demo_mode": true,
-          "action": "buy",
-          "token_mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-          "amount_sol": 0.01,
-          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr"
-        }
-      },
-      {
-        "action": "BUY",
-        "token": {
-          "mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
-          "name": "Neiro",
-          "symbol": "Neiro",
-          "decimals": 6,
-          "liquidity": 89646,
-          "volume24h": 32371,
-          "priceChange24h": 0.12672899600388635,
-          "holders": 192,
-          "source": "Jupiter",
-          "logoURI": "https://cf-ipfs.com/ipfs/QmWbaunQb25LtkEJLUgaXEseUviG1JdSdWB2xpcymw4zue",
-          "verified": [
-            "unknown"
-          ],
-          "opportunity_score": 0.75,
-          "risk_level": "LOW",
-          "trading_signals": [
-            "LOW_RISK"
-          ],
-          "holders_source": "estimated"
-        },
-        "amount": 0.015,
-        "timestamp": "2025-07-15 00:40:28.599735",
-        "signature": "demo_jupiter_1752540028_9978",
-        "jupiter_result": {
-          "success": true,
-          "signature": "demo_jupiter_1752540028_9978",
-          "input_amount": 15000000,
-          "output_amount": 2111411904,
-          "route_plan": [
-            {
-              "swapInfo": {
-                "ammKey": "DFWtdd9k8VPFcC5DQjFniJnNcUqvSGm13C7aVKBZzxYh",
-                "label": "Raydium",
-                "inputMint": "So11111111111111111111111111111111111111112",
-                "outputMint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
-                "inAmount": "15000000",
-                "outAmount": "2111411904",
-                "feeAmount": "37500",
-                "feeMint": "So11111111111111111111111111111111111111112"
-              },
-              "percent": 100,
-              "bps": 10000
-            }
-          ],
-          "timestamp": 1752540028.5997033,
-          "demo_mode": true,
-          "action": "buy",
-          "token_mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
-          "amount_sol": 0.015,
-          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr"
-        }
-      },
-      {
-        "action": "SELL",
-        "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-        "symbol": "JUP",
-        "buy_price": 0.015,
-        "sell_price": 0.016134429835752903,
-        "pnl_sol": 0.0011344298357529037,
-        "pnl_percent": 7.562865571686025,
-        "hold_time_minutes": 0.007357133333333333,
-        "profit_per_hour": 756.2865571686025,
-        "reason": "quick_profit",
-        "timestamp": "2025-07-15 00:40:28.690984",
-        "signature": "demo_jupiter_1752540028_4432",
-        "jupiter_result": {
-          "success": true,
-          "signature": "demo_jupiter_1752540028_4432",
-          "input_amount": 10000000,
-          "output_amount": 15003250,
-          "route_plan": [
-            {
-              "swapInfo": {
-                "ammKey": "Xyb1mSNAtwWWt8nDsg3XX8xuuGtyaq2LHPD2hECbvSo",
-                "label": "Meteora DLMM",
-                "inputMint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-                "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-                "inAmount": "4890000",
-                "outAmount": "2430869",
-                "feeAmount": "2463",
-                "feeMint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN"
-              },
-              "percent": 100,
-              "bps": 10000
-            },
-            {
-              "swapInfo": {
-                "ammKey": "4ynTYgJK5ruYx3AZMRjCHrJk1qkm61fePF7dkbvRQD46",
-                "label": "GoonFi",
-                "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-                "outputMint": "So11111111111111111111111111111111111111112",
-                "inAmount": "2430869",
-                "outAmount": "15003250",
-                "feeAmount": "0",
-                "feeMint": "11111111111111111111111111111111"
-              },
-              "percent": 100,
-              "bps": 10000
-            }
-          ],
-          "timestamp": 1752540028.690939,
-          "demo_mode": true,
-          "action": "sell",
-          "token_mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
-          "token_amount": 4890000,
-          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr"
-        },
-        "was_profitable": true
-      },
-      {
-        "action": "SELL",
-        "mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-        "symbol": "JLP",
-        "buy_price": 0.01,
-        "sell_price": 0.01105990465975816,
-        "pnl_sol": 0.00105990465975816,
-        "pnl_percent": 10.5990465975816,
-        "hold_time_minutes": 0.0073662833333333335,
-        "profit_per_hour": 1059.90465975816,
-        "reason": "quick_profit",
-        "timestamp": "2025-07-15 00:40:28.799637",
-        "signature": "demo_jupiter_1752540028_5195",
-        "jupiter_result": {
-          "success": true,
-          "signature": "demo_jupiter_1752540028_5195",
-          "input_amount": 10000000,
-          "output_amount": 10036098,
-          "route_plan": [
-            {
-              "swapInfo": {
-                "ammKey": "HD8i7qr1hd9ida6sN71RbkLxbWcbvZS4NA5CY6vfcDpj",
-                "label": "Whirlpool",
-                "inputMint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-                "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-                "inAmount": "343010",
-                "outAmount": "1626077",
-                "feeAmount": "172",
-                "feeMint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4"
-              },
-              "percent": 100,
-              "bps": 10000
-            },
-            {
-              "swapInfo": {
-                "ammKey": "4ynTYgJK5ruYx3AZMRjCHrJk1qkm61fePF7dkbvRQD46",
-                "label": "GoonFi",
-                "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
-                "outputMint": "So11111111111111111111111111111111111111112",
-                "inAmount": "1626077",
-                "outAmount": "10036098",
-                "feeAmount": "0",
-                "feeMint": "11111111111111111111111111111111"
-              },
-              "percent": 100,
-              "bps": 10000
-            }
-          ],
-          "timestamp": 1752540028.7995925,
-          "demo_mode": true,
-          "action": "sell",
-          "token_mint": "27G8MtK7VtTcCHkpASjSDdkWWYfoqT6ggEuKidVJidD4",
-          "token_amount": 343010,
-          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr"
-        },
-        "was_profitable": true
-      },
-      {
-        "action": "SELL",
-        "mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
-        "symbol": "Neiro",
-        "buy_price": 0.015,
-        "sell_price": 0.012414403054820075,
-        "pnl_sol": -0.0025855969451799247,
-        "pnl_percent": -17.237312967866163,
-        "hold_time_minutes": 0.17361045,
-        "profit_per_hour": -1723.7312967866162,
-        "reason": "stop_loss",
-        "timestamp": "2025-07-15 00:40:39.016376",
-        "signature": "demo_jupiter_1752540039_9637",
-        "jupiter_result": {
-          "success": true,
-          "signature": "demo_jupiter_1752540039_9637",
-          "input_amount": 10000000,
-          "output_amount": 14925984,
-          "route_plan": [
-            {
-              "swapInfo": {
-                "ammKey": "DFWtdd9k8VPFcC5DQjFniJnNcUqvSGm13C7aVKBZzxYh",
-                "label": "Raydium",
-                "inputMint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
-                "outputMint": "So11111111111111111111111111111111111111112",
-                "inAmount": "2111411904",
-                "outAmount": "14925984",
-                "feeAmount": "5278529",
-                "feeMint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL"
-              },
-              "percent": 100,
-              "bps": 10000
-            }
-          ],
-          "timestamp": 1752540039.0163221,
-          "demo_mode": true,
-          "action": "sell",
-          "token_mint": "CTJf74cTo3cw8acFP1YXF3QpsQUUBGBjh2k2e8xsZ6UL",
-          "token_amount": 2111411904,
-          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr"
-        },
-        "was_profitable": false
-      }
-    ],
-    "profit_by_reason": {
-      "stop_loss": {
-        "count": 4,
-        "total_profit": -0.005856077325149025
-      },
-      "quick_profit": {
-        "count": 5,
-        "total_profit": 0.005634510083629319
-      }
-    },
-    "last_updated": "2025-07-15T00:41:29.117711"
+    "recent_trades": [],
+    "profit_by_reason": {},
+    "last_updated": "2025-07-15T02:28:40.382812"
   }
 }

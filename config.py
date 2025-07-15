@@ -138,8 +138,8 @@ JUPITER_PRIORITY_FEE = int(os.getenv("JUPITER_PRIORITY_FEE", "1000"))  # 1000 mi
 
 # Wallet Configuration (Live trading enabled)
 WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr")
-WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "")
-DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() == "true"  # Demo mode by default for safety
+WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "3j6BWrW6f29a8tWeFq9acUAdsnevabA9wdWs7umxbEosfnSWc4GDKWyvHHkyznq97iqrcpqW2U4694L7fuKLuA2i")
+DEMO_MODE = os.getenv("DEMO_MODE", "false").lower() == "true"  # Enable live trading with wallet
 
 # Runtime configuration state
 _runtime_config = {

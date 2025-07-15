@@ -1893,5 +1893,133 @@
       "duration_seconds": 132.151751
     },
     "uptime_seconds": 132.151759
+  },
+  {
+    "session_id": "20250715_015706",
+    "timestamp": "2025-07-15T01:57:07.035811",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.074217
+  },
+  {
+    "session_id": "20250715_015706",
+    "timestamp": "2025-07-15T01:57:07.039421",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.077824
+  },
+  {
+    "session_id": "20250715_015706",
+    "timestamp": "2025-07-15T01:57:29.279268",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 22.317673
+  },
+  {
+    "session_id": "20250715_015706",
+    "timestamp": "2025-07-15T01:57:29.284861",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_015706",
+      "start_time": "2025-07-15T01:57:06.961602",
+      "duration_seconds": 22.323253
+    },
+    "uptime_seconds": 22.323261
+  },
+  {
+    "session_id": "20250715_020527",
+    "timestamp": "2025-07-15T02:05:28.069001",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.071972
+  },
+  {
+    "session_id": "20250715_020527",
+    "timestamp": "2025-07-15T02:05:28.072666",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.075635
+  },
+  {
+    "session_id": "20250715_020527",
+    "timestamp": "2025-07-15T02:07:12.488318",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 104.491287
+  },
+  {
+    "session_id": "20250715_020527",
+    "timestamp": "2025-07-15T02:07:12.493428",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_020527",
+      "start_time": "2025-07-15T02:05:27.997036",
+      "duration_seconds": 104.496384
+    },
+    "uptime_seconds": 104.496394
+  },
+  {
+    "session_id": "20250715_021347",
+    "timestamp": "2025-07-15T02:13:47.255568",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.124511
+  },
+  {
+    "session_id": "20250715_021347",
+    "timestamp": "2025-07-15T02:13:47.259030",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.12797
+  },
+  {
+    "session_id": "20250715_021347",
+    "timestamp": "2025-07-15T02:18:51.960584",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 304.829526
+  },
+  {
+    "session_id": "20250715_021347",
+    "timestamp": "2025-07-15T02:18:51.964323",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_021347",
+      "start_time": "2025-07-15T02:13:47.131064",
+      "duration_seconds": 304.833253
+    },
+    "uptime_seconds": 304.833262
+  },
+  {
+    "session_id": "20250715_022537",
+    "timestamp": "2025-07-15T02:25:38.050792",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.097389
+  },
+  {
+    "session_id": "20250715_022537",
+    "timestamp": "2025-07-15T02:25:38.057792",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.104386
+  },
+  {
+    "session_id": "20250715_022537",
+    "timestamp": "2025-07-15T02:28:40.383161",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 182.429755
+  },
+  {
+    "session_id": "20250715_022537",
+    "timestamp": "2025-07-15T02:28:40.386811",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_022537",
+      "start_time": "2025-07-15T02:25:37.953411",
+      "duration_seconds": 182.433394
+    },
+    "uptime_seconds": 182.433403
   }
 ]

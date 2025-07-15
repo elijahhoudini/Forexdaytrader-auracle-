@@ -259,13 +259,11 @@ class JupiterAPI:
             transaction = VersionedTransaction.from_bytes(transaction_bytes)
             
             # Sign transaction using the correct method
-            message = transaction.message
-            signature = wallet_keypair.sign_message(message.serialize())
-            signed_transaction = VersionedTransaction.populate(message, [signature])
+            transaction.sign([wallet_keypair])
             
             # Send transaction
             signature = await self.rpc_client.send_transaction(
-                signed_transaction,
+                transaction,
                 opts=TxOpts(skip_preflight=False, max_retries=3)
             )
             
