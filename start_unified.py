@@ -1,53 +1,51 @@
 #!/usr/bin/env python3
 """
-AURACLE + Solana Trading Bot - Unified Startup Script
-====================================================
+AURACLE Unified Start Script
+===========================
 
-This script makes it easy to run both the AURACLE bot and the Solana Trading Bot on Replit.
-Just copy the repository to Replit and click 'Run'.
+Simple script to start AURACLE with unified Telegram control.
 """
 
-import os
+import asyncio
 import sys
-import subprocess
-import argparse
+import os
 
-def install_dependencies():
-    """Check if dependencies are available."""
-    print("📦 Checking dependencies...")
+# Add current directory to Python path
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+
+from auracle_telegram_unified import AuracleUnifiedBot
+import config
+
+def main():
+    """Start AURACLE with unified Telegram control"""
+    print("� AURACLE - Unified Telegram Control")
+    print("=" * 50)
     
-    # Check if key dependencies are already installed
-    try:
-        import solana
-        import requests
-        import pandas
-        print("✅ Key dependencies found")
-        return True
-    except ImportError as e:
-        print(f"⚠️  Missing dependency: {e}")
-        print("💡 On Replit, dependencies will be auto-installed")
-        print("📝 Locally, run: pip install -r requirements.txt")
-        return True  # Continue anyway on Replit
+    # Get token
+    token = config.TELEGRAM_BOT_TOKEN or os.getenv('TELEGRAM_BOT_TOKEN')
     
-    # Check telegram dependency separately (optional)
+    if not token:
+        print("❌ Error: TELEGRAM_BOT_TOKEN not found!")
+        print("Please set it in config.py or environment variables.")
+        return
+    
+    print(f"✅ Bot token configured")
+    print(f"� Starting unified Telegram bot...")
+    
+    # Create and run bot
+    bot = AuracleUnifiedBot(token)
+    
     try:
-        import telegram
-        print("✅ Telegram library found - Full bot features available")
-    except ImportError:
-        print("⚠️  Telegram library not found - Bot will run without Telegram integration")
-        print("📝 To enable Telegram: pip install python-telegram-bot>=20.0")
+        asyncio.run(bot.run())
+    except KeyboardInterrupt:
+        print("\n� Bot stopped by user")
+    except Exception as e:
+        print(f"❌ Error: {e}")
+        import traceback
+        traceback.print_exc()
 
-def check_python_version():
-    """Check if Python version is compatible."""
-    if sys.version_info < (3, 8):
-        print("❌ Python 3.8+ is required")
-        return False
-    return True
-
-def run_auracle():
-    """Run the original AURACLE bot."""
-    print("🤖 Starting AURACLE Bot...")
-    try:
+if __name__ == "__main__":
+    main()
         # Import and run the bot
         print("🔍 Importing AURACLE modules...")
         import config

@@ -18,13 +18,13 @@ def main():
         # Add current directory to Python path
         sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
         
-        print("🚀 Starting AURACLE Production Bot...")
+        print("🚀 Starting AURACLE Unified Telegram Bot...")
         
-        # Import and run production bot
-        from main_production import main as production_main
+        # Import and run unified bot
+        from auracle_telegram_unified import main as unified_main
         
-        # Run the production bot
-        asyncio.run(production_main())
+        # Run the unified bot
+        asyncio.run(unified_main())
         
     except KeyboardInterrupt:
         print("\n👋 Bot stopped by user")

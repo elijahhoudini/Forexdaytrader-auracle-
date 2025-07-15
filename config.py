@@ -123,9 +123,9 @@ FLAG_LOG_FILE = "data/flag_logs.json"
 # ==================== EXTERNAL SERVICES ====================
 
 # Telegram Bot (Optional - only required for Telegram functionality)
-TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "false").lower() == "true"  # Default to disabled for local use
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "true").lower() == "true"  # Enable for unified bot
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "7661187219:AAHuqb1IB9QtYxHeDbTbnkobwK1rFtyvqvk")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "7661187219")
 
 # Solana Network (Free public RPC used as fallback)
 SOLANA_RPC_ENDPOINT = os.getenv("SOLANA_RPC_ENDPOINT", "https://api.mainnet-beta.solana.com")
