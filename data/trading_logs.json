@@ -28,5 +28,781 @@
       "success": true,
       "timestamp": "2025-07-14T23:49:50.672924"
     }
+  ],
+  "8009894017": [
+    {
+      "action": "auto_snipe",
+      "token": "MUMU",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.261363"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MEW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.261738"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JTO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.262081"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "thumb",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.262407"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "RETARDIO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.262725"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "RAY",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.263071"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PYUSD",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.263402"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "wDOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540191",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:43:11.263745"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.266158"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.266707"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JUP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.267123"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Bonk",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.267511"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JLP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.267973"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MEW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.268381"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Neiro",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.268786"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "ETH",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.269220"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "neo",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540256",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:44:16.269641"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.865934"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.866676"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "$michi",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.868368"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BILLY",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.869290"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "FWOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.870329"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WOLF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.871367"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MANEKI",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540320",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:45:20.872473"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "POPCAT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.619515"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "mSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.620318"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "FWOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.620867"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.621394"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.621947"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Bonk",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.622479"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "CATDOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540385",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:46:25.623031"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PYUSD",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540450",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:47:30.215391"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MUMU",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540450",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:47:30.216377"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540450",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:47:30.216993"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "thumb",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540450",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:47:30.217620"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PYUSD",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.614075"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JLP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.616720"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "mSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.643480"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.645326"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "NEIRO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.649508"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "ETH",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.655197"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "RENDER",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.696735"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "RAY",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.698930"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PCKT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540518",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:48:38.702362"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.761651"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JUP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.762605"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.763515"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "nani",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.764752"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WOLF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.765642"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "bSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.766433"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "$Pooku",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.767241"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "RETARDIO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540582",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:49:42.768204"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JUP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540647",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:50:47.798433"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SCF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540647",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:50:47.799523"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GINNAN",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540647",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:50:47.800364"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "ETH",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540647",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:50:47.801205"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WEN",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540647",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:50:47.802055"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "thumb",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540647",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:50:47.802915"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PYUSD",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540711",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:51:51.885462"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GINNAN",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540711",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:51:51.886662"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BILLY",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540711",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:51:51.887568"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WBTC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540711",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:51:51.888469"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "NEIRO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540711",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:51:51.889352"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "POPCAT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.026861"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SCF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.029180"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.030729"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "mSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.032481"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "ETH",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.034229"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WOLF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.037286"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "neo",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540777",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:52:57.039769"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JUP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.026051"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MUMU",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.027279"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "mSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.028298"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "FWOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.029317"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.030333"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Neiro",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.031515"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PONKE",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540841",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:54:01.032801"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.046535"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "POPCAT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.047928"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JUP",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.049068"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Bonk",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.050160"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GINNAN",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.051273"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.052495"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "mSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.054001"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.055766"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PONKE",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752540906",
+      "demo_mode": true,
+      "timestamp": "2025-07-15T00:55:06.056973"
+    }
   ]
 }
