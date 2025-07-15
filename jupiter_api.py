@@ -7,17 +7,38 @@ Provides actual Solana transaction building and execution via Jupiter.
 """
 
 import asyncio
-import httpx
 import json
 import base64
 import time
 from typing import Dict, Any, Optional, List, Tuple
-from solana.rpc.async_api import AsyncClient
-from solana.rpc.types import TxOpts
-from solders.transaction import VersionedTransaction
-from solders.pubkey import Pubkey
-from solders.keypair import Keypair
-from solders.system_program import TransferParams, transfer
+
+# Try to import httpx for HTTP requests, fallback to requests
+try:
+    import httpx
+    HTTP_CLIENT_AVAILABLE = True
+except ImportError:
+    try:
+        import requests
+        HTTP_CLIENT_AVAILABLE = False
+    except ImportError:
+        HTTP_CLIENT_AVAILABLE = False
+
+# Try to import Solana libraries, fallback to minimal implementation
+try:
+    from solana.rpc.async_api import AsyncClient
+    from solana.rpc.types import TxOpts
+    from solders.transaction import VersionedTransaction
+    from solders.pubkey import Pubkey
+    from solders.keypair import Keypair
+    from solders.system_program import TransferParams, transfer
+    SOLANA_AVAILABLE = True
+except ImportError:
+    try:
+        from minimal_solana import AsyncClient, TxOpts, VersionedTransaction, Pubkey, Keypair, TransferParams, transfer
+        SOLANA_AVAILABLE = False
+    except ImportError:
+        SOLANA_AVAILABLE = False
+
 import config
 
 
@@ -33,7 +54,12 @@ class JupiterAPI:
         """Initialize Jupiter API client."""
         self.base_url = "https://quote-api.jup.ag/v6"
         self.rpc_client = rpc_client or AsyncClient(config.SOLANA_RPC_ENDPOINT)
-        self.client = httpx.AsyncClient(timeout=10.0)
+        
+        # Initialize HTTP client
+        if HTTP_CLIENT_AVAILABLE:
+            self.client = httpx.AsyncClient(timeout=10.0)
+        else:
+            self.client = None
         
         # SOL and USDC addresses for trading pairs
         self.SOL_MINT = "So11111111111111111111111111111111111111112"
@@ -80,22 +106,28 @@ class JupiterAPI:
             }
             
             url = f"{self.base_url}/quote"
-            response = await self.client.get(url, params=params)
             
-            if response.status_code == 200:
-                quote = response.json()
-                print(f"[jupiter] 📊 Quote: {amount} {input_mint[:8]}... -> {quote.get('outAmount', 0)} {output_mint[:8]}...")
-                return quote
-            else:
-                error_text = response.text if hasattr(response, 'text') else "Unknown error"
-                print(f"[jupiter] ❌ Quote failed: {response.status_code} - {error_text}")
+            # Use httpx if available, otherwise fallback to mock response
+            if self.client:
+                response = await self.client.get(url, params=params)
                 
-                # Try to handle specific error cases
-                if response.status_code == 400:
-                    print(f"[jupiter] ⚠️ Bad request - check token addresses and amount")
-                elif response.status_code == 429:
-                    print(f"[jupiter] ⚠️ Rate limited - backing off")
-                    
+                if response.status_code == 200:
+                    quote = response.json()
+                    print(f"[jupiter] 📊 Quote: {amount} {input_mint[:8]}... -> {quote.get('outAmount', 0)} {output_mint[:8]}...")
+                    return quote
+                else:
+                    error_text = response.text if hasattr(response, 'text') else "Unknown error"
+                    print(f"[jupiter] ❌ Quote failed: {response.status_code} - {error_text}")
+                    return None
+            else:
+                # Fallback to demo mode when no HTTP client
+                if config.get_demo_mode():
+                    import random
+                    return {
+                        "outAmount": str(int(amount * random.uniform(1000, 50000))),
+                        "routePlan": [{"swapInfo": {"ammKey": "demo"}}],
+                        "demo_fallback": True
+                    }
                 return None
                 
         except Exception as e:
@@ -338,7 +370,8 @@ class JupiterAPI:
     
     async def close(self):
         """Close HTTP client."""
-        await self.client.aclose()
+        if self.client:
+            await self.client.aclose()
         if hasattr(self.rpc_client, 'close'):
             await self.rpc_client.close()
 

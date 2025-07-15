@@ -7,11 +7,22 @@ Surpasses basic scanning with multiple APIs and intelligence.
 """
 
 import asyncio
-import httpx
 import random
 from typing import Dict, Any, List, Optional
 from datetime import datetime
 import time
+
+# Try to import httpx for HTTP requests, fallback to requests
+try:
+    import httpx
+    HTTP_CLIENT_AVAILABLE = True
+except ImportError:
+    try:
+        import requests
+        HTTP_CLIENT_AVAILABLE = False
+    except ImportError:
+        HTTP_CLIENT_AVAILABLE = False
+
 from token_holders import token_holders_util
 
 
@@ -27,7 +38,11 @@ class EnhancedTokenDiscovery:
     """
     
     def __init__(self):
-        self.client = httpx.AsyncClient(timeout=10.0)
+        # Initialize HTTP client if available
+        if HTTP_CLIENT_AVAILABLE:
+            self.client = httpx.AsyncClient(timeout=10.0)
+        else:
+            self.client = None
         
         # Multiple data sources for better coverage
         self.data_sources = [
@@ -92,20 +107,25 @@ class EnhancedTokenDiscovery:
         
         for url in urls_to_try:
             try:
-                response = await self.client.get(url)
-                if response.status_code == 200:
-                    data = response.json()
-                    
-                    if source["name"] == "DexScreener":
-                        tokens = self._parse_dexscreener_data(data)
-                    elif source["name"] == "Jupiter":
-                        tokens = self._parse_jupiter_data(data)
-                    elif source["name"] == "Birdeye":
-                        tokens = self._parse_birdeye_data(data)
-                    
-                    if tokens:
-                        print(f"[discovery] ✅ {source['name']}: {len(tokens)} tokens")
-                        break
+                if self.client:
+                    response = await self.client.get(url)
+                    if response.status_code == 200:
+                        data = response.json()
+                        
+                        if source["name"] == "DexScreener":
+                            tokens = self._parse_dexscreener_data(data)
+                        elif source["name"] == "Jupiter":
+                            tokens = self._parse_jupiter_data(data)
+                        elif source["name"] == "Birdeye":
+                            tokens = self._parse_birdeye_data(data)
+                        
+                        if tokens:
+                            print(f"[discovery] ✅ {source['name']}: {len(tokens)} tokens")
+                            break
+                else:
+                    # Fallback to demo tokens when no HTTP client
+                    print(f"[discovery] ⚠️ No HTTP client available - using demo tokens")
+                    break
                         
             except Exception as e:
                 print(f"[discovery] ⚠️ {source['name']} error: {type(e).__name__}")
@@ -450,7 +470,8 @@ class EnhancedTokenDiscovery:
     
     async def close(self):
         """Close HTTP client."""
-        await self.client.aclose()
+        if self.client:
+            await self.client.aclose()
     
     async def _enrich_with_holder_data(self, tokens: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
         """

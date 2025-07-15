@@ -10,10 +10,21 @@ import config
 import time
 import random
 from typing import Optional, Dict, Any
-from solana.rpc.async_api import AsyncClient
-from solders.keypair import Keypair
-from solders.pubkey import Pubkey
-import base58
+
+# Try to import Solana libraries, fallback to minimal implementation
+try:
+    from solana.rpc.async_api import AsyncClient
+    from solders.keypair import Keypair
+    from solders.pubkey import Pubkey
+    import base58
+    SOLANA_AVAILABLE = True
+except ImportError:
+    try:
+        from minimal_solana import AsyncClient, Keypair, Pubkey, base58
+        SOLANA_AVAILABLE = False
+    except ImportError:
+        SOLANA_AVAILABLE = False
+
 from jupiter_api import JupiterTradeExecutor
 
 

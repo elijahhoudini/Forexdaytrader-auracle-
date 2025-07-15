@@ -1,13 +1,7 @@
 {
   "test_user_123": {
-    "username": "testuser",
-    "first_seen": "2025-07-14T23:44:02.686843",
-    "test_data": true
-  },
-  "demo_123": {
-    "username": "demo_user",
-    "created": "2025-07-14T23:49:50.672506",
-    "trades": 15,
-    "profit": 0.25
+    "username": "TestUser",
+    "created_at": "2025-07-15T01:14:53.536826",
+    "total_trades": 5
   }
 }

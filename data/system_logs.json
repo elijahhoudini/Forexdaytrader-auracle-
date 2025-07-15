@@ -1652,5 +1652,246 @@
     "message": "AURACLE main loop starting",
     "data": {},
     "uptime_seconds": 0.110494
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:13:38.557619",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.112176
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:13:38.563269",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.117823
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:13:38.571243",
+    "message": "Intelligence Update: \u26a0\ufe0f Network Issue Detected: 'AsyncClient' object has no attribute 'get_health'\n\ud83d\udd04 Switching to backup monitoring mode",
+    "data": {},
+    "uptime_seconds": 0.125798
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:13:38.581997",
+    "message": "Intelligence Update: \ud83e\udd16 Auracle System Online - Traveler 5798\n\ud83c\udfaf Mission: Generate autonomous profits through intelligent Solana trading to fund LLC incorporation. Target: 500.0 SOL reserve for business formation.\n\ud83d\udcb0 LLC Goal: 500.0 SOL\n\ud83d\udcca Current Reserve: 0.0000 SOL\n\ud83c\udf10 Network Health: \u26a0\ufe0f Degraded\n\ud83d\udd10 Encryption: \u26a0\ufe0f Disabled",
+    "data": {},
+    "uptime_seconds": 0.136552
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:16:41.637770",
+    "message": "Intelligence Update: \u274c Critical Error - Traveler 5798\n\ud83d\udd27 Error: 'Auracle' object has no attribute '_display_enhanced_portfolio_status'...\n\ud83d\udd04 Attempting recovery...",
+    "data": {},
+    "uptime_seconds": 183.192324
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:16:41.642517",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 183.197071
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:16:41.644898",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_001338",
+      "start_time": "2025-07-15T00:13:38.445451",
+      "duration_seconds": 183.199441
+    },
+    "uptime_seconds": 183.199449
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:22:08.230674",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.072574
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:22:08.235029",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.076929
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:22:08.239557",
+    "message": "Intelligence Update: \u26a0\ufe0f Network Issue Detected: 'AsyncClient' object has no attribute 'get_health'\n\ud83d\udd04 Switching to backup monitoring mode",
+    "data": {},
+    "uptime_seconds": 0.081456
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:22:08.243442",
+    "message": "Intelligence Update: \ud83e\udd16 Auracle System Online - Traveler 5798\n\ud83c\udfaf Mission: Generate autonomous profits through intelligent Solana trading to fund LLC incorporation. Target: 500.0 SOL reserve for business formation.\n\ud83d\udcb0 LLC Goal: 500.0 SOL\n\ud83d\udcca Current Reserve: 0.0000 SOL\n\ud83c\udf10 Network Health: \u26a0\ufe0f Degraded\n\ud83d\udd10 Encryption: \u26a0\ufe0f Disabled",
+    "data": {},
+    "uptime_seconds": 0.085342
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:27:02.301657",
+    "message": "Intelligence Update: \u26a0\ufe0f Network Issue Detected: 'AsyncClient' object has no attribute 'get_health'\n\ud83d\udd04 Switching to backup monitoring mode",
+    "data": {},
+    "uptime_seconds": 294.143557
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:32:04.091827",
+    "message": "Intelligence Update: \u26a0\ufe0f Network Issue Detected: 'AsyncClient' object has no attribute 'get_health'\n\ud83d\udd04 Switching to backup monitoring mode",
+    "data": {},
+    "uptime_seconds": 595.933727
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:35:45.118978",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 816.960878
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:35:45.124797",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_002208",
+      "start_time": "2025-07-15T00:22:08.158106",
+      "duration_seconds": 816.966685
+    },
+    "uptime_seconds": 816.966693
+  },
+  {
+    "session_id": "20250715_003547",
+    "timestamp": "2025-07-15T00:35:47.133932",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.094673
+  },
+  {
+    "session_id": "20250715_003547",
+    "timestamp": "2025-07-15T00:35:47.137903",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.098643
+  },
+  {
+    "session_id": "20250715_003547",
+    "timestamp": "2025-07-15T00:36:58.706738",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 71.667477
+  },
+  {
+    "session_id": "20250715_003547",
+    "timestamp": "2025-07-15T00:36:58.709986",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_003547",
+      "start_time": "2025-07-15T00:35:47.039266",
+      "duration_seconds": 71.670714
+    },
+    "uptime_seconds": 71.670723
+  },
+  {
+    "session_id": "20250715_003700",
+    "timestamp": "2025-07-15T00:37:00.190216",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.072268
+  },
+  {
+    "session_id": "20250715_003700",
+    "timestamp": "2025-07-15T00:37:00.193200",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.075249
+  },
+  {
+    "session_id": "20250715_003700",
+    "timestamp": "2025-07-15T00:38:32.004014",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 91.886062
+  },
+  {
+    "session_id": "20250715_003700",
+    "timestamp": "2025-07-15T00:38:32.007420",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_003700",
+      "start_time": "2025-07-15T00:37:00.117957",
+      "duration_seconds": 91.889457
+    },
+    "uptime_seconds": 91.889466
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:38:33.459119",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.087679
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:38:33.462435",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.090993
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:39:17.046438",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.076851
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:39:17.050982",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.081393
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:41:26.454504",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 173.083061
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:41:26.457568",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_003833",
+      "start_time": "2025-07-15T00:38:33.371448",
+      "duration_seconds": 173.086114
+    },
+    "uptime_seconds": 173.086122
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:41:29.118600",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 132.149012
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:41:29.121351",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_003916",
+      "start_time": "2025-07-15T00:39:16.969594",
+      "duration_seconds": 132.151751
+    },
+    "uptime_seconds": 132.151759
   }
 ]

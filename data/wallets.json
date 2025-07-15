@@ -1,20 +1,20 @@
 {
-  "test_user_456": {
-    "address": "CrqCAVvvVTSQSQdq6u2VgLkX1LJUvJssTwK3BZpjLE2h",
-    "private_key": "98p7K34ouFt/dBLNkHClBM/gRvHfvI/ftACHDFmBik2wNIHav6UHNzTqo/DVGPa7DcpGVBkjajVC99O6fmqILg==",
-    "created_at": "2025-07-14T23:44:02.687645",
+  "test_user_connect": {
+    "address": "TestAddress123456789012345678901234567890",
+    "private_key": "TestPrivateKey",
+    "connected_at": "2025-07-15T01:14:53.538548",
+    "balance_sol": 0.0
+  },
+  "test_user_wallet": {
+    "address": "r6xhv2iZTNup5MyLO0fzeNy93Xemzx9VXSdWMspOlFII",
+    "private_key": "D4wLa8kX1PxAXg1Rj4SZ1Je56Ed3fUBqgTx5TOY2QMbTkIMCFpMDo8UHzhzhfXXMF7GvcKGltO1g4lk4L8vwG0ZB",
+    "created_at": "2025-07-15T01:14:53.538417",
     "balance_sol": 0.0
   },
   "test_user_sniper": {
-    "address": "87i98RYUdK9R7UpXupSdJTXap2sJhLa2aMdJ8XGoZeUi",
-    "private_key": "a5nR5Grh8ePy6/QVkLsr8+hsMS/x20qlg8Yd6FilP0Bpuc+GKUyUW3TuvBIkqllmu+f9TerpwHiWAS4PX3jUuw==",
-    "created_at": "2025-07-14T23:44:02.753738",
-    "balance_sol": 0.0
-  },
-  "demo_user_123": {
-    "address": "FXcdkbbaxqJXFCEGAQ4Wi4LXhoM3iqKpKqVeQeRRTrm6",
-    "private_key": "olJXlKNnkUKNwhQV3VGzXEwdn30PDqg7OJOJI/Wl803X21UUCUsmJsXJ6rgKKut+oNC14ayU377kRRB8KZfsMQ==",
-    "created_at": "2025-07-14T23:49:48.491915",
+    "address": "S9Bf0KM7OfGr4FSfiHl6Qhs0TotVS8fiaIo29G4JpmIm",
+    "private_key": "TR0xqGAxFeA1K8ibJa2NmL3gdSS2pdYyZqEY1cN5RNlcGdwC9cjz9UoAbEZw8idWUx6z4YW58BYjCX1DQwIfut0C",
+    "created_at": "2025-07-15T01:14:54.543315",
     "balance_sol": 0.0
   }
 }

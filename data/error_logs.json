@@ -28,5 +28,191 @@
     "timestamp": "2025-07-13T14:52:24.675947",
     "error_message": "Main loop error: 'total_value'",
     "error_data": {}
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:13:38.570302",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:14:29.806576",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:15:31.059509",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:16:31.626520",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_001338",
+    "timestamp": "2025-07-15T00:16:41.637280",
+    "error_message": "Main loop error: 'Auracle' object has no attribute '_display_enhanced_portfolio_status'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:22:08.239193",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:22:59.141988",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:23:59.973558",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:25:01.177148",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:26:01.887770",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:27:02.300423",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:27:02.301159",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:28:02.867533",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:29:03.282652",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:30:03.555994",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:31:03.959184",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:32:04.090668",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:32:04.091436",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:33:04.223718",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:34:04.559672",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_002208",
+    "timestamp": "2025-07-15T00:35:04.971927",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003547",
+    "timestamp": "2025-07-15T00:35:47.415868",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003547",
+    "timestamp": "2025-07-15T00:36:38.241163",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003700",
+    "timestamp": "2025-07-15T00:37:00.472112",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003700",
+    "timestamp": "2025-07-15T00:37:51.702430",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:38:33.896994",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:39:17.474249",
+    "error_message": "Solana network health check failed: 'AsyncClient' object has no attribute 'get_health'",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:39:25.082788",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:40:08.527369",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003833",
+    "timestamp": "2025-07-15T00:40:26.070966",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250715_003916",
+    "timestamp": "2025-07-15T00:41:09.104817",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
   }
 ]
