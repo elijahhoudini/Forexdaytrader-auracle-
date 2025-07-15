@@ -9,30 +9,442 @@
     "llc_contributions": 0
   },
   "trading_stats": {
-    "scans_completed": 18,
-    "tokens_evaluated": 50,
-    "trades_executed": 0,
+    "scans_completed": 32,
+    "tokens_evaluated": 0,
+    "trades_executed": 5,
     "llc_contributions": 0,
-    "start_time": "2025-07-15 02:25:38.050608"
+    "start_time": "2025-07-15 03:53:22.806091"
   },
   "daily_trades": [],
   "portfolio_summary": {
-    "open_positions": 0,
-    "total_invested_sol": 0,
-    "current_value_sol": 0,
+    "open_positions": 5,
+    "total_invested_sol": 0.065,
+    "current_value_sol": 0.065,
     "realized_pnl_sol": 0,
-    "unrealized_pnl_sol": 0,
-    "total_value": 0,
-    "total_return_percent": 0,
-    "daily_trades": 0,
+    "unrealized_pnl_sol": 0.0,
+    "total_value": 0.065,
+    "total_return_percent": 0.0,
+    "daily_trades": 5,
     "win_rate_percent": 0.0,
     "avg_profit_per_trade": 0.0,
     "best_trade_percent": 0,
     "worst_trade_percent": 0,
     "profitable_positions_count": 0,
-    "positions": [],
-    "recent_trades": [],
+    "positions": [
+      {
+        "mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+        "symbol": "POPCAT",
+        "buy_price_sol": 0.015,
+        "buy_time": "2025-07-15 03:54:29.013695",
+        "buy_signature": "5AKWWKJK4n73c5iG7G5vCs67aeWEWSRkk553vssYNPwknBJdNV5ABVUJF5qvS9tyfhgA3DA2dRd3SoWuynU5EP3R",
+        "tokens_received": 6712747638,
+        "status": "open",
+        "demo_mode": false,
+        "current_value": 0.015,
+        "current_pnl_percent": 0,
+        "age_minutes": 4.103692616666667,
+        "trailing_stop_price": 0.015,
+        "highest_value": 0.015
+      },
+      {
+        "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+        "symbol": "JUP",
+        "buy_price_sol": 0.01,
+        "buy_time": "2025-07-15 03:55:29.758118",
+        "buy_signature": "KzvLGabpcDS3z6B5UCjv98Ps9YCKn2Xq1x64Az6kmvZcnJCmqrpHP2X5UcqKcb55LhiDYYQytoBgPVVaYTNT72M",
+        "tokens_received": 3322504,
+        "status": "open",
+        "demo_mode": false,
+        "current_value": 0.01,
+        "current_pnl_percent": 0,
+        "age_minutes": 3.0912859833333335,
+        "trailing_stop_price": 0.01,
+        "highest_value": 0.01
+      },
+      {
+        "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+        "symbol": "MUMU",
+        "buy_price_sol": 0.015,
+        "buy_time": "2025-07-15 03:56:30.683632",
+        "buy_signature": "4DQCVPvhi58KwQdW7TkGS5cTShzShSTC36gDhFNuxSdBZAYbQf36ojPJp15qqtUgrNXJXrQVmnYLg1UDJy6hj4Dr",
+        "tokens_received": 594363134510,
+        "status": "open",
+        "demo_mode": false,
+        "current_value": 0.015,
+        "current_pnl_percent": 0,
+        "age_minutes": 2.075860833333333,
+        "trailing_stop_price": 0.015,
+        "highest_value": 0.015
+      },
+      {
+        "mint": "5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC",
+        "symbol": "PONKE",
+        "buy_price_sol": 0.01,
+        "buy_time": "2025-07-15 03:57:31.506234",
+        "buy_signature": "3zsZhSv7qt5HH838cyviFCMWRvweoRwAinDQ116X1pcjq7q3s6cjutodCvXnXBnUWEUf6cAaJTemas3kkJT4Wb7t",
+        "tokens_received": 11996362160,
+        "status": "open",
+        "demo_mode": false,
+        "current_value": 0.01,
+        "current_pnl_percent": 0,
+        "age_minutes": 1.0621508499999999,
+        "trailing_stop_price": 0.01,
+        "highest_value": 0.01
+      },
+      {
+        "mint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+        "symbol": "ETH",
+        "buy_price_sol": 0.015,
+        "buy_time": "2025-07-15 03:58:32.338980",
+        "buy_signature": "2ghQ15abve87DYBTg7v8bZpJUrNPw5FmxXpZGwofidfyWWsmD8AyFpXv8JLxXkA9EM1eiRw7SBtw1m1FZ5rrfw4Z",
+        "tokens_received": 80871,
+        "status": "open",
+        "demo_mode": false,
+        "current_value": 0.015,
+        "current_pnl_percent": 0,
+        "age_minutes": 0.04827181666666667,
+        "trailing_stop_price": 0.015,
+        "highest_value": 0.015
+      }
+    ],
+    "recent_trades": [
+      {
+        "action": "BUY",
+        "token": {
+          "mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+          "name": "Popcat",
+          "symbol": "POPCAT",
+          "decimals": 9,
+          "liquidity": 55451,
+          "volume24h": 38469,
+          "priceChange24h": 0.11912066267776386,
+          "holders": 165,
+          "source": "Jupiter",
+          "logoURI": "https://bafkreidvkvuzyslw5jh5z242lgzwzhbi2kxxnpkic5wsvyno5ikvpr7reu.ipfs.nftstorage.link",
+          "verified": [
+            "community"
+          ],
+          "opportunity_score": 0.75,
+          "risk_level": "LOW",
+          "trading_signals": [
+            "HIGH_VOLUME",
+            "LOW_RISK"
+          ],
+          "holders_source": "estimated"
+        },
+        "amount": 0.015,
+        "timestamp": "2025-07-15 03:54:29.013709",
+        "signature": "5AKWWKJK4n73c5iG7G5vCs67aeWEWSRkk553vssYNPwknBJdNV5ABVUJF5qvS9tyfhgA3DA2dRd3SoWuynU5EP3R",
+        "jupiter_result": {
+          "success": true,
+          "signature": "5AKWWKJK4n73c5iG7G5vCs67aeWEWSRkk553vssYNPwknBJdNV5ABVUJF5qvS9tyfhgA3DA2dRd3SoWuynU5EP3R",
+          "input_amount": 15000000,
+          "output_amount": 6712747638,
+          "route_plan": [
+            {
+              "swapInfo": {
+                "ammKey": "Gb7m4daakbVbrFLR33FKMDVMHAprRZ66CSYt4bpFwUgS",
+                "label": "Sanctum Infinity",
+                "inputMint": "So11111111111111111111111111111111111111112",
+                "outputMint": "LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X",
+                "inAmount": "15000000",
+                "outAmount": "12008116",
+                "feeAmount": "10816",
+                "feeMint": "LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X"
+              },
+              "percent": 100,
+              "bps": 10000
+            },
+            {
+              "swapInfo": {
+                "ammKey": "6EQFedRxvYMXVZVF8DvVPki8VzQWWWfmxcSiGXKwZAoc",
+                "label": "Raydium CLMM",
+                "inputMint": "LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X",
+                "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "inAmount": "12008116",
+                "outAmount": "2387510",
+                "feeAmount": "10088",
+                "feeMint": "LAinEtNLgpmCP9Rvsf5Hn8W6EhNiKLZQti1xfWMLy6X"
+              },
+              "percent": 100,
+              "bps": 10000
+            },
+            {
+              "swapInfo": {
+                "ammKey": "EciLGydSE5RvGLQ3YutztkAzgcA48kNMrbASVigVKCZg",
+                "label": "ZeroFi",
+                "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "outputMint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+                "inAmount": "2387510",
+                "outAmount": "6712747638",
+                "feeAmount": "0",
+                "feeMint": "11111111111111111111111111111111"
+              },
+              "percent": 100,
+              "bps": 10000
+            }
+          ],
+          "timestamp": 1752551669.0136316,
+          "action": "buy",
+          "token_mint": "7GCihgDB8fe6KNjn2MYtkzZcRjQy3t9GHdC8uHYmW2hr",
+          "amount_sol": 0.015,
+          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr",
+          "demo_mode": false
+        }
+      },
+      {
+        "action": "BUY",
+        "token": {
+          "mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+          "name": "Jupiter",
+          "symbol": "JUP",
+          "decimals": 6,
+          "liquidity": 88642,
+          "volume24h": 25744,
+          "priceChange24h": 0.17060541750754857,
+          "holders": 174,
+          "source": "Jupiter",
+          "logoURI": "https://static.jup.ag/jup/icon.png",
+          "verified": [
+            "community"
+          ],
+          "opportunity_score": 0.75,
+          "risk_level": "LOW",
+          "trading_signals": [
+            "LOW_RISK"
+          ],
+          "holders_source": "estimated"
+        },
+        "amount": 0.01,
+        "timestamp": "2025-07-15 03:55:29.758131",
+        "signature": "KzvLGabpcDS3z6B5UCjv98Ps9YCKn2Xq1x64Az6kmvZcnJCmqrpHP2X5UcqKcb55LhiDYYQytoBgPVVaYTNT72M",
+        "jupiter_result": {
+          "success": true,
+          "signature": "KzvLGabpcDS3z6B5UCjv98Ps9YCKn2Xq1x64Az6kmvZcnJCmqrpHP2X5UcqKcb55LhiDYYQytoBgPVVaYTNT72M",
+          "input_amount": 10000000,
+          "output_amount": 3322504,
+          "route_plan": [
+            {
+              "swapInfo": {
+                "ammKey": "FbkX1h2YTs171cEMa4GrV7XbAiQt5zSmV2CjfYWxXJDP",
+                "label": "Meteora DLMM",
+                "inputMint": "So11111111111111111111111111111111111111112",
+                "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "inAmount": "10000000",
+                "outAmount": "1589721",
+                "feeAmount": "3041",
+                "feeMint": "So11111111111111111111111111111111111111112"
+              },
+              "percent": 100,
+              "bps": 10000
+            },
+            {
+              "swapInfo": {
+                "ammKey": "1amiJLvkVHjPz7t8dwBsWHknHitcpqwPPuuUCfHyzjB",
+                "label": "ZeroFi",
+                "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "outputMint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+                "inAmount": "1589721",
+                "outAmount": "3322504",
+                "feeAmount": "0",
+                "feeMint": "11111111111111111111111111111111"
+              },
+              "percent": 100,
+              "bps": 10000
+            }
+          ],
+          "timestamp": 1752551729.7579408,
+          "action": "buy",
+          "token_mint": "JUPyiwrYJFskUPiHa7hkeR8VUtAeFoSYbKedZNsDvCN",
+          "amount_sol": 0.01,
+          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr",
+          "demo_mode": false
+        }
+      },
+      {
+        "action": "BUY",
+        "token": {
+          "mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "name": "Mumu the Bull",
+          "symbol": "MUMU",
+          "decimals": 6,
+          "liquidity": 93342,
+          "volume24h": 33404,
+          "priceChange24h": 0.09136360822002801,
+          "holders": 199,
+          "source": "Jupiter",
+          "logoURI": "https://bafkreihszutctvdmdlyjtzfmj7rgvdorpc7jchj2td3feypc7veidbkpsu.ipfs.nftstorage.link",
+          "verified": [
+            "community"
+          ],
+          "opportunity_score": 0.75,
+          "risk_level": "LOW",
+          "trading_signals": [
+            "LOW_RISK"
+          ],
+          "holders_source": "estimated"
+        },
+        "amount": 0.015,
+        "timestamp": "2025-07-15 03:56:30.683645",
+        "signature": "4DQCVPvhi58KwQdW7TkGS5cTShzShSTC36gDhFNuxSdBZAYbQf36ojPJp15qqtUgrNXJXrQVmnYLg1UDJy6hj4Dr",
+        "jupiter_result": {
+          "success": true,
+          "signature": "4DQCVPvhi58KwQdW7TkGS5cTShzShSTC36gDhFNuxSdBZAYbQf36ojPJp15qqtUgrNXJXrQVmnYLg1UDJy6hj4Dr",
+          "input_amount": 15000000,
+          "output_amount": 594363134510,
+          "route_plan": [
+            {
+              "swapInfo": {
+                "ammKey": "FvMZrD1qC66Zw8VPrW15xN1N5owUPqpQgNQ5oH18mR4E",
+                "label": "Raydium",
+                "inputMint": "So11111111111111111111111111111111111111112",
+                "outputMint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+                "inAmount": "15000000",
+                "outAmount": "594363134510",
+                "feeAmount": "37500",
+                "feeMint": "So11111111111111111111111111111111111111112"
+              },
+              "percent": 100,
+              "bps": 10000
+            }
+          ],
+          "timestamp": 1752551790.683415,
+          "action": "buy",
+          "token_mint": "5LafQUrVco6o7KMz42eqVEJ9LW31StPyGjeeu5sKoMtA",
+          "amount_sol": 0.015,
+          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr",
+          "demo_mode": false
+        }
+      },
+      {
+        "action": "BUY",
+        "token": {
+          "mint": "5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC",
+          "name": "PONKE",
+          "symbol": "PONKE",
+          "decimals": 9,
+          "liquidity": 53800,
+          "volume24h": 48568,
+          "priceChange24h": 0.1965654995348878,
+          "holders": 188,
+          "source": "Jupiter",
+          "logoURI": "https://gateway.irys.xyz/YBMDVBvnfgO1gXCSmmc8p0RQhc69WWe8_kOkoT8w7nE",
+          "verified": [
+            "community"
+          ],
+          "opportunity_score": 0.75,
+          "risk_level": "LOW",
+          "trading_signals": [
+            "HIGH_VOLUME",
+            "LOW_RISK"
+          ],
+          "holders_source": "estimated"
+        },
+        "amount": 0.01,
+        "timestamp": "2025-07-15 03:57:31.506245",
+        "signature": "3zsZhSv7qt5HH838cyviFCMWRvweoRwAinDQ116X1pcjq7q3s6cjutodCvXnXBnUWEUf6cAaJTemas3kkJT4Wb7t",
+        "jupiter_result": {
+          "success": true,
+          "signature": "3zsZhSv7qt5HH838cyviFCMWRvweoRwAinDQ116X1pcjq7q3s6cjutodCvXnXBnUWEUf6cAaJTemas3kkJT4Wb7t",
+          "input_amount": 10000000,
+          "output_amount": 11996362160,
+          "route_plan": [
+            {
+              "swapInfo": {
+                "ammKey": "5uTwG3y3F5cx4YkodgTjWEHDrX5HDKZ5bZZ72x8eQ6zE",
+                "label": "Raydium",
+                "inputMint": "So11111111111111111111111111111111111111112",
+                "outputMint": "5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC",
+                "inAmount": "10000000",
+                "outAmount": "11996362160",
+                "feeAmount": "25000",
+                "feeMint": "So11111111111111111111111111111111111111112"
+              },
+              "percent": 100,
+              "bps": 10000
+            }
+          ],
+          "timestamp": 1752551851.5061727,
+          "action": "buy",
+          "token_mint": "5z3EqYQo9HiCEs3R84RCDMu2n7anpDMxRhdK8PSWmrRC",
+          "amount_sol": 0.01,
+          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr",
+          "demo_mode": false
+        }
+      },
+      {
+        "action": "BUY",
+        "token": {
+          "mint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+          "name": "Ether (Portal)",
+          "symbol": "ETH",
+          "decimals": 8,
+          "liquidity": 80536,
+          "volume24h": 41359,
+          "priceChange24h": 0.026281039294034303,
+          "holders": 203,
+          "source": "Jupiter",
+          "logoURI": "https://raw.githubusercontent.com/wormhole-foundation/wormhole-token-list/main/assets/ETH_wh.png",
+          "verified": [
+            "wormhole",
+            "old-registry"
+          ],
+          "opportunity_score": 0.75,
+          "risk_level": "LOW",
+          "trading_signals": [
+            "HIGH_VOLUME",
+            "LOW_RISK"
+          ],
+          "holders_source": "estimated"
+        },
+        "amount": 0.015,
+        "timestamp": "2025-07-15 03:58:32.338989",
+        "signature": "2ghQ15abve87DYBTg7v8bZpJUrNPw5FmxXpZGwofidfyWWsmD8AyFpXv8JLxXkA9EM1eiRw7SBtw1m1FZ5rrfw4Z",
+        "jupiter_result": {
+          "success": true,
+          "signature": "2ghQ15abve87DYBTg7v8bZpJUrNPw5FmxXpZGwofidfyWWsmD8AyFpXv8JLxXkA9EM1eiRw7SBtw1m1FZ5rrfw4Z",
+          "input_amount": 15000000,
+          "output_amount": 80871,
+          "route_plan": [
+            {
+              "swapInfo": {
+                "ammKey": "F5Lb1Hamu7SBA3fPDwmajtACqaYNLrk4AQ8h8aL5936g",
+                "label": "Meteora DLMM",
+                "inputMint": "So11111111111111111111111111111111111111112",
+                "outputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "inAmount": "15000000",
+                "outAmount": "2386066",
+                "feeAmount": "4829",
+                "feeMint": "So11111111111111111111111111111111111111112"
+              },
+              "percent": 100,
+              "bps": 10000
+            },
+            {
+              "swapInfo": {
+                "ammKey": "Ce8WKGKeNPrtk85inFtkpskekaNibZiogSZBrcP7yhTN",
+                "label": "TesseraV",
+                "inputMint": "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+                "outputMint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+                "inAmount": "2386066",
+                "outAmount": "80871",
+                "feeAmount": "0",
+                "feeMint": "11111111111111111111111111111111"
+              },
+              "percent": 100,
+              "bps": 10000
+            }
+          ],
+          "timestamp": 1752551912.3389225,
+          "action": "buy",
+          "token_mint": "7vfCXTUXx5WJV5JADk17DUJ4ksgau7utNKj4b963voxs",
+          "amount_sol": 0.015,
+          "wallet_address": "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr",
+          "demo_mode": false
+        }
+      }
+    ],
     "profit_by_reason": {},
-    "last_updated": "2025-07-15T02:28:40.382812"
+    "last_updated": "2025-07-15T03:58:45.623915"
   }
 }

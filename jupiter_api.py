@@ -175,7 +175,7 @@ class JupiterAPI:
                 "quoteResponse": quote,
                 "userPublicKey": user_public_key,
                 "wrapAndUnwrapSol": True,
-                "useSharedAccounts": True,
+                "useSharedAccounts": False,  # Changed from True to False
                 "feeAccount": None,
                 "prioritizationFeeLamports": priority_fee
             }
@@ -229,6 +229,10 @@ class JupiterAPI:
             # Convert SOL to lamports
             amount_lamports = int(amount_sol * 1e9)
             
+            # Check if we're in demo mode
+            demo_mode = config.get_demo_mode()
+            print(f"[jupiter] 🔍 Transaction mode: {'🔶 DEMO' if demo_mode else '🔥 LIVE'}")
+            
             # Get quote
             quote = await self.get_quote(
                 input_mint=input_mint,
@@ -240,47 +244,106 @@ class JupiterAPI:
                 return {"success": False, "error": "Failed to get quote"}
             
             # In demo mode, simulate the swap
-            if config.get_demo_mode():
+            if demo_mode:
+                print(f"[jupiter] 🔶 DEMO MODE: Simulating swap")
                 return await self._simulate_swap(quote, amount_sol)
             
-            # Real mode - execute actual swap (only if network available)
+            # Real mode - execute actual swap
+            print(f"[jupiter] 🔥 LIVE MODE: Executing real swap")
+            
             if not wallet_keypair:
+                print(f"[jupiter] ❌ No wallet keypair provided for live trading")
                 return {"success": False, "error": "Wallet keypair required for live trading"}
             
             user_public_key = str(wallet_keypair.pubkey())
+            print(f"[jupiter] 📍 Using wallet: {user_public_key[:8]}...")
             
             # Get swap transaction
             swap_tx_b64 = await self.get_swap_transaction(quote, user_public_key)
             if not swap_tx_b64:
+                print(f"[jupiter] ❌ Failed to get swap transaction from Jupiter API")
                 return {"success": False, "error": "Failed to get swap transaction"}
             
-            # Decode and sign transaction
-            transaction_bytes = base64.b64decode(swap_tx_b64)
-            transaction = VersionedTransaction.from_bytes(transaction_bytes)
+            print(f"[jupiter] 📦 Got swap transaction, size: {len(swap_tx_b64)} bytes")
             
-            # Sign transaction using the correct method
-            transaction.sign([wallet_keypair])
+            # Decode and sign transaction
+            try:
+                transaction_bytes = base64.b64decode(swap_tx_b64)
+                transaction = VersionedTransaction.from_bytes(transaction_bytes)
+                print(f"[jupiter] 📝 Transaction decoded successfully")
+            except Exception as decode_error:
+                print(f"[jupiter] ❌ Transaction decode error: {decode_error}")
+                return {"success": False, "error": f"Transaction decode failed: {decode_error}"}
+            
+            # Sign transaction using the correct method for solders VersionedTransaction
+            try:
+                # Method 1: Try to use the transaction's message and sign it
+                message = transaction.message
+                
+                # Sign the message using the keypair
+                signature = wallet_keypair.sign_message(bytes(message))
+                
+                # Create a new transaction with the signature
+                signed_transaction = VersionedTransaction.populate(message, [signature])
+                print(f"[jupiter] ✅ Transaction signed successfully")
+                
+            except Exception as sign_error:
+                print(f"[jupiter] ❌ Transaction signing error: {sign_error}")
+                
+                # Method 2: Try alternative approach with raw bytes
+                try:
+                    # Try signing the raw message bytes
+                    message_bytes = transaction.message.serialize()
+                    signature = wallet_keypair.sign_message(message_bytes)
+                    signed_transaction = VersionedTransaction.populate(transaction.message, [signature])
+                    print(f"[jupiter] ✅ Transaction signed with alternative method")
+                    
+                except Exception as sign_error2:
+                    print(f"[jupiter] ❌ Alternative signing error: {sign_error2}")
+                    return {"success": False, "error": f"Transaction signing failed: {sign_error2}"}
             
             # Send transaction
-            signature = await self.rpc_client.send_transaction(
-                transaction,
-                opts=TxOpts(skip_preflight=False, max_retries=3)
-            )
+            print(f"[jupiter] 🚀 Sending transaction to Solana network...")
+            print(f"[jupiter] 🌐 RPC endpoint: {config.SOLANA_RPC_ENDPOINT}")
             
-            if signature.value:
-                # Wait for confirmation
-                await self._wait_for_confirmation(signature.value)
+            try:
+                signature_result = await self.rpc_client.send_transaction(
+                    signed_transaction,
+                    opts=TxOpts(skip_preflight=True, max_retries=3)
+                )
                 
-                return {
-                    "success": True,
-                    "signature": str(signature.value),
-                    "input_amount": amount_lamports,
-                    "output_amount": int(quote.get("outAmount", 0)),
-                    "route_plan": quote.get("routePlan", []),
-                    "timestamp": time.time()
-                }
-            else:
-                return {"success": False, "error": "Transaction failed to send"}
+                if signature_result.value:
+                    tx_signature = str(signature_result.value)
+                    print(f"[jupiter] 🎉 Transaction sent successfully!")
+                    print(f"[jupiter] 📋 Signature: {tx_signature}")
+                    print(f"[jupiter] 🔍 Solscan: https://solscan.io/tx/{tx_signature}")
+                    
+                    # Wait for confirmation
+                    print(f"[jupiter] ⏳ Waiting for confirmation...")
+                    confirmed = await self._wait_for_confirmation(tx_signature)
+                    
+                    if confirmed:
+                        print(f"[jupiter] ✅ Transaction confirmed on blockchain!")
+                    else:
+                        print(f"[jupiter] ⚠️ Transaction sent but confirmation timed out")
+                    
+                    return {
+                        "success": True,
+                        "signature": tx_signature,
+                        "solscan_url": f"https://solscan.io/tx/{tx_signature}",
+                        "input_amount": amount_lamports,
+                        "output_amount": int(quote.get("outAmount", 0)),
+                        "route_plan": quote.get("routePlan", []),
+                        "timestamp": time.time(),
+                        "confirmed": confirmed
+                    }
+                else:
+                    print(f"[jupiter] ❌ Transaction failed to send - no signature returned")
+                    return {"success": False, "error": "Transaction failed to send"}
+                    
+            except Exception as send_error:
+                print(f"[jupiter] ❌ Transaction send error: {send_error}")
+                return {"success": False, "error": f"Transaction send failed: {send_error}"}
                 
         except Exception as e:
             print(f"[jupiter] ❌ Swap execution error: {e}")
@@ -411,58 +474,86 @@ class JupiterTradeExecutor:
         Returns:
             Transaction result
         """
-        # For selling, we need to quote the token amount
-        quote = await self.jupiter.get_quote(
-            input_mint=token_mint,
-            output_mint=self.jupiter.SOL_MINT,
-            amount=token_amount
-        )
-        
-        if not quote:
-            return {"success": False, "error": "Failed to get sell quote"}
-        
-        # Execute the swap using the quote
         try:
-            if config.get_demo_mode():
+            demo_mode = config.get_demo_mode()
+            mode_str = "🔶 DEMO" if demo_mode else "🔥 LIVE"
+            
+            print(f"[jupiter_executor] 💰 {mode_str} - Selling {token_amount} of {token_mint[:8]}...")
+            
+            # For selling, we need to quote the token amount
+            quote = await self.jupiter.get_quote(
+                input_mint=token_mint,
+                output_mint=self.jupiter.SOL_MINT,
+                amount=token_amount
+            )
+            
+            if not quote:
+                print(f"[jupiter_executor] ❌ Failed to get sell quote")
+                return {"success": False, "error": "Failed to get sell quote"}
+            
+            # Execute the swap using the quote
+            if demo_mode:
+                print(f"[jupiter_executor] 🔶 Demo mode: Simulating sell")
                 return await self.jupiter._simulate_swap(quote, 0.01)  # Demo amount
             
             if not self.wallet_keypair:
+                print(f"[jupiter_executor] ❌ No wallet keypair for live trading")
                 return {"success": False, "error": "Wallet keypair required for live trading"}
+            
+            print(f"[jupiter_executor] 🔥 Live mode: Executing real sell")
             
             user_public_key = str(self.wallet_keypair.pubkey())
             swap_tx_b64 = await self.jupiter.get_swap_transaction(quote, user_public_key)
             
             if not swap_tx_b64:
+                print(f"[jupiter_executor] ❌ Failed to get swap transaction")
                 return {"success": False, "error": "Failed to get swap transaction"}
             
             # Execute transaction similar to buy_token
-            transaction_bytes = base64.b64decode(swap_tx_b64)
-            transaction = VersionedTransaction.from_bytes(transaction_bytes)
-            
-            # Sign transaction using the correct method
-            message = transaction.message
-            signature = self.wallet_keypair.sign_message(message.serialize())
-            signed_transaction = VersionedTransaction.populate(message, [signature])
-            
-            signature = await self.jupiter.rpc_client.send_transaction(
-                signed_transaction,
-                opts=TxOpts(skip_preflight=False, max_retries=3)
-            )
-            
-            if signature.value:
-                await self.jupiter._wait_for_confirmation(signature.value)
+            try:
+                transaction_bytes = base64.b64decode(swap_tx_b64)
+                transaction = VersionedTransaction.from_bytes(transaction_bytes)
                 
-                return {
-                    "success": True,
-                    "signature": str(signature.value),
-                    "input_amount": token_amount,
-                    "output_amount": int(quote.get("outAmount", 0)),
-                    "timestamp": time.time()
-                }
-            else:
-                return {"success": False, "error": "Transaction failed to send"}
+                # Sign transaction using the correct method
+                message = transaction.message
+                message_bytes = transaction.verify_and_hash_message()
+                signature = self.wallet_keypair.sign_message(message_bytes)
+                signed_transaction = VersionedTransaction.populate(message, [signature])
+                
+                print(f"[jupiter_executor] 🚀 Sending sell transaction...")
+                
+                signature_result = await self.jupiter.rpc_client.send_transaction(
+                    signed_transaction,
+                    opts=TxOpts(skip_preflight=True, max_retries=3)
+                )
+                
+                if signature_result.value:
+                    tx_signature = str(signature_result.value)
+                    print(f"[jupiter_executor] 🎉 Sell transaction sent!")
+                    print(f"[jupiter_executor] 📋 Signature: {tx_signature}")
+                    print(f"[jupiter_executor] 🔍 Solscan: https://solscan.io/tx/{tx_signature}")
+                    
+                    confirmed = await self.jupiter._wait_for_confirmation(tx_signature)
+                    
+                    return {
+                        "success": True,
+                        "signature": tx_signature,
+                        "solscan_url": f"https://solscan.io/tx/{tx_signature}",
+                        "input_amount": token_amount,
+                        "output_amount": int(quote.get("outAmount", 0)),
+                        "timestamp": time.time(),
+                        "confirmed": confirmed
+                    }
+                else:
+                    print(f"[jupiter_executor] ❌ Sell transaction failed to send")
+                    return {"success": False, "error": "Transaction failed to send"}
+                    
+            except Exception as exec_error:
+                print(f"[jupiter_executor] ❌ Sell execution error: {exec_error}")
+                return {"success": False, "error": str(exec_error)}
                 
         except Exception as e:
+            print(f"[jupiter_executor] ❌ Sell error: {e}")
             return {"success": False, "error": str(e)}
     
     async def close(self):

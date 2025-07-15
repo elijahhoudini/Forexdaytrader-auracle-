@@ -2021,5 +2021,182 @@
       "duration_seconds": 182.433394
     },
     "uptime_seconds": 182.433403
+  },
+  {
+    "session_id": "20250715_025149",
+    "timestamp": "2025-07-15T02:51:50.057392",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.093782
+  },
+  {
+    "session_id": "20250715_025149",
+    "timestamp": "2025-07-15T02:51:50.061270",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.097656
+  },
+  {
+    "session_id": "20250715_025149",
+    "timestamp": "2025-07-15T02:54:22.349815",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 152.386202
+  },
+  {
+    "session_id": "20250715_025149",
+    "timestamp": "2025-07-15T02:54:22.353547",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_025149",
+      "start_time": "2025-07-15T02:51:49.963618",
+      "duration_seconds": 152.389923
+    },
+    "uptime_seconds": 152.389932
+  },
+  {
+    "session_id": "20250715_030020",
+    "timestamp": "2025-07-15T03:00:20.857501",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.092892
+  },
+  {
+    "session_id": "20250715_030020",
+    "timestamp": "2025-07-15T03:00:20.861319",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.096705
+  },
+  {
+    "session_id": "20250715_031501",
+    "timestamp": "2025-07-15T03:15:01.904289",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.093049
+  },
+  {
+    "session_id": "20250715_031501",
+    "timestamp": "2025-07-15T03:15:01.908070",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.096826
+  },
+  {
+    "session_id": "20250715_031501",
+    "timestamp": "2025-07-15T03:31:40.623491",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 998.812248
+  },
+  {
+    "session_id": "20250715_031501",
+    "timestamp": "2025-07-15T03:31:40.627331",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_031501",
+      "start_time": "2025-07-15T03:15:01.811248",
+      "duration_seconds": 998.816077
+    },
+    "uptime_seconds": 998.816086
+  },
+  {
+    "session_id": "20250715_033433",
+    "timestamp": "2025-07-15T03:34:34.345829",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.583344
+  },
+  {
+    "session_id": "20250715_033433",
+    "timestamp": "2025-07-15T03:34:34.349272",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.586782
+  },
+  {
+    "session_id": "20250715_033433",
+    "timestamp": "2025-07-15T03:53:11.773560",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 1118.01107
+  },
+  {
+    "session_id": "20250715_033433",
+    "timestamp": "2025-07-15T03:53:11.780430",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_033433",
+      "start_time": "2025-07-15T03:34:33.762496",
+      "duration_seconds": 1118.017926
+    },
+    "uptime_seconds": 1118.017937
+  },
+  {
+    "session_id": "20250715_035322",
+    "timestamp": "2025-07-15T03:53:22.806165",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.487066
+  },
+  {
+    "session_id": "20250715_035322",
+    "timestamp": "2025-07-15T03:53:22.810496",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.491393
+  },
+  {
+    "session_id": "20250715_035322",
+    "timestamp": "2025-07-15T03:58:45.626590",
+    "message": "Daily intelligence log saved: data/auracle_intelligence_log_2025-07-15.json",
+    "data": {},
+    "uptime_seconds": 323.307487
+  },
+  {
+    "session_id": "20250715_035322",
+    "timestamp": "2025-07-15T03:58:45.634580",
+    "message": "AURACLE session ended",
+    "data": {
+      "session_id": "20250715_035322",
+      "start_time": "2025-07-15T03:53:22.319109",
+      "duration_seconds": 323.315463
+    },
+    "uptime_seconds": 323.315474
+  },
+  {
+    "session_id": "20250715_035902",
+    "timestamp": "2025-07-15T03:59:02.832325",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.564214
+  },
+  {
+    "session_id": "20250715_035902",
+    "timestamp": "2025-07-15T03:59:02.836472",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.568356
+  },
+  {
+    "session_id": "20250715_042820",
+    "timestamp": "2025-07-15T04:28:20.631200",
+    "message": "AURACLE Unified Intelligence Core initialized successfully",
+    "data": {},
+    "uptime_seconds": 0.554148
+  },
+  {
+    "session_id": "20250715_042820",
+    "timestamp": "2025-07-15T04:28:20.713026",
+    "message": "AURACLE Unified Intelligence Core starting",
+    "data": {},
+    "uptime_seconds": 0.635972
+  },
+  {
+    "session_id": "20250715_035902",
+    "timestamp": "2025-07-15T04:29:04.923029",
+    "message": "Automated backup created: auracle_backups/automated_backup_20250715_042904.json",
+    "data": {},
+    "uptime_seconds": 1802.654912
   }
 ]

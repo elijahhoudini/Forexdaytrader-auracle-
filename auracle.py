@@ -1183,34 +1183,34 @@ class Auracle:
             self.logger.log_error(f"Transaction send failed: {e}")
             return None
 
-    def main():
-        """
-        Main entry point for AURACLE bot.
+def main():
+    """
+    Main entry point for AURACLE bot.
 
-        Validates configuration and starts the trading system.
-        """
-        try:
-            # Validate configuration
-            if not config.validate_config():
-                print("❌ Configuration validation failed. Please check config.py")
-                sys.exit(1)
-
-            # Display configuration summary
-            print("\n🔧 Configuration Summary:")
-            print(f"   Max Buy Amount: {config.MAX_BUY_AMOUNT_SOL} SOL")
-            print(f"   Scan Interval: {config.SCAN_INTERVAL_SECONDS} seconds")
-            print(f"   Profit Target: {config.PROFIT_TARGET_PERCENTAGE:.1%}")
-            print(f"   Stop Loss: {config.STOP_LOSS_PERCENTAGE:.1%}")
-            print(f"   Max Daily Trades: {config.MAX_DAILY_TRADES}")
-            print()
-
-            # Initialize and start AURACLE
-            bot = Auracle()
-            bot.run()
-
-        except Exception as e:
-            print(f"❌ Failed to start AURACLE: {str(e)}")
+    Validates configuration and starts the trading system.
+    """
+    try:
+        # Validate configuration
+        if not config.validate_config():
+            print("❌ Configuration validation failed. Please check config.py")
             sys.exit(1)
 
-    if __name__ == "__main__":
-        main()
+        # Display configuration summary
+        print("\n🔧 Configuration Summary:")
+        print(f"   Max Buy Amount: {config.MAX_BUY_AMOUNT_SOL} SOL")
+        print(f"   Scan Interval: {config.SCAN_INTERVAL_SECONDS} seconds")
+        print(f"   Profit Target: {config.PROFIT_TARGET_PERCENTAGE:.1%}")
+        print(f"   Stop Loss: {config.STOP_LOSS_PERCENTAGE:.1%}")
+        print(f"   Max Daily Trades: {config.MAX_DAILY_TRADES}")
+        print()
+
+        # Initialize and start AURACLE
+        bot = Auracle()
+        bot.run()
+
+    except Exception as e:
+        print(f"❌ Failed to start AURACLE: {str(e)}")
+        sys.exit(1)
+
+if __name__ == "__main__":
+    main()

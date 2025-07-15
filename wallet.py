@@ -70,36 +70,58 @@ class Wallet:
     async def get_balance(self, token: str = "SOL") -> float:
         """Get wallet balance for specified token"""
         try:
-            if self.demo_mode:
+            demo_mode = config.get_demo_mode()
+            
+            if demo_mode:
+                print(f"[wallet] 🔶 Demo mode: Returning mock balance")
                 return 1.0  # Demo balance
             else:
+                print(f"[wallet] 🔥 Live mode: Fetching real balance from {config.SOLANA_RPC_ENDPOINT}")
+                
                 if token == "SOL":
                     # Get SOL balance
-                    response = await self.rpc_client.get_balance(Pubkey.from_string(self.address))
-                    if response.value:
-                        return response.value / 1e9  # Convert lamports to SOL
+                    try:
+                        response = await self.rpc_client.get_balance(Pubkey.from_string(self.address))
+                        if response.value:
+                            balance = response.value / 1e9  # Convert lamports to SOL
+                            print(f"[wallet] 💰 SOL balance: {balance:.4f} SOL")
+                            return balance
+                        else:
+                            print(f"[wallet] ❌ Failed to get SOL balance")
+                            return 0.0
+                    except Exception as balance_error:
+                        print(f"[wallet] ❌ SOL balance error: {balance_error}")
+                        return 0.0
                 else:
                     # Get SPL token balance (would need token account lookup)
                     # For now, return demo value
+                    print(f"[wallet] ⚠️ SPL token balance not implemented, returning demo value")
                     return 1.0
                 
-                return 0.0
-                
         except Exception as e:
-            print(f"[wallet] Balance check error: {e}")
+            print(f"[wallet] ❌ Balance check error: {e}")
             return 0.0
 
     async def buy_token(self, mint: str, amount_sol: float) -> Dict[str, Any]:
         """Execute buy transaction via Jupiter"""
         try:
-            print(f"[wallet] 🛒 Buying {amount_sol} SOL worth of {mint[:8]}...")
+            demo_mode = config.get_demo_mode()
+            mode_str = "🔶 DEMO" if demo_mode else "🔥 LIVE"
+            
+            print(f"[wallet] 🛒 {mode_str} - Buying {amount_sol} SOL worth of {mint[:8]}...")
             
             # Execute swap via Jupiter
             result = await self.jupiter_executor.buy_token(mint, amount_sol)
             
             if result["success"]:
-                mode_str = "🔶 Demo" if self.demo_mode else "🔥 Live"
-                print(f"[wallet] ✅ {mode_str} buy successful: {result.get('signature', 'N/A')}")
+                print(f"[wallet] ✅ {mode_str} buy successful!")
+                
+                # Log transaction details if available
+                if "signature" in result:
+                    print(f"[wallet] 📋 Transaction signature: {result['signature']}")
+                    
+                if "solscan_url" in result:
+                    print(f"[wallet] 🔍 View on Solscan: {result['solscan_url']}")
                 
                 # Add wallet-specific metadata
                 result.update({
@@ -107,7 +129,7 @@ class Wallet:
                     "token_mint": mint,
                     "amount_sol": amount_sol,
                     "wallet_address": self.address,
-                    "demo_mode": self.demo_mode
+                    "demo_mode": demo_mode
                 })
                 
                 return result
@@ -128,14 +150,23 @@ class Wallet:
     async def sell_token(self, mint: str, token_amount: int) -> Dict[str, Any]:
         """Execute sell transaction via Jupiter"""
         try:
-            print(f"[wallet] 💰 Selling {token_amount} of {mint[:8]}...")
+            demo_mode = config.get_demo_mode()
+            mode_str = "🔶 DEMO" if demo_mode else "🔥 LIVE"
+            
+            print(f"[wallet] 💰 {mode_str} - Selling {token_amount} of {mint[:8]}...")
             
             # Execute swap via Jupiter
             result = await self.jupiter_executor.sell_token(mint, token_amount)
             
             if result["success"]:
-                mode_str = "🔶 Demo" if self.demo_mode else "🔥 Live"
-                print(f"[wallet] ✅ {mode_str} sell successful: {result.get('signature', 'N/A')}")
+                print(f"[wallet] ✅ {mode_str} sell successful!")
+                
+                # Log transaction details if available
+                if "signature" in result:
+                    print(f"[wallet] 📋 Transaction signature: {result['signature']}")
+                    
+                if "solscan_url" in result:
+                    print(f"[wallet] 🔍 View on Solscan: {result['solscan_url']}")
                 
                 # Add wallet-specific metadata
                 result.update({
@@ -143,7 +174,7 @@ class Wallet:
                     "token_mint": mint,
                     "token_amount": token_amount,
                     "wallet_address": self.address,
-                    "demo_mode": self.demo_mode
+                    "demo_mode": demo_mode
                 })
                 
                 return result
