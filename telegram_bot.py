@@ -59,6 +59,18 @@ class AuracleTelegramBot:
         # Start command listening
         self._listen_for_commands()
     
+    def send_message_safe(self, message: str):
+        """
+        Send message to Telegram with error handling (safe version).
+        
+        Args:
+            message (str): Message to send
+        """
+        try:
+            self.send_message(message)
+        except Exception as e:
+            print(f"⚠️ Safe telegram message failed: {type(e).__name__}")
+    
     def send_message(self, message: str):
         """
         Send message to Telegram chat.

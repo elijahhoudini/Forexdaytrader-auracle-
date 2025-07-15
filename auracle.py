@@ -119,14 +119,27 @@ class Auracle:
                 )
                 self.telegram_bot.set_auracle_bot(self)
                 print("✅ Unified Intelligence Telegram integration initialized")
-                # Send startup notification
-                asyncio.create_task(self.send_intelligence_update(
-                    f"🤖 AURACLE UNIFIED INTELLIGENCE CORE ONLINE\n"
-                    f"👤 Traveler ID: {config.TRAVELER_ID}\n"
-                    f"🎯 Mission: Fund LLC ({self.LLC_GOAL_SOL} SOL goal)\n"
-                    f"💰 Current Reserve: {self.llc_reserve:.4f} SOL\n"
-                    f"📊 Mode: {config.get_trading_mode_string()}"
-                ))
+                # Send startup notification safely
+                try:
+                    loop = asyncio.get_event_loop()
+                    if loop.is_running():
+                        asyncio.create_task(self.send_intelligence_update(
+                            f"🤖 AURACLE UNIFIED INTELLIGENCE CORE ONLINE\n"
+                            f"👤 Traveler ID: {config.TRAVELER_ID}\n"
+                            f"🎯 Mission: Fund LLC ({self.LLC_GOAL_SOL} SOL goal)\n"
+                            f"💰 Current Reserve: {self.llc_reserve:.4f} SOL\n"
+                            f"📊 Mode: {config.get_trading_mode_string()}"
+                        ))
+                    else:
+                        # No event loop, use synchronous telegram bot
+                        message = (f"🤖 AURACLE UNIFIED INTELLIGENCE CORE ONLINE\n"
+                                 f"👤 Traveler ID: {config.TRAVELER_ID}\n"
+                                 f"🎯 Mission: Fund LLC ({self.LLC_GOAL_SOL} SOL goal)\n"
+                                 f"💰 Current Reserve: {self.llc_reserve:.4f} SOL\n"
+                                 f"📊 Mode: {config.get_trading_mode_string()}")
+                        self.telegram_bot.send_message_safe(message)
+                except Exception as e:
+                    print(f"⚠️ Startup notification failed: {e}")
             except Exception as e:
                 print(f"⚠️ Telegram bot initialization failed: {e}")
 
@@ -837,6 +850,38 @@ class Auracle:
                 self.telegram_bot.send_message(message)
             except Exception as e:
                 self.logger.log_error(f"Telegram status update failed: {e}")
+    
+    def _display_enhanced_portfolio_status(self):
+        """Display enhanced portfolio status with LLC funding progress."""
+        try:
+            # Get portfolio data
+            portfolio = getattr(self.trade_handler, 'open_positions', {})
+            
+            # Calculate portfolio value
+            portfolio_value = 0.0
+            for position in portfolio.values():
+                portfolio_value += position.get('current_value', 0.0)
+            
+            # Display enhanced status
+            print(f"\n📈 PORTFOLIO STATUS: {len(portfolio)} positions")
+            print(f"💰 Total Value: {portfolio_value:.4f} SOL")
+            print(f"📊 Total Profit: {self.total_profit:.4f} SOL")
+            print(f"🏦 LLC Reserve: {self.llc_reserve:.4f} SOL ({(self.llc_reserve / self.LLC_GOAL_SOL) * 100:.1f}%)")
+            print(f"🎯 LLC Goal: {self.LLC_GOAL_SOL:.1f} SOL")
+            
+            # Show top positions
+            if portfolio:
+                sorted_positions = sorted(portfolio.items(), key=lambda x: x[1].get('current_value', 0), reverse=True)
+                print("🔝 Top positions:")
+                for i, (symbol, position) in enumerate(sorted_positions[:3]):
+                    value = position.get('current_value', 0)
+                    print(f"   {i+1}. {symbol}: {value:.4f} SOL")
+            
+            print()
+            
+        except Exception as e:
+            self.logger.log_error(f"Portfolio status display failed: {e}")
+            print(f"❌ Portfolio status display failed: {e}")
     
     async def send_intelligence_update(self, message: str):
         """Send unified intelligence updates via Telegram."""

@@ -514,16 +514,19 @@ Choose an option below to get started!
         # Start sniper
         success = await self.sniper_manager.start_sniper(user_id, amount)
         
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
         if success:
             mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
-            await update.message.reply_text(
+            await message_obj.reply_text(
                 f"✅ {mode} Sniper started!\n\n"
                 f"💰 Amount: {amount} SOL\n"
                 f"🎯 Scanning for opportunities...\n\n"
                 f"Use /stop_sniper to stop"
             )
         else:
-            await update.message.reply_text("❌ Failed to start sniper (already running?)")
+            await message_obj.reply_text("❌ Failed to start sniper (already running?)")
     
     async def stop_sniper_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /stop_sniper command"""
@@ -531,8 +534,11 @@ Choose an option below to get started!
         
         success = self.sniper_manager.stop_sniper(user_id)
         
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
         if success:
-            await update.message.reply_text("✅ Sniper stopped successfully")
+            await message_obj.reply_text("✅ Sniper stopped successfully")
         else:
             await update.message.reply_text("❌ No active sniper found")
     
@@ -589,8 +595,11 @@ Choose an option below to get started!
         # Generate new wallet
         wallet = self.wallet_manager.generate_wallet(user_id)
         
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
         if wallet:
-            await update.message.reply_text(
+            await message_obj.reply_text(
                 f"✅ **New Wallet Generated**\n\n"
                 f"📍 Address: `{wallet['address']}`\n"
                 f"🔐 Private Key: `{wallet['private_key'][:20]}...`\n\n"
@@ -599,13 +608,16 @@ Choose an option below to get started!
                 parse_mode='Markdown'
             )
         else:
-            await update.message.reply_text("❌ Failed to generate wallet")
+            await message_obj.reply_text("❌ Failed to generate wallet")
     
     async def connect_wallet_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /connect_wallet command"""
         user_id = str(update.effective_user.id)
         
-        await update.message.reply_text(
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
+        await message_obj.reply_text(
             "🔗 **Connect Existing Wallet**\n\n"
             "Please send your wallet details in this format:\n"
             "`WALLET_ADDRESS PRIVATE_KEY`\n\n"
@@ -627,7 +639,10 @@ Choose an option below to get started!
         
         referral_url = f"https://t.me/{context.bot.username}?start={referral_info['code']}"
         
-        await update.message.reply_text(
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
+        await message_obj.reply_text(
             f"👥 **Your Referral Info**\n\n"
             f"🔗 Code: `{referral_info['code']}`\n"
             f"📱 Link: {referral_url}\n\n"
@@ -739,7 +754,10 @@ Choose an option below to get started!
 ⚙️ **Bot Mode:** {mode}
         """
         
-        await update.message.reply_text(status_text, parse_mode='Markdown')
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
+        await message_obj.reply_text(status_text, parse_mode='Markdown')
     
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /help command"""
@@ -773,7 +791,10 @@ Choose an option below to get started!
 🔗 **Support:** Contact @AuracleSupport
         """
         
-        await update.message.reply_text(help_text, parse_mode='Markdown')
+        # Handle both direct commands and callback queries
+        message_obj = update.message if update.message else update.callback_query.message
+        
+        await message_obj.reply_text(help_text, parse_mode='Markdown')
     
     async def callback_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle inline keyboard callbacks"""
@@ -837,8 +858,14 @@ Choose an option below to get started!
         
         logger.info("AURACLE Bot is running!")
         
-        # Keep running
-        await self.application.updater.idle()
+        # Keep running indefinitely
+        try:
+            while True:
+                await asyncio.sleep(1)
+        except asyncio.CancelledError:
+            logger.info("Bot polling cancelled")
+        except Exception as e:
+            logger.error(f"Bot polling error: {e}")
     
     async def stop(self):
         """Stop the bot"""
