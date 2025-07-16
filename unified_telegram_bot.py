@@ -312,13 +312,17 @@ class ReferralManager:
 class SniperManager:
     """Manages sniper functionality with Jupiter API integration"""
 
-    def __init__(self, data_manager: DataManager, wallet_manager: WalletManager):
+    def __init__(self, data_manager: DataManager, wallet_manager: WalletManager, trade_handler=None):
         self.data_manager = data_manager
         self.wallet_manager = wallet_manager
+        self.trade_handler = trade_handler  # Integration with trade handler
         self.discovery = EnhancedTokenDiscovery()
         self.risk_evaluator = RiskEvaluator()
         self.active_snipers = {}  # user_id -> sniper_task
         self.jupiter_executor = JupiterTradeExecutor()
+        
+        # Create individual sniper instances per user with trade handler integration
+        self.user_snipers = {}  # user_id -> AuracleSniper instance
 
     async def start_sniper(self, user_id: str, amount: float = 0.01) -> bool:
         """Start sniper for user"""

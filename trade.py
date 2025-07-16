@@ -34,8 +34,13 @@ class TradeHandler:
         self.trade_history = []
         self.daily_trades = 0
         self.last_trade_reset = datetime.utcnow().date()
+        
+        # Sniper integration
+        self.sniper_active = False
+        self.sniper_trades = {}  # Track sniper-originated trades
+        self.position_monitoring_active = True
 
-        print("✅ TradeHandler initialized")
+        print("✅ TradeHandler initialized with sniper integration")
 
     def calculate_trade_amount(self, token: Dict[str, Any]) -> float:
         """
@@ -429,14 +434,15 @@ class TradeHandler:
             print(f"📈 PROFIT SUMMARY: {stats['total_profit_sol']:+.4f} SOL | Win Rate: {win_rate:.1f}% | Trades: {stats['total_trades']}")
 
     async def monitor_positions(self):
-        """Enhanced position monitoring with profit-focused selling strategies."""
-        if not self.open_positions:
+        """Enhanced position monitoring with profit-focused selling strategies and sniper trade handling."""
+        if not self.open_positions or not self.position_monitoring_active:
             return
             
         for mint, position in list(self.open_positions.items()):
             try:
                 # Calculate position age
                 age_minutes = (datetime.utcnow() - position["buy_time"]).total_seconds() / 60
+                is_sniper_trade = position.get("sniper_trade", False)
                 
                 # Enhanced price simulation for demo mode
                 if config.get_demo_mode():
@@ -465,11 +471,20 @@ class TradeHandler:
                 
                 # PROFIT-FOCUSED SELLING DECISIONS
                 
-                # 1. Quick profit taking (fast exit strategy)
-                if (age_minutes <= config.QUICK_PROFIT_TIME_MINUTES and 
-                    pnl_percent >= (config.QUICK_PROFIT_TARGET * 100)):
-                    print(f"⚡ Quick profit exit for {position['symbol']}: {pnl_percent:.2f}% in {age_minutes:.1f}m")
-                    await self.sell_token(mint, "quick_profit")
+                # 1. Enhanced quick profit for sniper trades
+                quick_profit_threshold = config.QUICK_PROFIT_TARGET * 100
+                quick_profit_time = config.QUICK_PROFIT_TIME_MINUTES
+                
+                # Sniper trades get more aggressive quick profit settings
+                if is_sniper_trade:
+                    quick_profit_threshold *= 0.7  # Lower threshold for sniper trades
+                    quick_profit_time *= 1.5  # Longer time window for sniper trades
+                
+                if (age_minutes <= quick_profit_time and 
+                    pnl_percent >= quick_profit_threshold):
+                    trade_type = "sniper_quick_profit" if is_sniper_trade else "quick_profit"
+                    print(f"⚡ {'Sniper ' if is_sniper_trade else ''}Quick profit exit for {position['symbol']}: {pnl_percent:.2f}% in {age_minutes:.1f}m")
+                    await self.sell_token(mint, trade_type)
                     continue
                 
                 # 2. Main profit target
@@ -663,6 +678,94 @@ class TradeHandler:
         except Exception as e:
             print(f"[trade] Error handling token {mint}: {str(e)}")
             return False
+
+    async def handle_sniper_token(self, token_info: Dict[str, Any], sniper_source: str = "auto") -> bool:
+        """
+        Handle a token detected by the sniper with enhanced monitoring.
+
+        Args:
+            token_info (Dict): Token information from sniper
+            sniper_source (str): Source of sniper signal (auto/manual)
+
+        Returns:
+            bool: True if action was taken
+        """
+        try:
+            symbol = token_info.get("symbol", "Unknown")
+            mint = token_info.get("mint", "")
+
+            # Enhanced buy criteria for sniper tokens
+            if not self.should_buy_sniper_token(token_info):
+                print(f"[sniper] Skipping {symbol} - did not meet sniper criteria")
+                return False
+
+            # Calculate sniper trade amount (usually smaller for quick trades)
+            amount_sol = min(self.calculate_trade_amount(token_info), config.MAX_BUY_AMOUNT_SOL * 0.5)
+
+            # Execute buy order
+            success = await self.buy_token(token_info, amount_sol)
+
+            if success:
+                # Mark as sniper trade for enhanced monitoring
+                if mint in self.open_positions:
+                    self.open_positions[mint]["sniper_trade"] = True
+                    self.open_positions[mint]["sniper_source"] = sniper_source
+                    self.sniper_trades[mint] = {
+                        "entry_time": datetime.utcnow(),
+                        "source": sniper_source,
+                        "symbol": symbol
+                    }
+
+                print(f"[sniper] 🎯 Successfully sniped {symbol} for {amount_sol} SOL ({sniper_source})")
+                return True
+            else:
+                print(f"[sniper] ❌ Failed to snipe {symbol}")
+                return False
+
+        except Exception as e:
+            print(f"[sniper] Error handling sniper token {token_info.get('mint', 'unknown')}: {str(e)}")
+            return False
+
+    def should_buy_sniper_token(self, token: Dict[str, Any]) -> bool:
+        """
+        Enhanced buy decision specifically for sniper-detected tokens.
+        More aggressive criteria for quick opportunities.
+        """
+        symbol = token.get("symbol", "Unknown")
+        
+        # Check daily limits
+        if self._check_daily_limits():
+            print(f"[sniper] ❌ {symbol}: Daily trade limit reached")
+            return False
+
+        # Check position limits
+        if len(self.open_positions) >= config.MAX_OPEN_POSITIONS:
+            print(f"[sniper] ❌ {symbol}: Max positions reached")
+            return False
+
+        # Check if we already have a position
+        if token["mint"] in self.open_positions:
+            print(f"[sniper] ❌ {symbol}: Already have position")
+            return False
+
+        # Sniper-specific criteria (more lenient for quick opportunities)
+        liquidity = token.get("liquidity", 0)
+        volume = token.get("volume24h", 0)
+        
+        # Relaxed criteria for sniper trades
+        min_liquidity = config.MIN_LIQUIDITY_THRESHOLD * 0.3  # 30% of normal
+        min_volume = 1000  # Lower volume threshold for new tokens
+        
+        if liquidity < min_liquidity:
+            print(f"[sniper] ❌ {symbol}: Insufficient liquidity {liquidity} < {min_liquidity}")
+            return False
+            
+        if volume < min_volume:
+            print(f"[sniper] ❌ {symbol}: Insufficient volume {volume} < {min_volume}")
+            return False
+
+        print(f"[sniper] ✅ {symbol}: Passed sniper criteria")
+        return True
 
     def _check_daily_limits(self) -> bool:
         """Check if daily trading limits are reached."""

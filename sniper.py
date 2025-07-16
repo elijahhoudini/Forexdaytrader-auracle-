@@ -32,8 +32,9 @@ class AuracleSniper:
     - Honeypot protection
     """
     
-    def __init__(self, wallet: Optional[Wallet] = None):
+    def __init__(self, wallet: Optional[Wallet] = None, trade_handler=None):
         self.wallet = wallet or Wallet()
+        self.trade_handler = trade_handler  # Integration with trade handler
         self.discovery = EnhancedTokenDiscovery()
         self.risk_evaluator = RiskEvaluator()
         self.jupiter_executor = JupiterTradeExecutor()
@@ -54,7 +55,7 @@ class AuracleSniper:
         self.profit_target = config.PROFIT_TARGET_PERCENTAGE
         self.stop_loss = config.STOP_LOSS_PERCENTAGE
         
-        logger.info("🎯 AURACLE Sniper initialized")
+        logger.info("🎯 AURACLE Sniper initialized with trade handler integration")
     
     async def start_sniping(self, amount_sol: float = 0.01, duration_minutes: int = 60):
         """
@@ -216,13 +217,37 @@ class AuracleSniper:
             return False
     
     async def _execute_snipe(self, token: Dict[str, Any], amount_sol: float) -> Dict[str, Any]:
-        """Execute the actual snipe transaction"""
+        """Execute the actual snipe transaction via trade handler"""
         try:
             symbol = token.get("symbol", "UNKNOWN")
             mint = token.get("mint", "")
             
             logger.info(f"🎯 Executing snipe: {symbol} - {amount_sol} SOL")
             
+            # Use trade handler if available for integrated position management
+            if self.trade_handler:
+                success = await self.trade_handler.handle_sniper_token(token, "sniper")
+                
+                if success:
+                    return {
+                        "success": True,
+                        "token": symbol,
+                        "mint": mint,
+                        "amount": amount_sol,
+                        "signature": f"sniper_{int(time.time())}",
+                        "demo_mode": config.get_demo_mode(),
+                        "timestamp": datetime.now().isoformat(),
+                        "integrated": True
+                    }
+                else:
+                    return {
+                        "success": False,
+                        "error": "Trade handler rejected snipe",
+                        "token": symbol,
+                        "integrated": True
+                    }
+            
+            # Fallback to direct execution
             if config.get_demo_mode():
                 # Demo mode - simulate transaction
                 success = random.random() > 0.2  # 80% success rate

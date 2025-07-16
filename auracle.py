@@ -43,9 +43,9 @@ import config
 class Auracle:
     """
     AURACLE Unified Intelligence Core - Main system controller.
-    
+
     Mission: Generate profits to fund LLC & execute Traveler 5798's grand plan
-    
+
     Orchestrates autonomous trading operations by coordinating:
     - Token scanning and discovery
     - Risk assessment and fraud detection
@@ -83,7 +83,7 @@ class Auracle:
                 print("🔐 Encryption system initialized")
             except Exception as e:
                 print(f"⚠️ Encryption initialization failed: {e}")
-                
+
         # Solana client for advanced operations
         self.solana_client = None
         self.keypair = None
@@ -280,7 +280,7 @@ class Auracle:
                 if iteration_count % 8640 == 0:  # 24 hours * 60 minutes * 6 (10-second intervals)
                     self.save_daily_intelligence_log()
                     self.generate_llc_report()
-                    
+
                     await self.send_intelligence_update(
                         f"📊 Daily Report - Traveler {config.TRAVELER_ID}\n"
                         f"💰 LLC Progress: {(self.llc_reserve / self.LLC_GOAL_SOL) * 100:.1f}%\n"
@@ -312,11 +312,19 @@ class Auracle:
                 f"🔄 Attempting recovery..."
             )
         finally:
+            # Cancel both scanner and sniper tasks
             scanner_task.cancel()
+            
+
             try:
                 await scanner_task
             except asyncio.CancelledError:
                 pass
+
+            
+            # Stop sniper gracefully
+            
+            pass
 
     async def _async_main_loop(self):
         """Enhanced async main loop with frequent position monitoring for profit optimization."""
@@ -415,7 +423,7 @@ class Auracle:
                 if success:
                     self.stats["trades_executed"] += 1
                     self.logger.log_trade("BUY", token, trade_amount)
-                    
+
                     # Track trade for daily log
                     self.daily_log.append({
                         "timestamp": datetime.utcnow().isoformat(),
@@ -433,7 +441,7 @@ class Auracle:
                             self.telegram_bot.send_message(message)
                         except:
                             pass  # Don't let telegram errors stop trading
-                            
+
                     # Send intelligence update for significant trades
                     if trade_amount >= config.MAX_BUY_AMOUNT_SOL * 0.5:  # For trades >= 50% of max
                         await self.send_intelligence_update(
@@ -460,7 +468,7 @@ class Auracle:
             token_mint_str = token["baseToken"]["address"]
             price_usd = float(token.get("priceUsd", 0))
             auracle_score = token.get("auracle_score", 0)
-            
+
             # Enhanced risk evaluation with Auracle scoring
             if auracle_score < 0.3:  # Minimum Auracle score threshold
                 self.logger.log_flag(
@@ -477,10 +485,10 @@ class Auracle:
             # Advanced buy decision with enhanced criteria
             if self.should_buy_advanced_token(token) and self.trading_active:
                 success = await self.buy_advanced_token(token, trade_amount)
-                
+
                 if success:
                     self.stats["trades_executed"] += 1
-                    
+
                     # Track trade for daily log
                     trade_entry = {
                         "timestamp": datetime.utcnow().isoformat(),
@@ -493,10 +501,10 @@ class Auracle:
                         "confidence": "HIGH" if auracle_score > 0.7 else "MEDIUM"
                     }
                     self.daily_log.append(trade_entry)
-                    
+
                     # Start monitoring this position
                     asyncio.create_task(self.monitor_and_sell_advanced(token, trade_amount))
-                    
+
                     # Send intelligence update for trades
                     await self.send_intelligence_update(
                         f"💎 Advanced Trade Executed\n"
@@ -520,26 +528,26 @@ class Auracle:
             # Check daily trade limit
             if self.daily_trades >= config.MAX_DAILY_TRADES:
                 return False
-            
+
             # Auracle score check
             auracle_score = token.get("auracle_score", 0)
             if auracle_score < 0.4:  # Minimum score for buying
                 return False
-            
+
             # Enhanced liquidity and volume checks
             liquidity = float(token.get("liquidity", {}).get("usd", 0))
             volume_24h = float(token.get("volumeUsd24h", 0))
-            
+
             if liquidity < 20000 or volume_24h < 15000:
                 return False
-            
+
             # Price stability check
             price_change_24h = abs(float(token.get("priceChange24h", 0)))
             if price_change_24h > 150:  # Too volatile
                 return False
-            
+
             return True
-            
+
         except Exception as e:
             self.logger.log_error(f"Advanced token evaluation failed: {e}")
             return False
@@ -549,25 +557,25 @@ class Auracle:
         try:
             symbol = token["baseToken"]["symbol"]
             token_mint_str = token["baseToken"]["address"]
-            
+
             if config.get_demo_mode():
                 # Demo mode - simulate purchase
                 print(f"📊 DEMO BUY: {symbol} - {amount_sol:.4f} SOL")
                 return True
-            
+
             # Real trading mode - create and send transaction
             if self.solana_client and self.keypair:
                 token_mint = Pubkey.from_string(token_mint_str)
                 transaction = await self.create_swap_transaction(token_mint, amount_sol)
-                
+
                 if transaction:
                     tx_signature = await self.send_transaction(transaction)
                     if tx_signature:
                         print(f"✅ BUY: {symbol} - {amount_sol:.4f} SOL (Tx: {tx_signature})")
                         return True
-            
+
             return False
-            
+
         except Exception as e:
             self.logger.log_error(f"Advanced token purchase failed: {e}")
             return False
@@ -579,28 +587,28 @@ class Auracle:
             entry_price = float(token.get("priceUsd", 0))
             max_hold_minutes = 60
             elapsed_minutes = 0
-            
+
             while elapsed_minutes < max_hold_minutes:
                 # Get current price from advanced scan
                 current_tokens = await self.advanced_token_scan()
                 current_token = next((t for t in current_tokens if t["baseToken"]["symbol"] == symbol), None)
-                
+
                 if not current_token:
                     await asyncio.sleep(30)
                     elapsed_minutes += 0.5
                     continue
-                
+
                 current_price = float(current_token.get("priceUsd", entry_price))
                 profit_ratio = current_price / entry_price if entry_price > 0 else 1.0
-                
+
                 # Profit target reached
                 if profit_ratio >= self.profit_target_multiplier:
                     profit_sol = buy_amount * (profit_ratio - 1)
                     await self.sell_advanced_token(current_token, buy_amount, "PROFIT_TARGET")
-                    
+
                     # Track LLC contribution
                     self.track_llc_contribution(profit_sol)
-                    
+
                     await self.send_intelligence_update(
                         f"💰 PROFIT SELL: {symbol}\n"
                         f"📈 Profit: {profit_ratio:.2%}\n"
@@ -608,31 +616,31 @@ class Auracle:
                         f"🏆 LLC Contribution: {min(profit_sol, self.LLC_GOAL_SOL - self.llc_reserve):.4f}"
                     )
                     return profit_sol
-                
+
                 # Stop loss triggered
                 elif profit_ratio <= self.stop_loss_multiplier:
                     loss_sol = buy_amount * (1 - profit_ratio)
                     await self.sell_advanced_token(current_token, buy_amount, "STOP_LOSS")
-                    
+
                     await self.send_intelligence_update(
                         f"🛑 STOP LOSS: {symbol}\n"
                         f"📉 Loss: {profit_ratio:.2%}\n"
                         f"💸 Loss SOL: {loss_sol:.4f}"
                     )
                     return -loss_sol
-                
+
                 await asyncio.sleep(30)
                 elapsed_minutes += 0.5
-            
+
             # Timeout - sell at current price
             profit_sol = buy_amount * (profit_ratio - 1)
             await self.sell_advanced_token(current_token or token, buy_amount, "TIMEOUT")
-            
+
             if profit_sol > 0:
                 self.track_llc_contribution(profit_sol)
-            
+
             return profit_sol
-            
+
         except Exception as e:
             self.logger.log_error(f"Advanced monitoring failed: {e}")
             return 0.0
@@ -641,25 +649,25 @@ class Auracle:
         """Execute advanced token sale."""
         try:
             symbol = token["baseToken"]["symbol"]
-            
+
             if config.get_demo_mode():
                 print(f"📊 DEMO SELL: {symbol} - {amount_sol:.4f} SOL ({reason})")
                 return True
-            
+
             # Real trading mode
             if self.solana_client and self.keypair:
                 token_mint_str = token["baseToken"]["address"]
                 token_mint = Pubkey.from_string(token_mint_str)
                 transaction = await self.create_swap_transaction(token_mint, amount_sol)
-                
+
                 if transaction:
                     tx_signature = await self.send_transaction(transaction)
                     if tx_signature:
                         print(f"✅ SELL: {symbol} - {amount_sol:.4f} SOL ({reason}) (Tx: {tx_signature})")
                         return True
-            
+
             return False
-            
+
         except Exception as e:
             self.logger.log_error(f"Advanced token sale failed: {e}")
             return False
@@ -682,16 +690,16 @@ class Auracle:
                     "llc_contributions": self.stats["llc_contributions"]
                 }
             }
-            
+
             filename = f"automated_backup_{timestamp}.json"
             backup_path = await self.save_encrypted_backup(filename, backup_data)
-            
+
             if backup_path:
                 self.logger.log_system(f"Automated backup created: {backup_path}")
-                
+
                 # Clean up old backups (keep last 10)
                 await self.cleanup_old_backups()
-            
+
         except Exception as e:
             print(f"❌ Automated backup failed: {e}")
 
@@ -700,16 +708,16 @@ class Auracle:
         try:
             if not os.path.exists(self.backup_folder):
                 return
-            
+
             backup_files = [f for f in os.listdir(self.backup_folder) if f.startswith("automated_backup_")]
             backup_files.sort(reverse=True)  # Sort by name (timestamp), newest first
-            
+
             # Remove old backups
             for old_backup in backup_files[keep_count:]:
                 old_path = os.path.join(self.backup_folder, old_backup)
                 os.remove(old_path)
                 print(f"🗑️ Removed old backup: {old_backup}")
-                
+
         except Exception as e:
             print(f"⚠️ Backup cleanup failed: {e}")
 
@@ -761,13 +769,13 @@ class Auracle:
         try:
             # Send final intelligence update
             final_llc_percentage = (self.llc_reserve / self.LLC_GOAL_SOL) * 100
-            
+
             if self.telegram_bot:
                 try:
                     import asyncio
                     loop = asyncio.new_event_loop()
                     asyncio.set_event_loop(loop)
-                    
+
                     # Send final intelligence report
                     loop.run_until_complete(self.send_intelligence_update(
                         f"🛑 Auracle System Shutdown - Traveler {config.TRAVELER_ID}\n"
@@ -776,7 +784,7 @@ class Auracle:
                         f"🎯 Trades Executed: {self.stats['trades_executed']}\n"
                         f"🏆 LLC Contributions: {self.stats['llc_contributions']}"
                     ))
-                    
+
                     loop.close()
                 except Exception as e:
                     print(f"⚠️ Final intelligence update failed: {e}")
@@ -787,8 +795,9 @@ class Auracle:
                 # Create a new event loop for shutdown cleanup
                 loop = asyncio.new_event_loop()
                 asyncio.set_event_loop(loop)
-                
+
                 # Close all open positions
+                ```python
                 for mint in list(self.trade_handler.open_positions.keys()):
                     try:
                         result = loop.run_until_complete(self.trade_handler.sell_token(mint, "shutdown"))
@@ -797,7 +806,7 @@ class Auracle:
                             self.track_llc_contribution(result["profit_sol"])
                     except Exception as e:
                         print(f"⚠️ Error closing position {mint}: {e}")
-                
+
                 loop.close()
 
             # Save final intelligence log
@@ -850,25 +859,25 @@ class Auracle:
                 self.telegram_bot.send_message(message)
             except Exception as e:
                 self.logger.log_error(f"Telegram status update failed: {e}")
-    
+
     def _display_enhanced_portfolio_status(self):
         """Display enhanced portfolio status with LLC funding progress."""
         try:
             # Get portfolio data
             portfolio = getattr(self.trade_handler, 'open_positions', {})
-            
+
             # Calculate portfolio value
             portfolio_value = 0.0
             for position in portfolio.values():
                 portfolio_value += position.get('current_value', 0.0)
-            
+
             # Display enhanced status
             print(f"\n📈 PORTFOLIO STATUS: {len(portfolio)} positions")
             print(f"💰 Total Value: {portfolio_value:.4f} SOL")
             print(f"📊 Total Profit: {self.total_profit:.4f} SOL")
             print(f"🏦 LLC Reserve: {self.llc_reserve:.4f} SOL ({(self.llc_reserve / self.LLC_GOAL_SOL) * 100:.1f}%)")
             print(f"🎯 LLC Goal: {self.LLC_GOAL_SOL:.1f} SOL")
-            
+
             # Show top positions
             if portfolio:
                 sorted_positions = sorted(portfolio.items(), key=lambda x: x[1].get('current_value', 0), reverse=True)
@@ -876,13 +885,13 @@ class Auracle:
                 for i, (symbol, position) in enumerate(sorted_positions[:3]):
                     value = position.get('current_value', 0)
                     print(f"   {i+1}. {symbol}: {value:.4f} SOL")
-            
+
             print()
-            
+
         except Exception as e:
             self.logger.log_error(f"Portfolio status display failed: {e}")
             print(f"❌ Portfolio status display failed: {e}")
-    
+
     async def send_intelligence_update(self, message: str):
         """Send unified intelligence updates via Telegram."""
         try:
@@ -898,16 +907,16 @@ class Auracle:
         """Track profits toward LLC funding goal."""
         if profit_sol > 0:
             self.total_profit += profit_sol
-            
+
             # Check if we've reached LLC funding milestones
             llc_percentage = (self.llc_reserve / self.LLC_GOAL_SOL) * 100
-            
+
             if self.total_profit >= self.LLC_GOAL_SOL * 0.1:  # 10% of goal
                 contribution = min(profit_sol, self.LLC_GOAL_SOL - self.llc_reserve)
                 if contribution > 0 and self.llc_reserve < self.LLC_GOAL_SOL:
                     self.llc_reserve += contribution
                     self.stats["llc_contributions"] += 1
-                    
+
                     milestone_msg = ""
                     if llc_percentage >= 25 and llc_percentage < 30:
                         milestone_msg = "\n🎯 25% LLC funding milestone reached!"
@@ -917,13 +926,13 @@ class Auracle:
                         milestone_msg = "\n🎯 75% LLC funding milestone reached!"
                     elif llc_percentage >= 100:
                         milestone_msg = "\n🏆 LLC FUNDING GOAL ACHIEVED! Ready for incorporation!"
-                    
+
                     asyncio.create_task(self.send_intelligence_update(
                         f"💰 LLC CONTRIBUTION: {contribution:.4f} SOL\n"
                         f"📊 LLC Reserve: {self.llc_reserve:.4f}/{self.LLC_GOAL_SOL} SOL ({llc_percentage:.1f}%)\n"
                         f"💎 Total Profit: {self.total_profit:.4f} SOL{milestone_msg}"
                     ))
-                    
+
                     if self.llc_reserve >= self.LLC_GOAL_SOL:
                         self.logger.log_system("LLC funding goal achieved!")
                         # Reset profit tracker after reaching goal
@@ -934,7 +943,7 @@ class Auracle:
         try:
             timestamp = datetime.now().strftime('%Y-%m-%d')
             filename = f"data/auracle_intelligence_log_{timestamp}.json"
-            
+
             intelligence_data = {
                 "date": timestamp,
                 "traveler_id": config.TRAVELER_ID,
@@ -949,11 +958,11 @@ class Auracle:
                 "daily_trades": self.daily_log.copy(),
                 "portfolio_summary": self.trade_handler.get_portfolio_summary()
             }
-            
+
             os.makedirs("data", exist_ok=True)
             with open(filename, "w") as f:
                 json.dump(intelligence_data, f, indent=2, default=str)
-            
+
             self.logger.log_system(f"Daily intelligence log saved: {filename}")
             return filename
         except Exception as e:
@@ -993,10 +1002,10 @@ class Auracle:
         try:
             if not os.path.exists(self.backup_folder):
                 os.makedirs(self.backup_folder)
-            
+
             filepath = os.path.join(self.backup_folder, filename)
             json_bytes = json.dumps(data, indent=2, default=str).encode()
-            
+
             if self.fernet:
                 encrypted = self.fernet.encrypt(json_bytes)
                 async with aiofiles.open(filepath, "wb") as f:
@@ -1006,7 +1015,7 @@ class Auracle:
                 async with aiofiles.open(filepath, "w") as f:
                     await f.write(json.dumps(data, indent=2, default=str))
                 print(f"📄 Backup saved: {filepath}")
-            
+
             return filepath
         except Exception as e:
             print(f"❌ Backup save failed: {e}")
@@ -1018,7 +1027,7 @@ class Auracle:
             filepath = os.path.join(self.backup_folder, filename)
             if not os.path.exists(filepath):
                 return None
-            
+
             if self.fernet:
                 async with aiofiles.open(filepath, "rb") as f:
                     encrypted = await f.read()
@@ -1036,9 +1045,9 @@ class Auracle:
         try:
             if not os.path.exists(self.llc_paperwork_folder):
                 os.makedirs(self.llc_paperwork_folder)
-            
+
             wallet_address = str(self.keypair.pubkey()) if self.keypair else "N/A"
-            
+
             report = {
                 "wallet_address": wallet_address,
                 "date": datetime.now().isoformat(),
@@ -1051,13 +1060,13 @@ class Auracle:
                 "business_formation_ready": self.llc_reserve >= self.LLC_GOAL_SOL,
                 "portfolio_summary": self.trade_handler.get_portfolio_summary()
             }
-            
+
             timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
             filename = f"{self.llc_paperwork_folder}/llc_report_{timestamp}.json"
-            
+
             with open(filename, "w") as f:
                 json.dump(report, f, indent=2, default=str)
-            
+
             print(f"📄 LLC report generated: {filename}")
             return filename
         except Exception as e:
@@ -1069,14 +1078,14 @@ class Auracle:
         try:
             current_holdings = len(self.trade_handler.open_positions)
             max_positions = 5  # Maximum diversification limit
-            
+
             if current_holdings >= max_positions:
                 return 0.0  # Do not buy more tokens if at max diversification
-            
+
             # Adjust buy amount based on available diversification slots
             base_amount = config.MAX_BUY_AMOUNT_SOL
             diversification_factor = (max_positions - current_holdings) / max_positions
-            
+
             return base_amount * diversification_factor
         except Exception as e:
             print(f"❌ Diversification calculation failed: {e}")
@@ -1088,7 +1097,7 @@ class Auracle:
             url = "https://api.dexscreener.io/latest/dex/pairs/solana"
             response = requests.get(url, timeout=10)
             data = response.json()
-            
+
             candidates = []
             for pair in data.get("pairs", []):
                 try:
@@ -1100,7 +1109,7 @@ class Auracle:
                     age_days = int(pair.get("ageHours", 0)) / 24  # Convert hours to days
                     vol_24h = float(pair.get("volumeUsd24h", 0))
                     price_change_24h = float(pair.get("priceChange24h", 0))
-                    
+
                     # Advanced heuristic filters
                     if (liquidity > 15000 and 
                         fdv < 5_000_000 and 
@@ -1109,7 +1118,7 @@ class Auracle:
                         abs(price_change_24h) < 200 and  # Avoid extreme volatility
                         not self.is_risky_token(name) and
                         not self.is_risky_token(symbol)):
-                        
+
                         # Add enhanced scoring
                         score = (
                             min(liquidity / 100000, 1.0) * 0.3 +  # Liquidity score
@@ -1117,17 +1126,17 @@ class Auracle:
                             min(age_days / 30, 1.0) * 0.2 +       # Age score
                             (1 - abs(price_change_24h) / 100) * 0.2  # Stability score
                         )
-                        
+
                         pair["auracle_score"] = score
                         candidates.append(pair)
-                        
+
                 except (ValueError, KeyError, TypeError):
                     continue  # Skip malformed data
-            
+
             # Sort by Auracle score descending
             candidates.sort(key=lambda x: x.get("auracle_score", 0), reverse=True)
             return candidates[:3]  # Return top 3 candidates
-            
+
         except Exception as e:
             self.logger.log_error(f"Advanced token scan failed: {e}")
             return []
@@ -1137,10 +1146,10 @@ class Auracle:
         try:
             # Note: This is a simplified placeholder for swap transaction construction
             # In production, this should use Jupiter API or Serum/Raydium DEX instructions
-            
+
             if not self.keypair:
                 raise Exception("Keypair not available for transaction creation")
-            
+
             transfer_instruction = Instruction(
                 accounts=[
                     {"pubkey": self.keypair.pubkey(), "is_signer": True, "is_writable": True},
@@ -1149,10 +1158,10 @@ class Auracle:
                 program_id=SYS_PROGRAM_ID,
                 data=b"",  # Placeholder - should contain swap instruction data
             )
-            
+
             transaction = Transaction([transfer_instruction])
             return transaction
-            
+
         except Exception as e:
             self.logger.log_error(f"Transaction creation failed: {e}")
             return None
@@ -1162,23 +1171,23 @@ class Auracle:
         try:
             if not self.solana_client or not self.keypair:
                 raise Exception("Solana client or keypair not available")
-            
+
             # Get recent blockhash
             recent_blockhash_resp = await self.solana_client.get_latest_blockhash()
             transaction.recent_blockhash = recent_blockhash_resp.value.blockhash
-            
+
             # Sign transaction
             transaction.sign([self.keypair])
-            
+
             # Send transaction
             response = await self.solana_client.send_raw_transaction(
                 bytes(transaction)
             )
-            
+
             # Confirm transaction
             await self.solana_client.confirm_transaction(response.value)
             return response.value
-            
+
         except Exception as e:
             self.logger.log_error(f"Transaction send failed: {e}")
             return None
