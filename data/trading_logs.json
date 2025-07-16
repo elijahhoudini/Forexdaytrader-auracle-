@@ -1191,6 +1191,321 @@
       "signature": "demo_1752683052",
       "demo_mode": true,
       "timestamp": "2025-07-16T16:24:12.033080"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.914773"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "$michi",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.917988"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "FWOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.952428"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.957211"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WBTC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.961744"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "nani",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.969193"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "aura",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684894",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:54:54.973210"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JitoSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.905184"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SCF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.908157"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "mSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.931818"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WBTC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.935806"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "CATDOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.938561"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "DTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.942505"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "neo",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.948389"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MOTHER",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.952286"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WEN",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684930",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:55:30.955846"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDC",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684966",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:06.750290"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GINNAN",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684966",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:06.753955"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Neiro",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684967",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:07.013168"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JTO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684967",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:07.019742"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "IO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684967",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:07.034452"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "RAY",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684967",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:07.039011"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752684967",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:07.044085"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "$WIF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685003",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:43.350730"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "POPCAT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685003",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:43.354112"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "SCF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685003",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:43.370818"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685003",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:43.375337"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Neiro",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685003",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:43.379829"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JTO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685003",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:56:43.385862"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "POPCAT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685038",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:57:18.956657"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JitoSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685038",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:57:18.961662"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JupSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685038",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:57:18.975980"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PONKE",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685038",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:57:18.980375"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "DTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685038",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:57:18.985992"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "bSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752685038",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:57:18.991105"
     }
   ]
 }
