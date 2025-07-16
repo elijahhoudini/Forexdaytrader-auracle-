@@ -527,6 +527,8 @@ class AuracleTelegramBot:
         self.application.add_handler(CommandHandler("view_trades", self.view_trades_command))
         self.application.add_handler(CommandHandler("cancel", self.cancel_command))
         self.application.add_handler(CommandHandler("sniper_trades", self.sniper_trades_command))
+        self.application.add_handler(CommandHandler("profit", self.profit_analysis_command))
+        self.application.add_handler(CommandHandler("positions", self.positions_command))
 
         # Callback handlers
         self.application.add_handler(CallbackQueryHandler(self.callback_handler))
@@ -566,6 +568,8 @@ class AuracleTelegramBot:
             [InlineKeyboardButton("🔗 Connect Wallet", callback_data="connect_wallet")],
             [InlineKeyboardButton("🎯 Start Sniper", callback_data="start_sniper")],
             [InlineKeyboardButton("📊 My Trades", callback_data="view_trades")],
+            [InlineKeyboardButton("💰 Profit Analysis", callback_data="profit_analysis")],
+            [InlineKeyboardButton("📊 Current Positions", callback_data="positions")],
             [InlineKeyboardButton("💱 Trading History", callback_data="trading_history")],
             [InlineKeyboardButton("👥 Referral", callback_data="referral")],
             [InlineKeyboardButton("📋 Status", callback_data="status")],
@@ -1008,8 +1012,11 @@ Choose an option below to get started!
 • `/connect_wallet` - Connect existing wallet
 • `/qr` - Show wallet QR code
 
-📊 **Trading Commands:**
+📊 **Trading & Profit Commands:**
 • `/view_trades` - View all recent trades
+• `/profit` - Detailed profit analysis
+• `/positions` - Current holdings & P&L
+• `/sniper_trades` - Sniper-specific trades
 • `/status` - Your bot status
 
 👥 **Referral Commands:**
@@ -1024,7 +1031,8 @@ Choose an option below to get started!
 • Default snipe amount is 0.01 SOL
 • Bot includes honeypot protection
 • Referral earnings: 10% of fees
-• Use `/view_trades` to see transaction history
+• Use `/profit` for comprehensive profit analysis
+• Use `/positions` to see current holdings
 
 🔗 **Support:** Contact @AuracleSupport
         """
@@ -1089,6 +1097,10 @@ Choose an option below to get started!
             await self.currency_details_handler(update, context)
         elif query.data == "full_history":
             await self.full_history_handler(update, context)
+        elif query.data == "profit_analysis":
+            await self.profit_analysis_command(update, context)
+        elif query.data == "positions":
+            await self.positions_command(update, context)
 
     async def message_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle text messages (for wallet connection and file imports)"""
@@ -1793,6 +1805,227 @@ Choose an option below to get started!
 
         if total_sniper_profit != 0:
             message += f"💰 Sniper P&L: {total_sniper_profit:+.4f} SOL"
+
+        await update.message.reply_text(message, parse_mode='Markdown')
+
+    async def profit_analysis_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /profit command to show detailed profit analysis"""
+        user_id = str(update.effective_user.id)
+
+        # Get all trades
+        trades = self.data_manager.get_user_trades(user_id)
+
+        if not trades:
+            await update.message.reply_text("📊 No trading data available for profit analysis")
+            return
+
+        # Calculate comprehensive profit metrics
+        total_invested = 0
+        total_profit = 0
+        realized_profit = 0
+        unrealized_profit = 0
+        successful_trades = 0
+        losing_trades = 0
+        best_trade = None
+        worst_trade = None
+        
+        # Group trades by token for position tracking
+        positions = {}
+        
+        for trade in trades:
+            amount = trade.get('amount', 0)
+            success = trade.get('success', False)
+            token = trade.get('token', 'Unknown')
+            action = trade.get('action', '').lower()
+            pnl = trade.get('pnl_sol', 0)
+            
+            total_invested += amount
+            
+            if success:
+                if 'buy' in action or 'snipe' in action:
+                    # Track position
+                    if token not in positions:
+                        positions[token] = {'invested': 0, 'tokens': 0, 'sold': 0}
+                    positions[token]['invested'] += amount
+                    
+                elif 'sell' in action:
+                    # Calculate realized profit
+                    if token in positions:
+                        cost_basis = positions[token]['invested']
+                        if cost_basis > 0:
+                            profit = amount - cost_basis
+                            realized_profit += profit
+                            if profit > 0:
+                                successful_trades += 1
+                            else:
+                                losing_trades += 1
+                            
+                            # Track best/worst trades
+                            profit_percentage = (profit / cost_basis) * 100
+                            if best_trade is None or profit_percentage > best_trade['percentage']:
+                                best_trade = {'token': token, 'profit': profit, 'percentage': profit_percentage}
+                            if worst_trade is None or profit_percentage < worst_trade['percentage']:
+                                worst_trade = {'token': token, 'profit': profit, 'percentage': profit_percentage}
+                            
+                            positions[token]['sold'] += amount
+            
+            # Add individual trade PnL if available
+            if pnl != 0:
+                total_profit += pnl
+
+        # Calculate overall profit percentage
+        profit_percentage = ((total_profit / max(total_invested, 0.001)) * 100) if total_invested > 0 else 0
+        
+        # Calculate win rate
+        total_completed_trades = successful_trades + losing_trades
+        win_rate = (successful_trades / max(total_completed_trades, 1)) * 100
+
+        # Calculate unrealized profit (open positions)
+        open_positions = 0
+        for token, pos in positions.items():
+            if pos['invested'] > pos['sold']:
+                open_positions += 1
+
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+
+        message = f"💰 **Profit Analysis** {mode}\n\n"
+        message += f"📊 **Overall Performance:**\n"
+        message += f"💵 Total Invested: {total_invested:.4f} SOL\n"
+        message += f"📈 Total Profit: {total_profit:+.4f} SOL\n"
+        message += f"📊 Profit %: {profit_percentage:+.2f}%\n\n"
+
+        message += f"🎯 **Trading Stats:**\n"
+        message += f"✅ Successful Trades: {successful_trades}\n"
+        message += f"❌ Losing Trades: {losing_trades}\n"
+        message += f"📈 Win Rate: {win_rate:.1f}%\n"
+        message += f"🔄 Open Positions: {open_positions}\n\n"
+
+        if best_trade:
+            message += f"🏆 **Best Trade:**\n"
+            message += f"🪙 {best_trade['token']}: {best_trade['percentage']:+.2f}% ({best_trade['profit']:+.4f} SOL)\n\n"
+
+        if worst_trade:
+            message += f"📉 **Worst Trade:**\n"
+            message += f"🪙 {worst_trade['token']}: {worst_trade['percentage']:+.2f}% ({worst_trade['profit']:+.4f} SOL)\n\n"
+
+        # Performance indicators
+        if profit_percentage > 10:
+            message += "🚀 **Excellent Performance!**"
+        elif profit_percentage > 5:
+            message += "📈 **Good Performance!**"
+        elif profit_percentage > 0:
+            message += "✅ **Positive Returns**"
+        elif profit_percentage > -5:
+            message += "⚠️ **Minor Losses**"
+        else:
+            message += "🔴 **Significant Losses**"
+
+        await update.message.reply_text(message, parse_mode='Markdown')
+
+    async def positions_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /positions command to show current holdings and their performance"""
+        user_id = str(update.effective_user.id)
+
+        # Get all trades
+        trades = self.data_manager.get_user_trades(user_id)
+
+        if not trades:
+            await update.message.reply_text("📊 No trading positions found")
+            return
+
+        # Calculate current positions
+        positions = {}
+        
+        for trade in trades:
+            token = trade.get('token', 'Unknown')
+            amount = trade.get('amount', 0)
+            action = trade.get('action', '').lower()
+            success = trade.get('success', False)
+            timestamp = trade.get('timestamp', '')
+            
+            if not success:
+                continue
+                
+            if token not in positions:
+                positions[token] = {
+                    'invested': 0,
+                    'sold': 0,
+                    'net_position': 0,
+                    'first_buy': timestamp,
+                    'last_activity': timestamp,
+                    'trades': 0
+                }
+            
+            positions[token]['trades'] += 1
+            positions[token]['last_activity'] = timestamp
+            
+            if 'buy' in action or 'snipe' in action:
+                positions[token]['invested'] += amount
+                positions[token]['net_position'] += amount
+            elif 'sell' in action:
+                positions[token]['sold'] += amount
+                positions[token]['net_position'] -= amount
+
+        # Filter for open positions
+        open_positions = {k: v for k, v in positions.items() if v['net_position'] > 0.0001}
+        
+        if not open_positions:
+            await update.message.reply_text("📊 No open positions currently held")
+            return
+
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+
+        message = f"📊 **Current Positions** {mode}\n\n"
+        message += f"🔄 **Open Positions: {len(open_positions)}**\n\n"
+
+        total_invested = 0
+        total_current_value = 0
+
+        for token, pos in open_positions.items():
+            invested = pos['invested'] - pos['sold']
+            total_invested += invested
+            
+            # Estimate current value (in demo mode, simulate price changes)
+            if config.get_demo_mode():
+                # Simulate random price movement for demo
+                import random
+                price_change = random.uniform(-0.2, 0.3)  # -20% to +30%
+                current_value = invested * (1 + price_change)
+                profit_loss = current_value - invested
+                profit_percentage = (profit_loss / invested) * 100 if invested > 0 else 0
+            else:
+                # In live mode, you would fetch real prices here
+                current_value = invested  # Placeholder
+                profit_loss = 0
+                profit_percentage = 0
+            
+            total_current_value += current_value
+            
+            # Format timestamp
+            try:
+                from datetime import datetime
+                dt = datetime.fromisoformat(pos['first_buy'].replace('Z', '+00:00'))
+                time_str = dt.strftime('%m/%d %H:%M')
+            except:
+                time_str = pos['first_buy'][:16] if pos['first_buy'] else "Unknown"
+
+            status = "📈" if profit_loss > 0 else "📉" if profit_loss < 0 else "➡️"
+            
+            message += f"🪙 **{token}**\n"
+            message += f"   💰 Invested: {invested:.4f} SOL\n"
+            message += f"   📊 Current: {current_value:.4f} SOL\n"
+            message += f"   {status} P&L: {profit_loss:+.4f} SOL ({profit_percentage:+.1f}%)\n"
+            message += f"   📅 First Buy: {time_str}\n"
+            message += f"   🔄 Trades: {pos['trades']}\n\n"
+
+        # Portfolio summary
+        portfolio_profit = total_current_value - total_invested
+        portfolio_percentage = (portfolio_profit / total_invested) * 100 if total_invested > 0 else 0
+
+        message += f"💼 **Portfolio Summary:**\n"
+        message += f"💵 Total Invested: {total_invested:.4f} SOL\n"
+        message += f"📊 Current Value: {total_current_value:.4f} SOL\n"
+        message += f"📈 Unrealized P&L: {portfolio_profit:+.4f} SOL ({portfolio_percentage:+.2f}%)\n"
 
         await update.message.reply_text(message, parse_mode='Markdown')
 
