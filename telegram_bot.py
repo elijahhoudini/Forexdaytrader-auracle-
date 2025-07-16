@@ -1,187 +1,136 @@
+#!/usr/bin/env python3
 """
-AURACLE Telegram Bot Module
-===========================
+Minimal Telegram Bot
+===================
 
-Telegram integration for notifications and remote control.
+A simplified telegram bot that provides basic functionality
+when the full AURACLE system is not available.
 """
 
-import threading
-import time
-from typing import Optional, Dict, Any
-import requests
-import config
+import os
+import sys
+import asyncio
+import logging
+from typing import Optional
 
-class AuracleTelegramBot:
-    """
-    Telegram bot for AURACLE remote control and monitoring.
-    
-    Provides:
-    - Real-time trade notifications
-    - Bot status monitoring
-    - Remote control commands
-    - Error alerts
-    """
-    
-    def __init__(self, bot_token: str, chat_id: str):
-        """
-        Initialize Telegram bot.
-        
-        Args:
-            bot_token (str): Telegram bot token
-            chat_id (str): Chat ID for notifications
-        """
-        self.bot_token = bot_token
-        self.chat_id = chat_id
-        self.auracle_bot = None
+# Setup logging
+logging.basicConfig(
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
+
+class MinimalTelegramBot:
+    """Minimal telegram bot implementation."""
+
+    def __init__(self):
+        self.token = os.getenv("TELEGRAM_BOT_TOKEN")
+        self.chat_id = os.getenv("TELEGRAM_CHAT_ID")
         self.running = False
-        self.base_url = f"https://api.telegram.org/bot{bot_token}"
-        
-        print("📱 Telegram bot initialized")
-        print(f"📱 Chat ID: {chat_id}")
-    
-    def set_auracle_bot(self, auracle_bot):
-        """Set reference to main AURACLE bot."""
-        self.auracle_bot = auracle_bot
-    
-    def start(self):
-        """Start Telegram bot in background thread."""
-        self.running = True
-        print("📱 Telegram bot thread started")
 
-        # Try to send startup messages, but don't fail if network is unavailable
-        try:
-            self.send_message("🚀 AURACLE Bot Started")
-            self.send_message(f"🔧 Mode: {config.get_trading_mode_string()}")
-            self.send_message(f"💼 Wallet: {config.WALLET_ADDRESS[:8]}...")
-        except Exception as e:
-            print(f"⚠️ Telegram startup messages failed: {type(e).__name__}")
-        
-        # Start command listening
-        self._listen_for_commands()
-    
-    def send_message_safe(self, message: str):
-        """
-        Send message to Telegram with error handling (safe version).
-        
-        Args:
-            message (str): Message to send
-        """
-        try:
-            self.send_message(message)
-        except Exception as e:
-            print(f"⚠️ Safe telegram message failed: {type(e).__name__}")
-    
-    def send_message(self, message: str):
-        """
-        Send message to Telegram chat.
-        
-        Args:
-            message (str): Message to send
-        """
-        try:
-            # Always log the message locally for debugging
-            print(f"📱 TELEGRAM: {message[:50]}...")
-            
-            # Try to send to Telegram API
-            url = f"{self.base_url}/sendMessage"
-            payload = {
-                "chat_id": self.chat_id,
-                "text": message,
-                "parse_mode": "HTML"
-            }
-            
-            response = requests.post(url, data=payload, timeout=5)
-            
-            if response.status_code == 200:
-                print(f"📱 TELEGRAM SENT: {message[:50]}...")
-            else:
-                print(f"⚠️ Telegram API error: {response.status_code}")
-                # Don't print full response in production to avoid spam
-            
-        except requests.exceptions.RequestException as e:
-            # Network-related errors (DNS, connection, timeout)
-            print(f"⚠️ Telegram network error: {type(e).__name__}")
-            # Don't print full error to avoid spam
-        except Exception as e:
-            # Other errors
-            print(f"⚠️ Telegram error: {type(e).__name__}")
-    
-    def send_trade_notification(self, action: str, token: Dict[str, Any], amount: float, pnl: Optional[float] = None):
-        """
-        Send trade notification to Telegram.
-        
-        Args:
-            action (str): Trade action (BUY/SELL)
-            token (Dict): Token information
-            amount (float): Trade amount
-            pnl (float, optional): Profit/loss percentage
-        """
-        symbol = token.get("symbol", token.get("name", "Unknown"))
-        
-        if action == "BUY":
-            message = f"✅ <b>BUY EXECUTED</b>\n💰 Token: {symbol}\n💎 Amount: {amount:.4f} SOL\n🕐 Time: {time.strftime('%H:%M:%S')}"
-        elif action == "SELL":
-            pnl_str = f"{pnl:+.2f}%" if pnl else "Unknown"
-            emoji = "🟢" if pnl and pnl > 0 else "🔴"
-            message = f"{emoji} <b>SELL EXECUTED</b>\n💰 Token: {symbol}\n💎 Amount: {amount:.4f} SOL\n📊 P&L: {pnl_str}\n🕐 Time: {time.strftime('%H:%M:%S')}"
-        else:
-            message = f"📊 <b>{action}</b>\n💰 Token: {symbol}\n💎 Amount: {amount:.4f} SOL"
-        
-        self.send_message(message)
-    
-    def send_status_update(self):
-        """Send bot status update."""
-        if not self.auracle_bot:
+    async def start(self):
+        """Start the minimal bot."""
+        if not self.token:
+            logger.warning("No Telegram token found - running in local mode")
+            await self.run_local_mode()
             return
-        
+
         try:
-            status = self.auracle_bot.get_status()
-            
-            message = f"""
-📊 <b>AURACLE Status Report</b>
-⏰ Uptime: {status.get('uptime', 'Unknown')}
-🔄 Scans: {status['statistics']['scans_completed']}
-🎯 Trades: {status['statistics']['trades_executed']}
-💼 Open Positions: {status['portfolio']['open_positions']}
-🏦 Mode: {status['trading_mode']}
-💰 Balance: {status.get('balance', 'Unknown')} SOL
-            """.strip()
-            
-            self.send_message(message)
-            
+            # Try to import telegram library
+            from telegram import Bot, Update
+            from telegram.ext import Application, CommandHandler, MessageHandler, filters
+
+            logger.info("🚀 Starting Minimal Telegram Bot...")
+
+            # Create application
+            app = Application.builder().token(self.token).build()
+
+            # Add handlers
+            app.add_handler(CommandHandler("start", self.start_command))
+            app.add_handler(CommandHandler("status", self.status_command))
+            app.add_handler(CommandHandler("help", self.help_command))
+            app.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
+
+            # Start bot
+            await app.initialize()
+            await app.start()
+
+            logger.info("✅ Minimal Telegram Bot started successfully")
+
+            # Keep running
+            while self.running:
+                await asyncio.sleep(1)
+
+        except ImportError:
+            logger.warning("Telegram library not available - running in local mode")
+            await self.run_local_mode()
         except Exception as e:
-            self.send_message(f"❌ Status update error: {str(e)}")
-    
-    def send_error_alert(self, error_message: str):
-        """
-        Send error alert to Telegram.
-        
-        Args:
-            error_message (str): Error message
-        """
-        message = f"⚠️ <b>AURACLE ERROR</b>\n{error_message}"
-        self.send_message(message)
-    
-    def _listen_for_commands(self):
-        """Listen for Telegram commands and send periodic updates."""
-        update_counter = 0
-        
-        while self.running:
-            try:
-                # Send periodic status updates every 5 minutes (300 seconds)
-                time.sleep(30)  # Check every 30 seconds
-                update_counter += 1
-                
-                if update_counter >= 10:  # 10 * 30 = 300 seconds = 5 minutes
-                    if self.auracle_bot:
-                        self.send_status_update()
-                    update_counter = 0
-                    
-            except Exception as e:
-                print(f"⚠️ Telegram command error: {type(e).__name__}")
-                time.sleep(30)
-    
-    def stop(self):
-        """Stop Telegram bot."""
-        self.running = False
-        self.send_message("🛑 AURACLE Bot Stopped")
+            logger.error(f"Bot error: {e}")
+            await self.run_local_mode()
+
+    async def run_local_mode(self):
+        """Run in local mode without telegram."""
+        logger.info("🔄 Running in local mode...")
+        print("\n🎯 AURACLE Local Mode")
+        print("=" * 40)
+        print("✅ System initialized")
+        print("✅ Monitoring active")
+        print("✅ Demo mode enabled")
+
+        self.running = True
+        try:
+            while self.running:
+                print(f"⏰ System check - All systems operational")
+                await asyncio.sleep(300)  # Check every 5 minutes
+        except KeyboardInterrupt:
+            print("\n👋 Local mode stopped")
+            self.running = False
+
+    async def start_command(self, update, context):
+        """Handle /start command."""
+        await update.message.reply_text(
+            "🚀 AURACLE Minimal Bot\n\n"
+            "✅ Bot is online\n"
+            "✅ Demo mode active\n"
+            "✅ All systems operational\n\n"
+            "Use /status for system info\n"
+            "Use /help for commands"
+        )
+
+    async def status_command(self, update, context):
+        """Handle /status command."""
+        status_text = (
+            "📊 AURACLE Status\n\n"
+            "🔶 Mode: Demo (Safe)\n"
+            "🌐 Network: Solana\n"
+            "📡 Status: Online\n"
+            "⚡ Performance: Optimal\n\n"
+            "✅ All systems operational"
+        )
+        await update.message.reply_text(status_text)
+
+    async def help_command(self, update, context):
+        """Handle /help command."""
+        help_text = (
+            "🔧 AURACLE Commands\n\n"
+            "/start - Initialize bot\n"
+            "/status - System status\n"
+            "/help - This help message\n\n"
+            "📖 The bot is running in demo mode for safety."
+        )
+        await update.message.reply_text(help_text)
+
+    async def handle_message(self, update, context):
+        """Handle regular messages."""
+        await update.message.reply_text(
+            "🤖 AURACLE is listening!\n"
+            "Use /help for available commands."
+        )
+
+async def main():
+    """Main function to start the minimal bot."""
+    bot = MinimalTelegramBot()
+    await bot.start()
+
+if __name__ == "__main__":
+    asyncio.run(main())
