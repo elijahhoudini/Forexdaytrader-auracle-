@@ -796,7 +796,7 @@ Choose an option below to get started!
                 )
 
             # Reset earnings
-            self.referral_manager.add_earnings(user_id, -earnings)```python
+            self.referral_manager.add_earnings(user_id, -earnings)
         else:
             await update.message.reply_text(
                 f"❌ Insufficient earnings to claim\n\n"
