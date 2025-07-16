@@ -28,22 +28,22 @@ class AITradingCommands:
                 )
                 return
             
-            # Parse amount
-            amount_sol = 0.01
+            # Parse amount (if not provided, AI trader will calculate 10% of wallet)
+            amount_sol = None
             if context.args:
                 try:
                     amount_sol = float(context.args[0])
                     if amount_sol <= 0 or amount_sol > 1.0:
-                        amount_sol = 0.01
+                        amount_sol = None  # Let AI trader calculate
                 except ValueError:
-                    amount_sol = 0.01
+                    amount_sol = None  # Let AI trader calculate
             
             # Start AI trading
             result = await self.ai_trader.start_autonomous_trading(user_id, amount_sol)
             
             if result["success"]:
                 message = f"🤖 **AI Autonomous Trading Started!**\n\n"
-                message += f"💰 **Trading Amount:** {amount_sol} SOL per trade\n"
+                message += f"💰 **Trading Amount:** {result.get('amount', 'Auto-calculated')} SOL per trade (10% of wallet)\n"
                 message += f"🎯 **Profit Target:** {self.ai_trader.profit_threshold * 100:.1f}%\n"
                 message += f"🛡️ **Stop Loss:** {self.ai_trader.stop_loss * 100:.1f}%\n"
                 message += f"⏱️ **Analysis Interval:** {self.ai_trader.trading_interval} seconds\n\n"

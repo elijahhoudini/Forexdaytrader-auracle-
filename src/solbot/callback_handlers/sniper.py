@@ -29,16 +29,27 @@ class AITrader:
             "positions_held": 0
         }
         self.positions = {}  # Track current positions
-        self.profit_threshold = 0.1  # 10% profit target
-        self.stop_loss = 0.05  # 5% stop loss
+        self.profit_threshold = 0.171  # 17.1% profit target
+        self.stop_loss = 0.02  # 2% stop loss
         
-    async def start_autonomous_trading(self, user_id: str, amount_sol: float = 0.01):
+    async def start_autonomous_trading(self, user_id: str, amount_sol: float = None):
         """Start autonomous AI trading"""
         if self.active:
             return {"success": False, "error": "AI trader already active"}
+        
+        # Calculate 10% of wallet balance if amount not specified
+        if amount_sol is None:
+            wallet_balance = await self._get_wallet_balance(user_id)
+            if wallet_balance:
+                # Use 10% of balance, but leave 0.005 SOL for gas fees
+                available_balance = max(0, wallet_balance - 0.005)
+                amount_sol = min(available_balance * 0.1, available_balance - 0.001)
+                amount_sol = max(0.001, amount_sol)  # Minimum 0.001 SOL
+            else:
+                amount_sol = 0.01  # Fallback amount
             
         self.active = True
-        logger.info(f"🤖 Starting AI autonomous trading for user {user_id}")
+        logger.info(f"🤖 Starting AI autonomous trading for user {user_id} with {amount_sol} SOL per trade")
         
         # Start trading loop
         asyncio.create_task(self._trading_loop(user_id, amount_sol))
@@ -356,3 +367,13 @@ class AITrader:
     def get_positions(self) -> Dict:
         """Get current positions"""
         return self.positions.copy()
+    
+    async def _get_wallet_balance(self, user_id: str) -> Optional[float]:
+        """Get wallet balance for user"""
+        try:
+            # This would connect to actual wallet/blockchain to get balance
+            # For demo, return a mock balance
+            return 1.0  # Mock 1 SOL balance
+        except Exception as e:
+            logger.error(f"Failed to get wallet balance: {e}")
+            return None

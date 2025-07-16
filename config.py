@@ -61,8 +61,8 @@ MIN_LIQUIDITY_THRESHOLD = int(os.getenv("MIN_LIQUIDITY_THRESHOLD", "1000"))
 POSITION_SIZE_PERCENTAGE = float(os.getenv("POSITION_SIZE_PERCENTAGE", "0.1"))
 
 # Trading Strategy - Enhanced for Profit Maximization
-PROFIT_TARGET_PERCENTAGE = float(os.getenv("PROFIT_TARGET_PERCENTAGE", "0.20"))  # 20% profit target (increased for higher profits)
-STOP_LOSS_PERCENTAGE = float(os.getenv("STOP_LOSS_PERCENTAGE", "-0.05"))  # -5% stop loss (tighter to preserve capital)
+PROFIT_TARGET_PERCENTAGE = float(os.getenv("PROFIT_TARGET_PERCENTAGE", "0.171"))  # 20% profit target (increased for higher profits)
+STOP_LOSS_PERCENTAGE = float(os.getenv("STOP_LOSS_PERCENTAGE", "-0.02"))  # -5% stop loss (tighter to preserve capital)
 SCAN_INTERVAL_SECONDS = int(os.getenv("SCAN_INTERVAL_SECONDS", "30"))  # 30 second intervals for faster response
 
 # Advanced Profit Strategy
