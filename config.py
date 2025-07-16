@@ -397,4 +397,3 @@ if not validate_config():
 
 # Create data directory if it doesn't exist
 os.makedirs(DATA_DIRECTORY, exist_ok=True)
-```

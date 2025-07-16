@@ -16,6 +16,7 @@ try:
     from solana.rpc.async_api import AsyncClient
     from solders.keypair import Keypair
     from solders.pubkey import Pubkey
+    from solders.keypair import Keypair
     import base58
     SOLANA_AVAILABLE = True
 except ImportError:

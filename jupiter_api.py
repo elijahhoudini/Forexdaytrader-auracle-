@@ -279,11 +279,11 @@ class JupiterAPI:
             try:
                 # Get the message from the transaction
                 message = transaction.message
-                
+
                 # Sign the message hash directly
                 message_hash = message.hash()
                 signature = wallet_keypair.sign_message(message_hash)
-                
+
                 # Create a new transaction with the signature
                 signed_transaction = VersionedTransaction.populate(message, [signature])
                 print(f"[jupiter] ✅ Transaction signed successfully")
@@ -301,7 +301,7 @@ class JupiterAPI:
 
                 except Exception as sign_error2:
                     print(f"[jupiter] ❌ Alternative signing error: {sign_error2}")
-                    
+
                     # Method 3: Try the most basic approach
                     try:
                         # Just sign the raw transaction bytes
@@ -526,7 +526,7 @@ class JupiterTradeExecutor:
 
                 # Sign transaction using the correct method
                 message = transaction.message
-                
+
                 try:
                     # Try to get message hash
                     message_hash = message.hash()
@@ -535,7 +535,7 @@ class JupiterTradeExecutor:
                     # Fallback to signing serialized message
                     message_bytes = bytes(message)
                     signature = self.wallet_keypair.sign_message(message_bytes)
-                
+
                 signed_transaction = VersionedTransaction.populate(message, [signature])
 
                 print(f"[jupiter_executor] 🚀 Sending sell transaction...")
@@ -577,3 +577,4 @@ class JupiterTradeExecutor:
     async def close(self):
         """Close connections."""
         await self.jupiter.close()
+`
