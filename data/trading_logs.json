@@ -1011,6 +1011,186 @@
       "signature": "demo_1752540906",
       "demo_mode": true,
       "timestamp": "2025-07-15T00:55:06.056973"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JupSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.144758"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "INF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.147260"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "GIGA",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.159905"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "FUKU",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.163954"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "$BANE",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.166119"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.168267"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "MEW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.170595"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "WOLF",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752682981",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:01.172605"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "USDT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683016",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:36.371648"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Jajak",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683016",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:36.373783"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Bonk",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683016",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:36.393933"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BILLY",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683016",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:23:36.397384"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JitoSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.003974"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "Bonk",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.005973"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JupSOL",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.017663"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "BTW",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.020808"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "CATDOG",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.023529"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "ETH",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.027882"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "JTO",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.030203"
+    },
+    {
+      "action": "auto_snipe",
+      "token": "PCKT",
+      "amount": 0.01,
+      "success": true,
+      "signature": "demo_1752683052",
+      "demo_mode": true,
+      "timestamp": "2025-07-16T16:24:12.033080"
     }
   ]
 }

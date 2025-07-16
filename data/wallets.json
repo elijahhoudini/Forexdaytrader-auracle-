@@ -16,5 +16,11 @@
     "private_key": "TR0xqGAxFeA1K8ibJa2NmL3gdSS2pdYyZqEY1cN5RNlcGdwC9cjz9UoAbEZw8idWUx6z4YW58BYjCX1DQwIfut0C",
     "created_at": "2025-07-15T01:14:54.543315",
     "balance_sol": 0.0
+  },
+  "8009894017": {
+    "address": "hYqUELcXw9dDbl8MZspjiuJ8rCWKbNzTA2gyida11eb8",
+    "private_key": "eVc2GbAyEriNbupjsV32h63ruNb6B3ceRvBpUWLt3ui7sYpJ55u3L1YYdbisofNyi1PuTsZSszgCxFF5JB9yBKn",
+    "connected_at": "2025-07-16T16:22:24.171885",
+    "balance_sol": 0.0
   }
 }
