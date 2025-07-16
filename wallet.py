@@ -43,16 +43,33 @@ class Wallet:
             # Initialize keypair for live trading
             if hasattr(config, 'WALLET_PRIVATE_KEY') and config.WALLET_PRIVATE_KEY:
                 try:
-                    # Decode private key (assumes base58 encoded)
-                    private_key_bytes = base58.b58decode(config.WALLET_PRIVATE_KEY)
-                    self.keypair = Keypair.from_bytes(private_key_bytes)
+                    print(f"[wallet] 🔐 Loading private key (length: {len(config.WALLET_PRIVATE_KEY)})")
+                    
+                    # Handle different private key formats
+                    if len(config.WALLET_PRIVATE_KEY) == 88:  # Base58 encoded
+                        private_key_bytes = base58.b58decode(config.WALLET_PRIVATE_KEY)
+                        self.keypair = Keypair.from_bytes(private_key_bytes)
+                    elif len(config.WALLET_PRIVATE_KEY) == 64:  # Hex encoded
+                        private_key_bytes = bytes.fromhex(config.WALLET_PRIVATE_KEY)
+                        self.keypair = Keypair.from_bytes(private_key_bytes)
+                    else:
+                        # Try direct bytes interpretation
+                        private_key_bytes = base58.b58decode(config.WALLET_PRIVATE_KEY)
+                        self.keypair = Keypair.from_bytes(private_key_bytes)
 
-                    # Verify address matches
-                    if str(self.keypair.pubkey()) != self.address:
-                        print("⚠️ Warning: Private key doesn't match configured address")
+                    # Update address to match keypair
+                    derived_address = str(self.keypair.pubkey())
+                    if self.address and self.address != derived_address:
+                        print(f"⚠️ Configured address: {self.address}")
+                        print(f"⚠️ Derived address: {derived_address}")
+                        print("⚠️ Using derived address from private key")
+                    
+                    self.address = derived_address
+                    print(f"[wallet] ✅ Keypair loaded successfully: {self.address[:8]}...")
 
                 except Exception as e:
                     print(f"❌ Failed to load private key: {e}")
+                    print(f"❌ Private key format or content invalid")
                     self.demo_mode = True  # Fall back to demo mode
             else:
                 print("⚠️ No private key configured, falling back to demo mode")

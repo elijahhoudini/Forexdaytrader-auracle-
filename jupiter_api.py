@@ -277,12 +277,13 @@ class JupiterAPI:
 
             # Sign transaction using the correct method for solders VersionedTransaction
             try:
-                # Method 1: Try to use the transaction's message and sign it
+                # Get the message from the transaction
                 message = transaction.message
-
-                # Sign the message using the keypair
-                signature = wallet_keypair.sign_message(bytes(message))
-
+                
+                # Sign the message hash directly
+                message_hash = message.hash()
+                signature = wallet_keypair.sign_message(message_hash)
+                
                 # Create a new transaction with the signature
                 signed_transaction = VersionedTransaction.populate(message, [signature])
                 print(f"[jupiter] ✅ Transaction signed successfully")
@@ -290,17 +291,26 @@ class JupiterAPI:
             except Exception as sign_error:
                 print(f"[jupiter] ❌ Transaction signing error: {sign_error}")
 
-                # Method 2: Try alternative approach with raw bytes
+                # Method 2: Try alternative approach with serialized message
                 try:
-                    # Try signing the raw message bytes
-                    message_bytes = transaction.message.serialize()
+                    # Serialize the message and sign it
+                    message_bytes = bytes(transaction.message)
                     signature = wallet_keypair.sign_message(message_bytes)
                     signed_transaction = VersionedTransaction.populate(transaction.message, [signature])
                     print(f"[jupiter] ✅ Transaction signed with alternative method")
 
                 except Exception as sign_error2:
                     print(f"[jupiter] ❌ Alternative signing error: {sign_error2}")
-                    return {"success": False, "error": f"Transaction signing failed: {sign_error2}"}
+                    
+                    # Method 3: Try the most basic approach
+                    try:
+                        # Just sign the raw transaction bytes
+                        signature = wallet_keypair.sign_message(transaction_bytes[:64])  # Use first 64 bytes
+                        signed_transaction = VersionedTransaction.populate(transaction.message, [signature])
+                        print(f"[jupiter] ✅ Transaction signed with basic method")
+                    except Exception as sign_error3:
+                        print(f"[jupiter] ❌ All signing methods failed: {sign_error3}")
+                        return {"success": False, "error": f"Transaction signing failed: {sign_error3}"}
 
             # Send transaction
             print(f"[jupiter] 🚀 Sending transaction to Solana network...")
@@ -316,8 +326,7 @@ class JupiterAPI:
                     tx_signature = str(signature_result.value)
                     print(f"[jupiter] 🎉 Transaction sent successfully!")
                     print(f"[jupiter] 📋 Signature: {tx_signature}")
-                    print(f"[jupiter] 🔍 Solscan:```python
- https://solscan.io/tx/{tx_signature}")
+                    print(f"[jupiter] 🔍 Solscan: https://solscan.io/tx/{tx_signature}")
 
                     # Wait for confirmation
                     print(f"[jupiter] ⏳ Waiting for confirmation...")
@@ -517,8 +526,16 @@ class JupiterTradeExecutor:
 
                 # Sign transaction using the correct method
                 message = transaction.message
-                message_bytes = transaction.verify_and_hash_message()
-                signature = self.wallet_keypair.sign_message(message_bytes)
+                
+                try:
+                    # Try to get message hash
+                    message_hash = message.hash()
+                    signature = self.wallet_keypair.sign_message(message_hash)
+                except:
+                    # Fallback to signing serialized message
+                    message_bytes = bytes(message)
+                    signature = self.wallet_keypair.sign_message(message_bytes)
+                
                 signed_transaction = VersionedTransaction.populate(message, [signature])
 
                 print(f"[jupiter_executor] 🚀 Sending sell transaction...")

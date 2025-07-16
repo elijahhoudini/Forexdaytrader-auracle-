@@ -1,10 +1,4 @@
-"""
-AURACLE Configuration Module
-===========================
-
-Global settings and constants for the AURACLE autonomous trading bot.
-Configuration includes trading parameters, risk management, and system settings.
-"""
+"""AURACLE Configuration Module: This module defines global settings and constants for the AURACLE autonomous trading bot."""
 
 import os
 from typing import Dict, Any
@@ -137,10 +131,17 @@ JUPITER_API_URL = "https://quote-api.jup.ag/v6"
 JUPITER_SLIPPAGE_BPS = int(os.getenv("JUPITER_SLIPPAGE_BPS", "50"))  # 0.5% default slippage
 JUPITER_PRIORITY_FEE = int(os.getenv("JUPITER_PRIORITY_FEE", "1000"))  # 1000 microlamports
 
-# Wallet Configuration (Demo mode by default for safety)
+# Wallet Configuration (Live trading enabled)
 WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "")
 WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "")
-DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() == "true"  # Enable demo mode by default
+DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() == "true"  # Enable demo mode by default for safety
+
+# Validate wallet configuration
+if WALLET_PRIVATE_KEY and not WALLET_ADDRESS:
+    print("⚠️ Private key provided but no wallet address - will derive address from private key")
+elif not WALLET_PRIVATE_KEY and not DEMO_MODE:
+    print("⚠️ No private key provided - forcing demo mode")
+    DEMO_MODE = True
 
 # Runtime configuration state
 _runtime_config = {
@@ -396,3 +397,4 @@ if not validate_config():
 
 # Create data directory if it doesn't exist
 os.makedirs(DATA_DIRECTORY, exist_ok=True)
+```
