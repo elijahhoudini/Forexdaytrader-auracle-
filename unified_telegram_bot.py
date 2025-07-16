@@ -320,7 +320,7 @@ class SniperManager:
         self.risk_evaluator = RiskEvaluator()
         self.active_snipers = {}  # user_id -> sniper_task
         self.jupiter_executor = JupiterTradeExecutor()
-        
+
         # Create individual sniper instances per user with trade handler integration
         self.user_snipers = {}  # user_id -> AuracleSniper instance
 
@@ -526,13 +526,14 @@ class AuracleTelegramBot:
         self.application.add_handler(CommandHandler("help", self.help_command))
         self.application.add_handler(CommandHandler("view_trades", self.view_trades_command))
         self.application.add_handler(CommandHandler("cancel", self.cancel_command))
+        self.application.add_handler(CommandHandler("sniper_trades", self.sniper_trades_command))
 
         # Callback handlers
         self.application.add_handler(CallbackQueryHandler(self.callback_handler))
 
         # Message handlers for wallet connection
         self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.message_handler))
-        
+
         # Document handler for wallet file imports
         self.application.add_handler(MessageHandler(filters.Document.ALL, self.document_handler))
 
@@ -795,7 +796,7 @@ Choose an option below to get started!
                 )
 
             # Reset earnings
-            self.referral_manager.add_earnings(user_id, -earnings)
+            self.referral_manager.add_earnings(user_id, -earnings)```python
         else:
             await update.message.reply_text(
                 f"❌ Insufficient earnings to claim\n\n"
@@ -822,6 +823,7 @@ Choose an option below to get started!
                 img = qr.make_image(fill_color="black", back_color="white")
 
                 # Save to bytes
+                import io
                 img_byte_arr = io.BytesIO()
                 img.save(img_byte_arr, format='PNG')
                 img_byte_arr.seek(0)
@@ -913,9 +915,9 @@ Choose an option below to get started!
     async def view_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /view_trades command to show all recent trades"""
         user_id = str(update.effective_user.id)
-        
+
         trades = self.data_manager.get_user_trades(user_id)
-        
+
         if not trades:
             message_text = (
                 "📊 **No Trading History**\n\n"
@@ -928,22 +930,22 @@ Choose an option below to get started!
             elif update.callback_query:
                 await update.callback_query.edit_message_text(message_text, parse_mode='Markdown')
             return
-        
+
         # Sort trades by timestamp (newest first)
         sorted_trades = sorted(trades, key=lambda x: x.get('timestamp', ''), reverse=True)
-        
+
         # Show last 10 trades
         recent_trades = sorted_trades[:10]
-        
+
         mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
-        
+
         message = f"📊 **Recent Trading History** {mode}\n\n"
         message += f"📈 **Total Trades:** {len(trades)}\n"
         message += f"✅ **Successful:** {len([t for t in trades if t.get('success')])}\n"
         message += f"❌ **Failed:** {len([t for t in trades if not t.get('success')])}\n\n"
-        
+
         message += "**📋 Last 10 Trades:**\n\n"
-        
+
         for i, trade in enumerate(recent_trades, 1):
             timestamp = trade.get('timestamp', '')
             if timestamp:
@@ -955,27 +957,27 @@ Choose an option below to get started!
                     time_str = timestamp[:16]
             else:
                 time_str = "Unknown"
-            
+
             status = "✅" if trade.get('success') else "❌"
             action = trade.get('action', 'trade').upper()
             token = trade.get('token', 'Unknown')
             amount = trade.get('amount', 0)
             signature = trade.get('signature', '')
-            
+
             message += f"{i}. {status} **{action}** - {time_str}\n"
             message += f"   🪙 Token: {token}\n"
             message += f"   💰 Amount: {amount} SOL\n"
-            
+
             if signature and signature != 'N/A' and not signature.startswith('demo_'):
                 message += f"   🔗 [View on Solscan](https://solscan.io/tx/{signature})\n"
             elif trade.get('demo_mode'):
                 message += f"   🔶 Demo Mode Transaction\n"
-            
+
             if not trade.get('success') and trade.get('error'):
                 message += f"   ❌ Error: {trade['error'][:50]}...\n"
-            
+
             message += "\n"
-        
+
         # Add keyboard for more options
         keyboard = [
             [InlineKeyboardButton("🔄 Refresh", callback_data="view_trades")],
@@ -984,7 +986,7 @@ Choose an option below to get started!
             [InlineKeyboardButton("🔙 Back", callback_data="start")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        
+
         # Handle both message and callback query
         if update.message:
             await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
@@ -1035,11 +1037,11 @@ Choose an option below to get started!
     async def cancel_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /cancel command"""
         user_id = str(update.effective_user.id)
-        
+
         # Clear any waiting states
         if 'user_data' in context.user_data and user_id in context.user_data['user_data']:
             del context.user_data['user_data'][user_id]
-            
+
         await update.message.reply_text(
             "✅ **Operation Cancelled**\n\n"
             "Any pending wallet import has been cancelled.\n\n"
@@ -1095,7 +1097,7 @@ Choose an option below to get started!
 
         # Check if user is waiting for private key input
         user_state = context.user_data.get(user_id, {}).get('state')
-        
+
         if user_state == 'waiting_private_key':
             await self.process_private_key_input(update, context, text)
             return
@@ -1180,7 +1182,7 @@ Choose an option below to get started!
     async def import_private_key_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle private key import request"""
         user_id = str(update.effective_user.id)
-        
+
         # Set user state to waiting for private key
         if 'user_data' not in context.user_data:
             context.user_data['user_data'] = {}
@@ -1200,7 +1202,7 @@ Choose an option below to get started!
     async def import_wallet_file_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle wallet file import request"""
         user_id = str(update.effective_user.id)
-        
+
         # Set user state to waiting for wallet file
         if 'user_data' not in context.user_data:
             context.user_data['user_data'] = {}
@@ -1221,7 +1223,7 @@ Choose an option below to get started!
     async def process_private_key_input(self, update: Update, context: ContextTypes.DEFAULT_TYPE, private_key: str):
         """Process private key input from user"""
         user_id = str(update.effective_user.id)
-        
+
         # Clear user state
         if 'user_data' in context.user_data and user_id in context.user_data['user_data']:
             del context.user_data['user_data'][user_id]
@@ -1237,11 +1239,11 @@ Choose an option below to get started!
                     # Generate wallet address from private key
                     import base58
                     from solders.keypair import Keypair
-                    
+
                     decoded_key = base58.b58decode(private_key)
                     keypair = Keypair.from_bytes(decoded_key[:32])
                     wallet_address = str(keypair.pubkey())
-                    
+
                     success = self.wallet_manager.connect_wallet(user_id, wallet_address, private_key)
                 except Exception:
                     pass
@@ -1250,11 +1252,11 @@ Choose an option below to get started!
             if not success and len(private_key) == 128:
                 try:
                     from solders.keypair import Keypair
-                    
+
                     hex_bytes = bytes.fromhex(private_key)
                     keypair = Keypair.from_bytes(hex_bytes[:32])
                     wallet_address = str(keypair.pubkey())
-                    
+
                     success = self.wallet_manager.connect_wallet(user_id, wallet_address, private_key)
                 except Exception:
                     pass
@@ -1297,7 +1299,7 @@ Choose an option below to get started!
     async def import_private_key_only(self, update: Update, context: ContextTypes.DEFAULT_TYPE, private_key: str):
         """Handle single private key input (backward compatibility)"""
         user_id = str(update.effective_user.id)
-        
+
         try:
             # Mock wallet address generation for demo
             wallet_address = self.wallet_manager._generate_mock_address()
@@ -1320,9 +1322,9 @@ Choose an option below to get started!
     async def trading_history_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle detailed trading history with currency breakdown"""
         user_id = str(update.effective_user.id)
-        
+
         trades = self.data_manager.get_user_trades(user_id)
-        
+
         if not trades:
             await update.callback_query.edit_message_text(
                 "📊 **No Trading History**\n\n"
@@ -1331,7 +1333,7 @@ Choose an option below to get started!
                 parse_mode='Markdown'
             )
             return
-        
+
         # Group trades by currency/token
         currency_trades = {}
         for trade in trades:
@@ -1339,26 +1341,26 @@ Choose an option below to get started!
             if token not in currency_trades:
                 currency_trades[token] = []
             currency_trades[token].append(trade)
-        
+
         mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
-        
+
         message = f"💱 **Trading History by Currency** {mode}\n\n"
         message += f"📊 **Total Currencies Traded:** {len(currency_trades)}\n\n"
-        
+
         # Sort currencies by trade count
         sorted_currencies = sorted(currency_trades.items(), key=lambda x: len(x[1]), reverse=True)
-        
+
         for token, token_trades in sorted_currencies[:10]:  # Show top 10 currencies
             successful = len([t for t in token_trades if t.get('success')])
             total_count = len(token_trades)
             total_volume = sum(t.get('amount', 0) for t in token_trades)
             success_rate = (successful / total_count * 100) if total_count > 0 else 0
-            
+
             message += f"🪙 **{token}**\n"
             message += f"   📊 Trades: {total_count} (✅{successful} ❌{total_count-successful})\n"
             message += f"   📈 Success Rate: {success_rate:.1f}%\n"
             message += f"   💰 Total Volume: {total_volume:.4f} SOL\n"
-            
+
             # Show last trade
             last_trade = sorted(token_trades, key=lambda x: x.get('timestamp', ''), reverse=True)[0]
             timestamp = last_trade.get('timestamp', '')
@@ -1371,25 +1373,25 @@ Choose an option below to get started!
                     time_str = timestamp[:16]
             else:
                 time_str = "Unknown"
-            
+
             status = "✅" if last_trade.get('success') else "❌"
             message += f"   🕐 Last Trade: {status} {time_str}\n\n"
-        
+
         keyboard = [
             [InlineKeyboardButton("📋 Recent Trades", callback_data="view_trades")],
             [InlineKeyboardButton("💱 Currency Details", callback_data="currency_details")],
             [InlineKeyboardButton("🔙 Back", callback_data="start")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        
+
         await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def currency_details_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle detailed currency analysis"""
         user_id = str(update.effective_user.id)
-        
+
         trades = self.data_manager.get_user_trades(user_id)
-        
+
         if not trades:
             await update.callback_query.edit_message_text(
                 "📊 **No Trading Data**\n\n"
@@ -1398,7 +1400,7 @@ Choose an option below to get started!
                 parse_mode='Markdown'
             )
             return
-        
+
         # Analyze currencies
         currency_analysis = {}
         for trade in trades:
@@ -1406,7 +1408,7 @@ Choose an option below to get started!
             amount = trade.get('amount', 0)
             success = trade.get('success', False)
             action = trade.get('action', 'trade')
-            
+
             if token not in currency_analysis:
                 currency_analysis[token] = {
                     'total_trades': 0,
@@ -1417,63 +1419,63 @@ Choose an option below to get started!
                     'first_trade': trade.get('timestamp', ''),
                     'last_trade': trade.get('timestamp', '')
                 }
-            
+
             analysis = currency_analysis[token]
             analysis['total_trades'] += 1
             analysis['total_volume'] += amount
-            
+
             if success:
                 analysis['successful_trades'] += 1
-            
+
             if 'buy' in action.lower() or 'snipe' in action.lower():
                 analysis['buy_volume'] += amount
             elif 'sell' in action.lower():
                 analysis['sell_volume'] += amount
-            
+
             # Update timestamps
             current_time = trade.get('timestamp', '')
             if current_time < analysis['first_trade']:
                 analysis['first_trade'] = current_time
             if current_time > analysis['last_trade']:
                 analysis['last_trade'] = current_time
-        
+
         mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
-        
+
         message = f"💹 **Detailed Currency Analysis** {mode}\n\n"
-        
+
         # Sort by total volume
         sorted_analysis = sorted(currency_analysis.items(), key=lambda x: x[1]['total_volume'], reverse=True)
-        
+
         for token, data in sorted_analysis[:5]:  # Top 5 by volume
             success_rate = (data['successful_trades'] / data['total_trades'] * 100) if data['total_trades'] > 0 else 0
-            
+
             message += f"🪙 **{token}**\n"
             message += f"   📊 Total Trades: {data['total_trades']}\n"
             message += f"   ✅ Success Rate: {success_rate:.1f}%\n"
             message += f"   📈 Buy Volume: {data['buy_volume']:.4f} SOL\n"
             message += f"   📉 Sell Volume: {data['sell_volume']:.4f} SOL\n"
             message += f"   💰 Net Volume: {data['total_volume']:.4f} SOL\n"
-            
+
             # P&L estimation (simplified)
             estimated_pnl = data['sell_volume'] - data['buy_volume']
             pnl_indicator = "📈" if estimated_pnl > 0 else "📉" if estimated_pnl < 0 else "➡️"
             message += f"   {pnl_indicator} Est. P&L: {estimated_pnl:.4f} SOL\n\n"
-        
+
         keyboard = [
             [InlineKeyboardButton("📊 Trading History", callback_data="trading_history")],
             [InlineKeyboardButton("📋 Recent Trades", callback_data="view_trades")],
             [InlineKeyboardButton("🔙 Back", callback_data="start")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        
+
         await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def full_history_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle full trading history request"""
         user_id = str(update.effective_user.id)
-        
+
         trades = self.data_manager.get_user_trades(user_id)
-        
+
         if not trades:
             await update.callback_query.edit_message_text(
                 "📊 **No Trading History**\n\n"
@@ -1481,16 +1483,16 @@ Choose an option below to get started!
                 "💡 Use /snipe or /start_sniper to begin trading!"
             )
             return
-        
+
         # Calculate statistics
         total_trades = len(trades)
         successful_trades = len([t for t in trades if t.get('success')])
         failed_trades = total_trades - successful_trades
         success_rate = (successful_trades / total_trades * 100) if total_trades > 0 else 0
-        
+
         # Calculate total volume
         total_volume = sum(t.get('amount', 0) for t in trades)
-        
+
         # Group by token
         token_stats = {}
         for trade in trades:
@@ -1501,39 +1503,39 @@ Choose an option below to get started!
             token_stats[token]['volume'] += trade.get('amount', 0)
             if trade.get('success'):
                 token_stats[token]['success'] += 1
-        
+
         mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
-        
+
         message = f"📊 **Complete Trading Statistics** {mode}\n\n"
         message += f"📈 **Overall Performance:**\n"
         message += f"• Total Trades: {total_trades}\n"
         message += f"• Successful: {successful_trades} ({success_rate:.1f}%)\n"
         message += f"• Failed: {failed_trades}\n"
         message += f"• Total Volume: {total_volume:.4f} SOL\n\n"
-        
+
         message += f"🪙 **Top Traded Tokens:**\n"
         sorted_tokens = sorted(token_stats.items(), key=lambda x: x[1]['count'], reverse=True)[:5]
-        
+
         for token, stats in sorted_tokens:
             success_rate = (stats['success'] / stats['count'] * 100) if stats['count'] > 0 else 0
             message += f"• {token}: {stats['count']} trades ({success_rate:.1f}% success)\n"
-        
+
         keyboard = [
             [InlineKeyboardButton("📋 Recent Trades", callback_data="view_trades")],
             [InlineKeyboardButton("💱 Currency Details", callback_data="currency_details")],
             [InlineKeyboardButton("🔙 Back", callback_data="start")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
-        
+
         await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def document_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle document uploads (for wallet file imports)"""
         user_id = str(update.effective_user.id)
-        
+
         # Check if user is expecting a wallet file
         user_state = context.user_data.get('user_data', {}).get(user_id, {}).get('state')
-        
+
         if user_state != 'waiting_wallet_file':
             await update.message.reply_text(
                 "📁 **Unexpected file upload**\n\n"
@@ -1546,7 +1548,7 @@ Choose an option below to get started!
             del context.user_data['user_data'][user_id]
 
         document = update.message.document
-        
+
         # Check file extension
         if not document.file_name.endswith('.json'):
             await update.message.reply_text(
@@ -1560,41 +1562,41 @@ Choose an option below to get started!
             # Download and process the file
             file = await context.bot.get_file(document.file_id)
             file_content = await file.download_as_bytearray()
-            
+
             # Parse JSON content
             import json
             wallet_data = json.loads(file_content.decode('utf-8'))
-            
+
             # Extract private key from different wallet formats
             private_key = None
             wallet_address = ""
-            
+
             # Format 1: Solana CLI format (array of bytes)
             if isinstance(wallet_data, list) and len(wallet_data) >= 32:
                 try:
                     from solders.keypair import Keypair
                     import base58
-                    
+
                     secret_bytes = bytes(wallet_data[:32])
                     keypair = Keypair.from_bytes(secret_bytes)
                     wallet_address = str(keypair.pubkey())
                     private_key = base58.b58encode(secret_bytes).decode()
                 except Exception:
                     pass
-            
+
             # Format 2: Object format with secretKey field
             elif isinstance(wallet_data, dict) and 'secretKey' in wallet_data:
                 try:
                     from solders.keypair import Keypair
                     import base58
-                    
+
                     secret_bytes = bytes(wallet_data['secretKey'][:32])
                     keypair = Keypair.from_bytes(secret_bytes)
                     wallet_address = str(keypair.pubkey())
                     private_key = base58.b58encode(secret_bytes).decode()
                 except Exception:
                     pass
-            
+
             # Format 3: Mock import for demo (fallback)
             if not private_key:
                 wallet_address = self.wallet_manager._generate_mock_address()
@@ -1603,7 +1605,7 @@ Choose an option below to get started!
             # Import the wallet
             if private_key:
                 success = self.wallet_manager.connect_wallet(user_id, wallet_address, private_key)
-                
+
                 if success:
                     await update.message.reply_text(
                         f"✅ **Wallet File Imported Successfully**\n\n"
@@ -1653,6 +1655,146 @@ Choose an option below to get started!
             await self.application.shutdown()
 
         logger.info("🛑 AURACLE Bot stopped")
+
+    async def portfolio_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /portfolio command"""
+        user_id = str(update.effective_user.id)
+
+        # Get portfolio data
+        portfolio = self.data_manager.get_user_trades(user_id)
+
+        if not portfolio:
+            await update.message.reply_text("📊 No portfolio data available")
+            return
+
+        # Build portfolio message
+        message = "📊 **Your Portfolio**\n\n"
+
+        # Recent trades with sniper indication
+        recent_trades = portfolio[-10:] if portfolio else []
+        if recent_trades:
+            message += "📋 **Recent Trades:**\n"
+            sniper_trades = 0
+            regular_trades = 0
+
+            for trade in recent_trades:
+                action = trade.get('action', 'UNKNOWN')
+                token = trade.get('token', 'Unknown')
+                amount = trade.get('amount', 0)
+                success = trade.get('success', False)
+                is_sniper = 'snipe' in action.lower()
+
+                if is_sniper:
+                    sniper_trades += 1
+                else:
+                    regular_trades += 1
+
+                status = "✅" if success else "❌"
+                prefix = "🎯" if is_sniper else "📊"
+                message += f"{status} {prefix} {action} {token} - {amount:.4f} SOL\n"
+
+            message += f"\n📊 Trade Stats: {regular_trades} regular, {sniper_trades} sniper\n"
+
+        await update.message.reply_text(message, parse_mode='Markdown')
+
+    async def recent_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /recent_trades command"""
+        user_id = str(update.effective_user.id)
+
+        # Get recent trades
+        trades = self.data_manager.get_user_trades(user_id)
+
+        if not trades:
+            await update.message.reply_text("📋 No recent trades found")
+            return
+
+        # Show last 10 trades
+        recent_trades = trades[-10:]
+
+        message = "📋 **Recent Trades**\n\n"
+        total_profit = 0
+
+        for trade in recent_trades:
+            action = trade.get('action', 'UNKNOWN')
+            token = trade.get('token', 'Unknown')
+            amount = trade.get('amount', 0)
+            success = trade.get('success', False)
+            timestamp = trade.get('timestamp', '')
+
+            # Calculate profit if available
+            pnl = trade.get('pnl_sol', 0)
+            if pnl != 0:
+                total_profit += pnl
+                pnl_str = f" ({pnl:+.4f} SOL)"
+            else:
+                pnl_str = ""
+
+            status = "✅" if success else "❌"
+            message += f"{status} {action} {token} - {amount:.4f} SOL{pnl_str}\n"
+
+        if total_profit != 0:
+            message += f"\n💰 Total P&L: {total_profit:+.4f} SOL"
+
+        await update.message.reply_text(message, parse_mode='Markdown')
+
+    async def sniper_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /sniper_trades command to show sniper-specific trades"""
+        user_id = str(update.effective_user.id)
+
+        # Get all trades and filter for sniper trades
+        trades = self.data_manager.get_user_trades(user_id)
+
+        if not trades:
+            await update.message.reply_text("🎯 No sniper trades found")
+            return
+
+        # Filter for sniper trades
+        sniper_trades = [trade for trade in trades if 'snipe' in trade.get('action', '').lower()]
+
+        if not sniper_trades:
+            await update.message.reply_text("🎯 No sniper trades found")
+            return
+
+        # Show recent sniper trades
+        recent_sniper_trades = sniper_trades[-10:]
+
+        message = "🎯 **Sniper Trades**\n\n"
+        total_sniper_profit = 0
+        successful_snipes = 0
+
+        for trade in recent_sniper_trades:
+            action = trade.get('action', 'UNKNOWN')
+            token = trade.get('token', 'Unknown')
+            amount = trade.get('amount', 0)
+            success = trade.get('success', False)
+            timestamp = trade.get('timestamp', '')
+
+            if success:
+                successful_snipes += 1
+
+            # Calculate profit if available
+            pnl = trade.get('pnl_sol', 0)
+            if pnl != 0:
+                total_sniper_profit += pnl
+                pnl_str = f" ({pnl:+.4f} SOL)"
+            else:
+                pnl_str = ""
+
+            status = "✅" if success else "❌"
+            message += f"{status} 🎯 {action} {token} - {amount:.4f} SOL{pnl_str}\n"
+
+        # Add statistics
+        total_sniper_trades = len(sniper_trades)
+        success_rate = (successful_snipes / max(len(recent_sniper_trades), 1)) * 100
+
+        message += f"\n📊 **Sniper Stats:**\n"
+        message += f"🎯 Total Sniper Trades: {total_sniper_trades}\n"
+        message += f"✅ Success Rate: {success_rate:.1f}%\n"
+
+        if total_sniper_profit != 0:
+            message += f"💰 Sniper P&L: {total_sniper_profit:+.4f} SOL"
+
+        await update.message.reply_text(message, parse_mode='Markdown')
 
 async def main():
     """Main entry point"""

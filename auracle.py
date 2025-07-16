@@ -314,16 +314,16 @@ class Auracle:
         finally:
             # Cancel both scanner and sniper tasks
             scanner_task.cancel()
-            
+
 
             try:
                 await scanner_task
             except asyncio.CancelledError:
                 pass
 
-            
+
             # Stop sniper gracefully
-            
+
             pass
 
     async def _async_main_loop(self):
@@ -798,7 +798,7 @@ class Auracle:
 
                 # Close all open positions
                 ```python
-                for mint in list(self.trade_handler.open_positions.keys()):
+                for mint in list(self.tradehandler.open_positions.keys()):
                     try:
                         result = loop.run_until_complete(self.trade_handler.sell_token(mint, "shutdown"))
                         if result and result.get("profit_sol", 0) > 0:
@@ -1215,6 +1215,11 @@ def main():
 
         # Initialize and start AURACLE
         bot = Auracle()
+        # Initialize the sniper with trade handler integration
+        self.sniper = AuracleSniper(self.wallet, self.trade_handler)
+
+        # Set up bidirectional integration
+        self.trade_handler.sniper = self.sniper
         bot.run()
 
     except Exception as e:
