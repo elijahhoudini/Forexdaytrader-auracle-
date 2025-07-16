@@ -8,6 +8,7 @@ Configuration includes trading parameters, risk management, and system settings.
 
 import os
 from typing import Dict, Any
+import logging
 
 # Try to load dotenv, fallback to minimal implementation
 try:
@@ -124,8 +125,8 @@ FLAG_LOG_FILE = "data/flag_logs.json"
 
 # Telegram Bot (Optional - only required for Telegram functionality)
 TELEGRAM_ENABLED = os.getenv("TELEGRAM_ENABLED", "true").lower() == "true"  # Enable for unified bot
-TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "7661187219:AAHuqb1IB9QtYxHeDbTbnkobwK1rFtyvqvk")
-TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "7661187219")
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID", "")
 
 # Solana Network (Free public RPC used as fallback)
 SOLANA_RPC_ENDPOINT = os.getenv("SOLANA_RPC_ENDPOINT", "https://api.mainnet-beta.solana.com")
@@ -137,8 +138,8 @@ JUPITER_SLIPPAGE_BPS = int(os.getenv("JUPITER_SLIPPAGE_BPS", "50"))  # 0.5% defa
 JUPITER_PRIORITY_FEE = int(os.getenv("JUPITER_PRIORITY_FEE", "1000"))  # 1000 microlamports
 
 # Wallet Configuration (Live trading enabled)
-WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "Emac86gtaA1YQg62F8QG5eam7crgD1c1TQj5C8nYHGrr")
-WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "3j6BWrW6f29a8tWeFq9acUAdsnevabA9wdWs7umxbEosfnSWc4GDKWyvHHkyznq97iqrcpqW2U4694L7fuKLuA2i")
+WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "")
+WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "")
 DEMO_MODE = os.getenv("DEMO_MODE", "false").lower() == "true"  # Enable live trading with wallet
 
 # Runtime configuration state
@@ -224,32 +225,35 @@ def get_trading_mode_string() -> str:
     else:
         return "🔥 LIVE TRADING (Real money at risk)"
 
+
+logger = logging.getLogger(__name__)
+
 def validate_config() -> bool:
     """
     Validates configuration settings with comprehensive checks.
     Returns True if all settings are valid.
     """
     print("🔍 Validating AURACLE configuration...")
-    
+
     # Trading parameter validation
     if MAX_BUY_AMOUNT_SOL <= 0:
         print("❌ MAX_BUY_AMOUNT_SOL must be positive")
         return False
     if MAX_BUY_AMOUNT_SOL > 1.0:
         print("⚠️  MAX_BUY_AMOUNT_SOL is quite high (>1 SOL) - consider reducing for safety")
-        
+
     if MIN_LIQUIDITY_THRESHOLD < 0:
         print("❌ MIN_LIQUIDITY_THRESHOLD must be non-negative")
         return False
     if MIN_LIQUIDITY_THRESHOLD < 1000:
         print("⚠️  MIN_LIQUIDITY_THRESHOLD is very low (<$1000) - consider increasing for safety")
-        
+
     if PROFIT_TARGET_PERCENTAGE <= 0:
         print("❌ PROFIT_TARGET_PERCENTAGE must be positive")
         return False
     if PROFIT_TARGET_PERCENTAGE > 1.0:
         print("⚠️  PROFIT_TARGET_PERCENTAGE is very high (>100%) - consider reducing")
-        
+
     if STOP_LOSS_PERCENTAGE >= 0:
         print("❌ STOP_LOSS_PERCENTAGE must be negative")
         return False
@@ -262,7 +266,7 @@ def validate_config() -> bool:
         return False
     if MAX_DAILY_TRADES > 200:
         print("⚠️  MAX_DAILY_TRADES is very high (>200) - consider reducing for safety")
-        
+
     if MAX_OPEN_POSITIONS <= 0:
         print("❌ MAX_OPEN_POSITIONS must be positive")
         return False
@@ -283,7 +287,7 @@ def validate_config() -> bool:
             return False
         if HIGH_CONFIDENCE_MULTIPLIER > 5.0:
             print("⚠️  HIGH_CONFIDENCE_MULTIPLIER is very high (>5x) - consider reducing")
-            
+
         if not HIGH_CONFIDENCE_PATTERNS:
             print("⚠️  HIGH_CONFIDENCE_PATTERNS is empty - dynamic allocation may not work")
 
@@ -343,7 +347,7 @@ def validate_config() -> bool:
         print("✅ Moralis API configured - enhanced token info available")
     else:
         print("ℹ️  No Moralis API - using free Jupiter/Solana APIs for token info")
-        
+
     purchased_rpc = os.getenv("PURCHASED_RPC")
     if purchased_rpc:
         print("✅ Premium RPC configured - enhanced performance available")
@@ -356,7 +360,7 @@ def validate_config() -> bool:
         return False
     if JUPITER_SLIPPAGE_BPS > 1000:
         print("⚠️  JUPITER_SLIPPAGE_BPS is very high (>10%) - consider reducing")
-        
+
     if JUPITER_PRIORITY_FEE < 0:
         print("❌ JUPITER_PRIORITY_FEE must be non-negative")
         return False
@@ -366,7 +370,7 @@ def validate_config() -> bool:
         print("⚠️  🔥 LIVE TRADING ENABLED - Real money at risk!")
         print("⚠️  Ensure you have tested thoroughly in demo mode")
         print("⚠️  Start with small amounts and monitor closely")
-    
+
     # Final validation summary
     print("✅ Configuration validation passed")
     return True

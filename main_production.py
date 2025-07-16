@@ -59,9 +59,13 @@ class AuracleProductionBot:
         
         # Check for required token
         token = config.TELEGRAM_BOT_TOKEN or os.getenv('TELEGRAM_BOT_TOKEN')
-        if not token:
-            logger.error("❌ TELEGRAM_BOT_TOKEN not found in config or environment")
-            return False
+        if not token or token == "DEMO_TOKEN_NOT_SET":
+            logger.warning("⚠️ TELEGRAM_BOT_TOKEN not configured - running in local mode")
+            # Run in local mode instead of failing
+            from telegram_bot import MinimalTelegramBot
+            minimal_bot = MinimalTelegramBot()
+            await minimal_bot.run_local_mode()
+            return True
         
         # Initialize Telegram bot
         self.telegram_bot = AuracleTelegramBot(token)
