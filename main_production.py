@@ -82,15 +82,8 @@ class AuracleProductionBot:
         self.running = True
         logger.info("✅ AURACLE Production Bot started successfully")
 
-        # Initialize AI trader
-        from src.solbot.callback_handlers.sniper import AITrader
-        self.ai_trader = AITrader(
-            jupiter_client=getattr(self, 'jupiter_client', None),
-            risk_evaluator=getattr(self, 'risk_evaluator', None),
-            discovery=getattr(self, 'discovery', None),
-            data_manager=getattr(self, 'data_manager', None)
-        )
-        logger.info("🤖 AI Trader initialized")
+        # AI trading is now integrated into the main bot
+        logger.info("🤖 AI Trading integrated into main bot")
 
         try:
             await self.telegram_bot.run()
