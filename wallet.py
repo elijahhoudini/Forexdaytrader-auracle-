@@ -35,29 +35,29 @@ class Wallet:
         self.keypair = None
         self.rpc_client = None
         self.jupiter_executor = None
-        
+
         # Initialize RPC client
         if not self.demo_mode:
             self.rpc_client = AsyncClient(config.SOLANA_RPC_ENDPOINT)
-            
+
             # Initialize keypair for live trading
             if hasattr(config, 'WALLET_PRIVATE_KEY') and config.WALLET_PRIVATE_KEY:
                 try:
                     # Decode private key (assumes base58 encoded)
                     private_key_bytes = base58.b58decode(config.WALLET_PRIVATE_KEY)
                     self.keypair = Keypair.from_bytes(private_key_bytes)
-                    
+
                     # Verify address matches
                     if str(self.keypair.pubkey()) != self.address:
                         print("⚠️ Warning: Private key doesn't match configured address")
-                    
+
                 except Exception as e:
                     print(f"❌ Failed to load private key: {e}")
                     self.demo_mode = True  # Fall back to demo mode
             else:
                 print("⚠️ No private key configured, falling back to demo mode")
                 self.demo_mode = True
-        
+
         # Initialize Jupiter executor
         self.jupiter_executor = JupiterTradeExecutor(self.keypair)
 
@@ -71,13 +71,13 @@ class Wallet:
         """Get wallet balance for specified token"""
         try:
             demo_mode = config.get_demo_mode()
-            
+
             if demo_mode:
                 print(f"[wallet] 🔶 Demo mode: Returning mock balance")
                 return 1.0  # Demo balance
             else:
                 print(f"[wallet] 🔥 Live mode: Fetching real balance from {config.SOLANA_RPC_ENDPOINT}")
-                
+
                 if token == "SOL":
                     # Get SOL balance
                     try:
@@ -97,7 +97,7 @@ class Wallet:
                     # For now, return demo value
                     print(f"[wallet] ⚠️ SPL token balance not implemented, returning demo value")
                     return 1.0
-                
+
         except Exception as e:
             print(f"[wallet] ❌ Balance check error: {e}")
             return 0.0
@@ -107,22 +107,22 @@ class Wallet:
         try:
             demo_mode = config.get_demo_mode()
             mode_str = "🔶 DEMO" if demo_mode else "🔥 LIVE"
-            
+
             print(f"[wallet] 🛒 {mode_str} - Buying {amount_sol} SOL worth of {mint[:8]}...")
-            
+
             # Execute swap via Jupiter
             result = await self.jupiter_executor.buy_token(mint, amount_sol)
-            
+
             if result["success"]:
                 print(f"[wallet] ✅ {mode_str} buy successful!")
-                
+
                 # Log transaction details if available
                 if "signature" in result:
                     print(f"[wallet] 📋 Transaction signature: {result['signature']}")
-                    
+
                 if "solscan_url" in result:
                     print(f"[wallet] 🔍 View on Solscan: {result['solscan_url']}")
-                
+
                 # Add wallet-specific metadata
                 result.update({
                     "action": "buy",
@@ -131,12 +131,12 @@ class Wallet:
                     "wallet_address": self.address,
                     "demo_mode": demo_mode
                 })
-                
+
                 return result
             else:
                 print(f"[wallet] ❌ Buy failed: {result.get('error', 'Unknown error')}")
                 return result
-                
+
         except Exception as e:
             print(f"[wallet] ❌ Buy error: {e}")
             return {
@@ -152,22 +152,22 @@ class Wallet:
         try:
             demo_mode = config.get_demo_mode()
             mode_str = "🔶 DEMO" if demo_mode else "🔥 LIVE"
-            
+
             print(f"[wallet] 💰 {mode_str} - Selling {token_amount} of {mint[:8]}...")
-            
+
             # Execute swap via Jupiter
             result = await self.jupiter_executor.sell_token(mint, token_amount)
-            
+
             if result["success"]:
                 print(f"[wallet] ✅ {mode_str} sell successful!")
-                
+
                 # Log transaction details if available
                 if "signature" in result:
                     print(f"[wallet] 📋 Transaction signature: {result['signature']}")
-                    
+
                 if "solscan_url" in result:
                     print(f"[wallet] 🔍 View on Solscan: {result['solscan_url']}")
-                
+
                 # Add wallet-specific metadata
                 result.update({
                     "action": "sell",
@@ -176,12 +176,12 @@ class Wallet:
                     "wallet_address": self.address,
                     "demo_mode": demo_mode
                 })
-                
+
                 return result
             else:
                 print(f"[wallet] ❌ Sell failed: {result.get('error', 'Unknown error')}")
                 return result
-                
+
         except Exception as e:
             print(f"[wallet] ❌ Sell error: {e}")
             return {
@@ -195,7 +195,7 @@ class Wallet:
     def send_transaction(self, tx_data: Dict[str, Any]) -> Dict[str, Any]:
         """Legacy method - use buy_token/sell_token instead"""
         print("⚠️ send_transaction is deprecated, use buy_token/sell_token")
-        
+
         action = tx_data.get("action", "unknown")
         if action == "buy":
             # Convert to async call

@@ -320,7 +320,7 @@ def validate_config() -> bool:
             set_demo_mode(True)
         else:
             print("✅ Live trading enabled with wallet:", WALLET_ADDRESS[:8] + "...")
-    
+
     if get_demo_mode():
         print("✅ Demo mode enabled - safe for testing")
 
@@ -376,6 +376,19 @@ def validate_config() -> bool:
     # Final validation summary
     print("✅ Configuration validation passed")
     return True
+
+# Force reload environment variables (important for Replit secrets)
+import importlib
+import os
+if hasattr(os, '_environ'):
+    importlib.reload(os)
+
+# Load environment variables from .env file if it exists
+load_dotenv()
+
+# Core Configuration
+TELEGRAM_BOT_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN", "DEMO_TOKEN_NOT_SET")
+TELEGRAM_ENABLED = TELEGRAM_BOT_TOKEN != "DEMO_TOKEN_NOT_SET"
 
 # Environment validation
 if not validate_config():
