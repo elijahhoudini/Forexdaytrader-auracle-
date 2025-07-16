@@ -1749,26 +1749,26 @@ Choose an option below to get started!
 
         await update.message.reply_text(message, parse_mode='Markdown')
 
-    async def sniper_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
-        """Handle /sniper_trades command to show sniper-specific trades"""
+    async def ai_trading_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /ai_trades command to show AI trading-specific trades"""
         user_id = str(update.effective_user.id)
 
-        # Get all trades and filter for sniper trades
+        # Get all trades and filter for AI trades
         trades = self.data_manager.get_user_trades(user_id)
 
         if not trades:
-            await update.message.reply_text("🎯 No sniper trades found")
+            await update.message.reply_text("🤖 No AI trades found")
             return
 
-        # Filter for sniper trades
-        sniper_trades = [trade for trade in trades if 'snipe' in trade.get('action', '').lower()]
+        # Filter for AI trades
+        ai_trades = [trade for trade in trades if 'ai_' in trade.get('action', '').lower()]
 
-        if not sniper_trades:
-            await update.message.reply_text("🎯 No sniper trades found")
+        if not ai_trades:
+            await update.message.reply_text("🤖 No AI trades found")
             return
 
-        # Show recent sniper trades
-        recent_sniper_trades = sniper_trades[-10:]
+        # Show recent AI trades
+        recent_ai_trades = ai_trades[-10:]
 
         message = "🎯 **Sniper Trades**\n\n"
         total_sniper_profit = 0
