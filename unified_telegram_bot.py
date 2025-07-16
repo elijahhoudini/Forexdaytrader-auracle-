@@ -492,6 +492,7 @@ class AuracleTelegramBot:
         self.application.add_handler(CommandHandler("qr", self.qr_command))
         self.application.add_handler(CommandHandler("status", self.status_command))
         self.application.add_handler(CommandHandler("help", self.help_command))
+        self.application.add_handler(CommandHandler("view_trades", self.view_trades_command))
         self.application.add_handler(CommandHandler("cancel", self.cancel_command))
 
         # Callback handlers
@@ -527,8 +528,9 @@ class AuracleTelegramBot:
             [InlineKeyboardButton("💰 Generate Wallet", callback_data="generate_wallet")],
             [InlineKeyboardButton("🔗 Connect Wallet", callback_data="connect_wallet")],
             [InlineKeyboardButton("🎯 Start Sniper", callback_data="start_sniper")],
+            [InlineKeyboardButton("📊 View Trades", callback_data="refresh_trades")],
             [InlineKeyboardButton("👥 Referral", callback_data="referral")],
-            [InlineKeyboardButton("📊 Status", callback_data="status")],
+            [InlineKeyboardButton("📋 Status", callback_data="status")],
             [InlineKeyboardButton("❓ Help", callback_data="help")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
@@ -867,6 +869,78 @@ Choose an option below to get started!
 
         await message_obj.reply_text(status_text, parse_mode='Markdown')
 
+    async def view_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /view_trades command to show all recent trades"""
+        user_id = str(update.effective_user.id)
+        
+        trades = self.data_manager.get_user_trades(user_id)
+        
+        if not trades:
+            await update.message.reply_text(
+                "📊 **No Trading History**\n\n"
+                "You haven't made any trades yet.\n\n"
+                "💡 Use /snipe or /start_sniper to begin trading!",
+                parse_mode='Markdown'
+            )
+            return
+        
+        # Sort trades by timestamp (newest first)
+        sorted_trades = sorted(trades, key=lambda x: x.get('timestamp', ''), reverse=True)
+        
+        # Show last 10 trades
+        recent_trades = sorted_trades[:10]
+        
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+        
+        message = f"📊 **Recent Trading History** {mode}\n\n"
+        message += f"📈 **Total Trades:** {len(trades)}\n"
+        message += f"✅ **Successful:** {len([t for t in trades if t.get('success')])}\n"
+        message += f"❌ **Failed:** {len([t for t in trades if not t.get('success')])}\n\n"
+        
+        message += "**📋 Last 10 Trades:**\n\n"
+        
+        for i, trade in enumerate(recent_trades, 1):
+            timestamp = trade.get('timestamp', '')
+            if timestamp:
+                try:
+                    from datetime import datetime
+                    dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+                    time_str = dt.strftime('%m/%d %H:%M')
+                except:
+                    time_str = timestamp[:16]
+            else:
+                time_str = "Unknown"
+            
+            status = "✅" if trade.get('success') else "❌"
+            action = trade.get('action', 'trade').upper()
+            token = trade.get('token', 'Unknown')
+            amount = trade.get('amount', 0)
+            signature = trade.get('signature', '')
+            
+            message += f"{i}. {status} **{action}** - {time_str}\n"
+            message += f"   🪙 Token: {token}\n"
+            message += f"   💰 Amount: {amount} SOL\n"
+            
+            if signature and signature != 'N/A' and not signature.startswith('demo_'):
+                message += f"   🔗 [View on Solscan](https://solscan.io/tx/{signature})\n"
+            elif trade.get('demo_mode'):
+                message += f"   🔶 Demo Mode Transaction\n"
+            
+            if not trade.get('success') and trade.get('error'):
+                message += f"   ❌ Error: {trade['error'][:50]}...\n"
+            
+            message += "\n"
+        
+        # Add keyboard for more options
+        keyboard = [
+            [InlineKeyboardButton("🔄 Refresh", callback_data="refresh_trades")],
+            [InlineKeyboardButton("📈 Full History", callback_data="full_history")],
+            [InlineKeyboardButton("🔙 Back", callback_data="start")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /help command"""
         help_text = """
@@ -882,12 +956,15 @@ Choose an option below to get started!
 • `/connect_wallet` - Connect existing wallet
 • `/qr` - Show wallet QR code
 
+📊 **Trading Commands:**
+• `/view_trades` - View all recent trades
+• `/status` - Your bot status
+
 👥 **Referral Commands:**
 • `/referral` - Your referral info
 • `/claim` - Claim referral earnings
 
-📊 **Info Commands:**
-• `/status` - Your bot status
+📋 **Info Commands:**
 • `/help` - Show this help
 • `/cancel` - Cancel current operation
 
@@ -895,7 +972,7 @@ Choose an option below to get started!
 • Default snipe amount is 0.01 SOL
 • Bot includes honeypot protection
 • Referral earnings: 10% of fees
-• Use `/status` to check everything
+• Use `/view_trades` to see transaction history
 
 🔗 **Support:** Contact @AuracleSupport
         """
@@ -950,6 +1027,10 @@ Choose an option below to get started!
             await self.help_command(update, context)
         elif query.data == "start":
             await self.start_command(update, context)
+        elif query.data == "refresh_trades":
+            await self.view_trades_command(update, context)
+        elif query.data == "full_history":
+            await self.full_history_handler(update, context)
 
     async def message_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle text messages (for wallet connection and file imports)"""
@@ -1179,6 +1260,64 @@ Choose an option below to get started!
         except Exception as e:
             logger.error(f"Error connecting wallet for user {user_id}: {e}")
             await update.message.reply_text("❌ Error connecting wallet. Please try again.")
+
+    async def full_history_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle full trading history request"""
+        user_id = str(update.effective_user.id)
+        
+        trades = self.data_manager.get_user_trades(user_id)
+        
+        if not trades:
+            await update.callback_query.edit_message_text(
+                "📊 **No Trading History**\n\n"
+                "You haven't made any trades yet.\n\n"
+                "💡 Use /snipe or /start_sniper to begin trading!"
+            )
+            return
+        
+        # Calculate statistics
+        total_trades = len(trades)
+        successful_trades = len([t for t in trades if t.get('success')])
+        failed_trades = total_trades - successful_trades
+        success_rate = (successful_trades / total_trades * 100) if total_trades > 0 else 0
+        
+        # Calculate total volume
+        total_volume = sum(t.get('amount', 0) for t in trades)
+        
+        # Group by token
+        token_stats = {}
+        for trade in trades:
+            token = trade.get('token', 'Unknown')
+            if token not in token_stats:
+                token_stats[token] = {'count': 0, 'volume': 0, 'success': 0}
+            token_stats[token]['count'] += 1
+            token_stats[token]['volume'] += trade.get('amount', 0)
+            if trade.get('success'):
+                token_stats[token]['success'] += 1
+        
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+        
+        message = f"📊 **Complete Trading Statistics** {mode}\n\n"
+        message += f"📈 **Overall Performance:**\n"
+        message += f"• Total Trades: {total_trades}\n"
+        message += f"• Successful: {successful_trades} ({success_rate:.1f}%)\n"
+        message += f"• Failed: {failed_trades}\n"
+        message += f"• Total Volume: {total_volume:.4f} SOL\n\n"
+        
+        message += f"🪙 **Top Traded Tokens:**\n"
+        sorted_tokens = sorted(token_stats.items(), key=lambda x: x[1]['count'], reverse=True)[:5]
+        
+        for token, stats in sorted_tokens:
+            success_rate = (stats['success'] / stats['count'] * 100) if stats['count'] > 0 else 0
+            message += f"• {token}: {stats['count']} trades ({success_rate:.1f}% success)\n"
+        
+        keyboard = [
+            [InlineKeyboardButton("📋 Recent Trades", callback_data="refresh_trades")],
+            [InlineKeyboardButton("🔙 Back", callback_data="start")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def document_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle document uploads (for wallet file imports)"""

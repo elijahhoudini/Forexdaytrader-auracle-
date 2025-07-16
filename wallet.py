@@ -116,9 +116,34 @@ class Wallet:
             if result["success"]:
                 print(f"[wallet] ✅ {mode_str} buy successful!")
 
+                # For live trading, verify transaction on blockchain
+                if not demo_mode and "signature" in result:
+                    print(f"[wallet] 🔍 Verifying transaction on blockchain...")
+                    
+                    # Wait a moment for transaction to propagate
+                    await asyncio.sleep(2)
+                    
+                    # Verify transaction status
+                    try:
+                        if self.rpc_client:
+                            from solders.signature import Signature
+                            sig = Signature.from_string(result['signature'])
+                            response = await self.rpc_client.get_signature_statuses([sig])
+                            
+                            if response.value and response.value[0]:
+                                if response.value[0].confirmation_status:
+                                    print(f"[wallet] ✅ Transaction confirmed on blockchain")
+                                else:
+                                    print(f"[wallet] ⏳ Transaction pending confirmation")
+                            else:
+                                print(f"[wallet] ⚠️ Transaction not found on blockchain yet")
+                    except Exception as verify_error:
+                        print(f"[wallet] ⚠️ Could not verify transaction: {verify_error}")
+
                 # Log transaction details if available
                 if "signature" in result:
                     print(f"[wallet] 📋 Transaction signature: {result['signature']}")
+                    result['solscan_url'] = f"https://solscan.io/tx/{result['signature']}"
 
                 if "solscan_url" in result:
                     print(f"[wallet] 🔍 View on Solscan: {result['solscan_url']}")
@@ -129,7 +154,8 @@ class Wallet:
                     "token_mint": mint,
                     "amount_sol": amount_sol,
                     "wallet_address": self.address,
-                    "demo_mode": demo_mode
+                    "demo_mode": demo_mode,
+                    "timestamp": time.time()
                 })
 
                 return result
