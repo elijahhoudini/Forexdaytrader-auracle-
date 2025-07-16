@@ -391,7 +391,7 @@ class SniperManager:
                 result['token'] = best_token['symbol']
                 result['amount'] = amount
 
-            # Log trade
+            # Log trade with sniper designation
             self.data_manager.log_trade(user_id, {
                 "action": "manual_snipe",
                 "token": best_token.get('symbol', 'UNKNOWN'),
@@ -402,6 +402,8 @@ class SniperManager:
                 "signature": result.get('signature', ''),
                 "demo_mode": config.get_demo_mode(),
                 "trade_type": "BUY",
+                "sniper_trade": True,
+                "sniper_source": "manual",
                 "error": result.get('error', '') if not result['success'] else ''
             })
 

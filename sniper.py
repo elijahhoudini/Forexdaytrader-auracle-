@@ -229,6 +229,9 @@ class AuracleSniper:
                 success = await self.trade_handler.handle_sniper_token(token, "sniper")
                 
                 if success:
+                    # Start monitoring this sniped position for selling
+                    asyncio.create_task(self._monitor_sniper_position(token, amount_sol))
+                    
                     return {
                         "success": True,
                         "token": symbol,
@@ -331,6 +334,78 @@ class AuracleSniper:
                 
         except Exception as e:
             logger.error(f"Position monitoring error: {e}")
+
+    async def _monitor_sniper_position(self, token: Dict[str, Any], buy_amount: float):
+        """Enhanced monitoring specifically for sniped positions with aggressive selling"""
+        try:
+            symbol = token.get("symbol", "UNKNOWN")
+            mint = token.get("mint", "")
+            entry_time = time.time()
+            
+            logger.info(f"🎯 Starting sniper position monitoring: {symbol}")
+            
+            # Sniper-specific settings (more aggressive)
+            sniper_profit_target = 0.15  # 15% profit target
+            sniper_stop_loss = -0.08     # 8% stop loss
+            quick_profit_target = 0.05   # 5% quick profit in first 5 minutes
+            max_hold_minutes = 30        # Maximum 30 minutes hold time
+            
+            while time.time() - entry_time < (max_hold_minutes * 60):
+                if not self.active:
+                    break
+                
+                age_minutes = (time.time() - entry_time) / 60
+                
+                # Check if position still exists in trade handler
+                if self.trade_handler and mint not in self.trade_handler.open_positions:
+                    logger.info(f"🔍 Sniper position {symbol} no longer in open positions")
+                    break
+                
+                # Get current position data from trade handler
+                if self.trade_handler and mint in self.trade_handler.open_positions:
+                    position = self.trade_handler.open_positions[mint]
+                    current_pnl_percent = position.get("current_pnl_percent", 0)
+                    
+                    # Quick profit exit (first 5 minutes)
+                    if age_minutes <= 5 and current_pnl_percent >= (quick_profit_target * 100):
+                        logger.info(f"⚡ Sniper quick profit exit: {symbol} - {current_pnl_percent:.2f}% in {age_minutes:.1f}m")
+                        await self.trade_handler.sell_token(mint, "sniper_quick_profit")
+                        break
+                    
+                    # Main profit target
+                    if current_pnl_percent >= (sniper_profit_target * 100):
+                        logger.info(f"🎯 Sniper profit target hit: {symbol} - {current_pnl_percent:.2f}%")
+                        await self.trade_handler.sell_token(mint, "sniper_profit_target")
+                        break
+                    
+                    # Stop loss
+                    if current_pnl_percent <= (sniper_stop_loss * 100):
+                        logger.info(f"🛑 Sniper stop loss triggered: {symbol} - {current_pnl_percent:.2f}%")
+                        await self.trade_handler.sell_token(mint, "sniper_stop_loss")
+                        break
+                    
+                    # Force exit after max hold time
+                    if age_minutes >= max_hold_minutes:
+                        logger.info(f"⏰ Sniper max hold time reached: {symbol} - Force selling")
+                        await self.trade_handler.sell_token(mint, "sniper_timeout")
+                        break
+                    
+                    # Smart exit on declining momentum (after 10 minutes)
+                    if (age_minutes > 10 and 
+                        current_pnl_percent > 2 and  # Small profit
+                        hasattr(position, 'highest_value') and
+                        position.get('current_value', 0) < position.get('highest_value', 0) * 0.85):  # Down 15% from peak
+                        logger.info(f"📉 Sniper smart exit on declining momentum: {symbol}")
+                        await self.trade_handler.sell_token(mint, "sniper_momentum_decline")
+                        break
+                
+                # Check every 10 seconds for sniper positions (more frequent monitoring)
+                await asyncio.sleep(10)
+                
+            logger.info(f"🏁 Sniper position monitoring ended for {symbol}")
+                
+        except Exception as e:
+            logger.error(f"Sniper position monitoring error for {symbol}: {e}")
     
     def get_stats(self) -> Dict[str, Any]:
         """Get sniper statistics"""

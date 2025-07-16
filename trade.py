@@ -524,10 +524,52 @@ class TradeHandler:
                     await self.sell_token(mint, "max_hold_time")
                     continue
                 
-                # 7. Smart exit on declining momentum
-                if (age_minutes > 30 and  # After 30 minutes
-                    pnl_percent > 2 and   # Small profit
-                    pnl_percent < (current_value / position["highest_value"] - 1) * 100 * 0.7):  # Declining from peak
+                # 7. Enhanced sniper-specific selling logic
+                if is_sniper_trade:
+                    sniper_age_minutes = (datetime.utcnow() - position.get("sniper_entry_time", position["buy_time"])).total_seconds() / 60
+                    sniper_profit_target = position.get("sniper_profit_target", 0.15) * 100
+                    sniper_stop_loss = position.get("sniper_stop_loss", -0.08) * 100
+                    sniper_max_hold = position.get("sniper_max_hold_minutes", 30)
+                    quick_profit_target = position.get("sniper_quick_profit_target", 0.05) * 100
+                    quick_profit_window = position.get("sniper_quick_profit_window", 5)
+                    
+                    # Sniper quick profit (first 5 minutes)
+                    if (sniper_age_minutes <= quick_profit_window and 
+                        pnl_percent >= quick_profit_target):
+                        print(f"⚡ Sniper quick profit: {position['symbol']} - {pnl_percent:.2f}% in {sniper_age_minutes:.1f}m")
+                        await self.sell_token(mint, "sniper_quick_profit")
+                        continue
+                    
+                    # Sniper profit target (more aggressive than regular trades)
+                    if pnl_percent >= sniper_profit_target:
+                        print(f"🎯 Sniper profit target: {position['symbol']} - {pnl_percent:.2f}%")
+                        await self.sell_token(mint, "sniper_profit_target")
+                        continue
+                    
+                    # Sniper stop loss (tighter than regular trades)
+                    if pnl_percent <= sniper_stop_loss:
+                        print(f"🛑 Sniper stop loss: {position['symbol']} - {pnl_percent:.2f}%")
+                        await self.sell_token(mint, "sniper_stop_loss")
+                        continue
+                    
+                    # Sniper max hold time (shorter than regular trades)
+                    if sniper_age_minutes >= sniper_max_hold:
+                        print(f"⏰ Sniper max hold time: {position['symbol']} - {sniper_age_minutes:.1f}m")
+                        await self.sell_token(mint, "sniper_timeout")
+                        continue
+                    
+                    # Sniper momentum decline (more aggressive)
+                    if (sniper_age_minutes > 10 and  # After 10 minutes (shorter than regular)
+                        pnl_percent > 2 and   # Small profit
+                        pnl_percent < (current_value / position["highest_value"] - 1) * 100 * 0.8):  # Down 20% from peak
+                        print(f"📉 Sniper momentum decline: {position['symbol']} - {pnl_percent:.2f}%")
+                        await self.sell_token(mint, "sniper_momentum_decline")
+                        continue
+                
+                # 8. Regular smart exit on declining momentum (for non-sniper trades)
+                elif (age_minutes > 30 and  # After 30 minutes
+                      pnl_percent > 2 and   # Small profit
+                      pnl_percent < (current_value / position["highest_value"] - 1) * 100 * 0.7):  # Declining from peak
                     print(f"📉 Smart exit on declining momentum for {position['symbol']}: {pnl_percent:.2f}%")
                     await self.sell_token(mint, "momentum_decline")
                     continue
@@ -708,15 +750,26 @@ class TradeHandler:
             if success:
                 # Mark as sniper trade for enhanced monitoring
                 if mint in self.open_positions:
-                    self.open_positions[mint]["sniper_trade"] = True
-                    self.open_positions[mint]["sniper_source"] = sniper_source
+                    self.open_positions[mint].update({
+                        "sniper_trade": True,
+                        "sniper_source": sniper_source,
+                        "sniper_entry_time": datetime.utcnow(),
+                        "sniper_profit_target": 0.15,  # 15% profit target for sniper trades
+                        "sniper_stop_loss": -0.08,     # 8% stop loss for sniper trades
+                        "sniper_max_hold_minutes": 30,  # Max 30 minutes hold
+                        "sniper_quick_profit_target": 0.05,  # 5% quick profit target
+                        "sniper_quick_profit_window": 5      # 5 minutes for quick profit
+                    })
+                    
                     self.sniper_trades[mint] = {
                         "entry_time": datetime.utcnow(),
                         "source": sniper_source,
-                        "symbol": symbol
+                        "symbol": symbol,
+                        "amount_sol": amount_sol
                     }
 
                 print(f"[sniper] 🎯 Successfully sniped {symbol} for {amount_sol} SOL ({sniper_source})")
+                print(f"[sniper] 📊 Enhanced monitoring enabled: 15% profit target, 8% stop loss, 30min max hold")
                 return True
             else:
                 print(f"[sniper] ❌ Failed to snipe {symbol}")
