@@ -389,12 +389,16 @@ class SniperManager:
 
             # Log trade
             self.data_manager.log_trade(user_id, {
-                "action": "snipe",
-                "token": best_token['symbol'],
+                "action": "manual_snipe",
+                "token": best_token.get('symbol', 'UNKNOWN'),
+                "token_name": best_token.get('name', 'Unknown Token'),
+                "token_mint": best_token.get('mint', ''),
                 "amount": amount,
                 "success": result['success'],
                 "signature": result.get('signature', ''),
-                "demo_mode": config.get_demo_mode()
+                "demo_mode": config.get_demo_mode(),
+                "trade_type": "BUY",
+                "error": result.get('error', '') if not result['success'] else ''
             })
 
             return result
@@ -422,23 +426,45 @@ class SniperManager:
                             if success:
                                 self.data_manager.log_trade(user_id, {
                                     "action": "auto_snipe",
-                                    "token": token['symbol'],
+                                    "token": token.get('symbol', 'UNKNOWN'),
+                                    "token_name": token.get('name', 'Unknown Token'),
+                                    "token_mint": token.get('mint', ''),
                                     "amount": amount,
                                     "success": True,
                                     "signature": f"demo_{int(time.time())}",
-                                    "demo_mode": True
+                                    "demo_mode": True,
+                                    "trade_type": "BUY",
+                                    "risk_score": risk_result.get('risk_score', 0)
                                 })
+                                logger.info(f"🎯 Auto-sniper bought {token.get('symbol', 'UNKNOWN')} for user {user_id}")
                         else:
                             # Real trading
                             result = await self.jupiter_executor.buy_token(token['mint'], amount)
                             if result['success']:
                                 self.data_manager.log_trade(user_id, {
                                     "action": "auto_snipe",
-                                    "token": token['symbol'],
+                                    "token": token.get('symbol', 'UNKNOWN'),
+                                    "token_name": token.get('name', 'Unknown Token'),
+                                    "token_mint": token.get('mint', ''),
                                     "amount": amount,
                                     "success": True,
                                     "signature": result['signature'],
-                                    "demo_mode": False
+                                    "demo_mode": False,
+                                    "trade_type": "BUY",
+                                    "risk_score": risk_result.get('risk_score', 0)
+                                })
+                                logger.info(f"🎯 Auto-sniper bought {token.get('symbol', 'UNKNOWN')} for user {user_id}")
+                            else:
+                                # Log failed trade
+                                self.data_manager.log_trade(user_id, {
+                                    "action": "auto_snipe_failed",
+                                    "token": token.get('symbol', 'UNKNOWN'),
+                                    "token_name": token.get('name', 'Unknown Token'),
+                                    "amount": amount,
+                                    "success": False,
+                                    "error": result.get('error', 'Unknown error'),
+                                    "demo_mode": False,
+                                    "trade_type": "BUY"
                                 })
 
                 # Wait before next scan
@@ -513,7 +539,11 @@ class AuracleTelegramBot:
         if context.args:
             referral_code = context.args[0].upper()
             if self.referral_manager.use_referral_code(user_id, referral_code):
-                await update.message.reply_text(f"✅ Referral code {referral_code} applied successfully!")
+                # Handle both message and callback query
+                if update.message:
+                    await update.message.reply_text(f"✅ Referral code {referral_code} applied successfully!")
+                elif update.callback_query:
+                    await update.callback_query.message.reply_text(f"✅ Referral code {referral_code} applied successfully!")
 
         # Save user data
         user_data = {
@@ -528,7 +558,8 @@ class AuracleTelegramBot:
             [InlineKeyboardButton("💰 Generate Wallet", callback_data="generate_wallet")],
             [InlineKeyboardButton("🔗 Connect Wallet", callback_data="connect_wallet")],
             [InlineKeyboardButton("🎯 Start Sniper", callback_data="start_sniper")],
-            [InlineKeyboardButton("📊 View Trades", callback_data="refresh_trades")],
+            [InlineKeyboardButton("📊 My Trades", callback_data="view_trades")],
+            [InlineKeyboardButton("💱 Trading History", callback_data="trading_history")],
             [InlineKeyboardButton("👥 Referral", callback_data="referral")],
             [InlineKeyboardButton("📋 Status", callback_data="status")],
             [InlineKeyboardButton("❓ Help", callback_data="help")]
@@ -556,7 +587,11 @@ Welcome {username}!
 Choose an option below to get started!
         """
 
-        await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode='Markdown')
+        # Handle both message and callback query
+        if update.message:
+            await update.message.reply_text(welcome_text, reply_markup=reply_markup, parse_mode='Markdown')
+        elif update.callback_query:
+            await update.callback_query.edit_message_text(welcome_text, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def start_sniper_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /start_sniper command"""
@@ -876,12 +911,16 @@ Choose an option below to get started!
         trades = self.data_manager.get_user_trades(user_id)
         
         if not trades:
-            await update.message.reply_text(
+            message_text = (
                 "📊 **No Trading History**\n\n"
                 "You haven't made any trades yet.\n\n"
-                "💡 Use /snipe or /start_sniper to begin trading!",
-                parse_mode='Markdown'
+                "💡 Use /snipe or /start_sniper to begin trading!"
             )
+            # Handle both message and callback query
+            if update.message:
+                await update.message.reply_text(message_text, parse_mode='Markdown')
+            elif update.callback_query:
+                await update.callback_query.edit_message_text(message_text, parse_mode='Markdown')
             return
         
         # Sort trades by timestamp (newest first)
@@ -933,13 +972,18 @@ Choose an option below to get started!
         
         # Add keyboard for more options
         keyboard = [
-            [InlineKeyboardButton("🔄 Refresh", callback_data="refresh_trades")],
+            [InlineKeyboardButton("🔄 Refresh", callback_data="view_trades")],
             [InlineKeyboardButton("📈 Full History", callback_data="full_history")],
+            [InlineKeyboardButton("💱 Currency Details", callback_data="currency_details")],
             [InlineKeyboardButton("🔙 Back", callback_data="start")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
         
-        await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+        # Handle both message and callback query
+        if update.message:
+            await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+        elif update.callback_query:
+            await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /help command"""
@@ -1027,8 +1071,14 @@ Choose an option below to get started!
             await self.help_command(update, context)
         elif query.data == "start":
             await self.start_command(update, context)
+        elif query.data == "view_trades":
+            await self.view_trades_command(update, context)
         elif query.data == "refresh_trades":
             await self.view_trades_command(update, context)
+        elif query.data == "trading_history":
+            await self.trading_history_handler(update, context)
+        elif query.data == "currency_details":
+            await self.currency_details_handler(update, context)
         elif query.data == "full_history":
             await self.full_history_handler(update, context)
 
@@ -1261,6 +1311,157 @@ Choose an option below to get started!
             logger.error(f"Error connecting wallet for user {user_id}: {e}")
             await update.message.reply_text("❌ Error connecting wallet. Please try again.")
 
+    async def trading_history_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle detailed trading history with currency breakdown"""
+        user_id = str(update.effective_user.id)
+        
+        trades = self.data_manager.get_user_trades(user_id)
+        
+        if not trades:
+            await update.callback_query.edit_message_text(
+                "📊 **No Trading History**\n\n"
+                "You haven't made any trades yet.\n\n"
+                "💡 Use /snipe or /start_sniper to begin trading!",
+                parse_mode='Markdown'
+            )
+            return
+        
+        # Group trades by currency/token
+        currency_trades = {}
+        for trade in trades:
+            token = trade.get('token', 'Unknown')
+            if token not in currency_trades:
+                currency_trades[token] = []
+            currency_trades[token].append(trade)
+        
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+        
+        message = f"💱 **Trading History by Currency** {mode}\n\n"
+        message += f"📊 **Total Currencies Traded:** {len(currency_trades)}\n\n"
+        
+        # Sort currencies by trade count
+        sorted_currencies = sorted(currency_trades.items(), key=lambda x: len(x[1]), reverse=True)
+        
+        for token, token_trades in sorted_currencies[:10]:  # Show top 10 currencies
+            successful = len([t for t in token_trades if t.get('success')])
+            total_count = len(token_trades)
+            total_volume = sum(t.get('amount', 0) for t in token_trades)
+            success_rate = (successful / total_count * 100) if total_count > 0 else 0
+            
+            message += f"🪙 **{token}**\n"
+            message += f"   📊 Trades: {total_count} (✅{successful} ❌{total_count-successful})\n"
+            message += f"   📈 Success Rate: {success_rate:.1f}%\n"
+            message += f"   💰 Total Volume: {total_volume:.4f} SOL\n"
+            
+            # Show last trade
+            last_trade = sorted(token_trades, key=lambda x: x.get('timestamp', ''), reverse=True)[0]
+            timestamp = last_trade.get('timestamp', '')
+            if timestamp:
+                try:
+                    from datetime import datetime
+                    dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+                    time_str = dt.strftime('%m/%d %H:%M')
+                except:
+                    time_str = timestamp[:16]
+            else:
+                time_str = "Unknown"
+            
+            status = "✅" if last_trade.get('success') else "❌"
+            message += f"   🕐 Last Trade: {status} {time_str}\n\n"
+        
+        keyboard = [
+            [InlineKeyboardButton("📋 Recent Trades", callback_data="view_trades")],
+            [InlineKeyboardButton("💱 Currency Details", callback_data="currency_details")],
+            [InlineKeyboardButton("🔙 Back", callback_data="start")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+
+    async def currency_details_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle detailed currency analysis"""
+        user_id = str(update.effective_user.id)
+        
+        trades = self.data_manager.get_user_trades(user_id)
+        
+        if not trades:
+            await update.callback_query.edit_message_text(
+                "📊 **No Trading Data**\n\n"
+                "You haven't made any trades yet.\n\n"
+                "💡 Use /snipe or /start_sniper to begin trading!",
+                parse_mode='Markdown'
+            )
+            return
+        
+        # Analyze currencies
+        currency_analysis = {}
+        for trade in trades:
+            token = trade.get('token', 'Unknown')
+            amount = trade.get('amount', 0)
+            success = trade.get('success', False)
+            action = trade.get('action', 'trade')
+            
+            if token not in currency_analysis:
+                currency_analysis[token] = {
+                    'total_trades': 0,
+                    'successful_trades': 0,
+                    'buy_volume': 0,
+                    'sell_volume': 0,
+                    'total_volume': 0,
+                    'first_trade': trade.get('timestamp', ''),
+                    'last_trade': trade.get('timestamp', '')
+                }
+            
+            analysis = currency_analysis[token]
+            analysis['total_trades'] += 1
+            analysis['total_volume'] += amount
+            
+            if success:
+                analysis['successful_trades'] += 1
+            
+            if 'buy' in action.lower() or 'snipe' in action.lower():
+                analysis['buy_volume'] += amount
+            elif 'sell' in action.lower():
+                analysis['sell_volume'] += amount
+            
+            # Update timestamps
+            current_time = trade.get('timestamp', '')
+            if current_time < analysis['first_trade']:
+                analysis['first_trade'] = current_time
+            if current_time > analysis['last_trade']:
+                analysis['last_trade'] = current_time
+        
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+        
+        message = f"💹 **Detailed Currency Analysis** {mode}\n\n"
+        
+        # Sort by total volume
+        sorted_analysis = sorted(currency_analysis.items(), key=lambda x: x[1]['total_volume'], reverse=True)
+        
+        for token, data in sorted_analysis[:5]:  # Top 5 by volume
+            success_rate = (data['successful_trades'] / data['total_trades'] * 100) if data['total_trades'] > 0 else 0
+            
+            message += f"🪙 **{token}**\n"
+            message += f"   📊 Total Trades: {data['total_trades']}\n"
+            message += f"   ✅ Success Rate: {success_rate:.1f}%\n"
+            message += f"   📈 Buy Volume: {data['buy_volume']:.4f} SOL\n"
+            message += f"   📉 Sell Volume: {data['sell_volume']:.4f} SOL\n"
+            message += f"   💰 Net Volume: {data['total_volume']:.4f} SOL\n"
+            
+            # P&L estimation (simplified)
+            estimated_pnl = data['sell_volume'] - data['buy_volume']
+            pnl_indicator = "📈" if estimated_pnl > 0 else "📉" if estimated_pnl < 0 else "➡️"
+            message += f"   {pnl_indicator} Est. P&L: {estimated_pnl:.4f} SOL\n\n"
+        
+        keyboard = [
+            [InlineKeyboardButton("📊 Trading History", callback_data="trading_history")],
+            [InlineKeyboardButton("📋 Recent Trades", callback_data="view_trades")],
+            [InlineKeyboardButton("🔙 Back", callback_data="start")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+        
+        await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+
     async def full_history_handler(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle full trading history request"""
         user_id = str(update.effective_user.id)
@@ -1312,7 +1513,8 @@ Choose an option below to get started!
             message += f"• {token}: {stats['count']} trades ({success_rate:.1f}% success)\n"
         
         keyboard = [
-            [InlineKeyboardButton("📋 Recent Trades", callback_data="refresh_trades")],
+            [InlineKeyboardButton("📋 Recent Trades", callback_data="view_trades")],
+            [InlineKeyboardButton("💱 Currency Details", callback_data="currency_details")],
             [InlineKeyboardButton("🔙 Back", callback_data="start")]
         ]
         reply_markup = InlineKeyboardMarkup(keyboard)
