@@ -46,17 +46,42 @@ class Wallet:
                     print(f"[wallet] 🔐 Loading private key (length: {len(config.WALLET_PRIVATE_KEY)})")
                     
                     # Handle different private key formats
-                    if len(config.WALLET_PRIVATE_KEY) == 88:  # Base58 encoded
+                    private_key_bytes = None
+                    
+                    # Try Base58 decoding first (standard Solana format)
+                    try:
                         private_key_bytes = base58.b58decode(config.WALLET_PRIVATE_KEY)
-                        self.keypair = Keypair.from_bytes(private_key_bytes)
-                    elif len(config.WALLET_PRIVATE_KEY) == 64:  # Hex encoded
-                        private_key_bytes = bytes.fromhex(config.WALLET_PRIVATE_KEY)
-                        self.keypair = Keypair.from_bytes(private_key_bytes)
-                    else:
-                        # Try direct bytes interpretation
-                        private_key_bytes = base58.b58decode(config.WALLET_PRIVATE_KEY)
-                        self.keypair = Keypair.from_bytes(private_key_bytes)
-
+                        print(f"[wallet] ✅ Base58 private key decoded successfully")
+                        
+                        # Solders keypair expects exactly 64 bytes for from_bytes (32 private + 32 public)
+                        # If we only have 32 bytes, we need to derive the full keypair
+                        if len(private_key_bytes) == 32:
+                            # Create keypair from seed bytes
+                            self.keypair = Keypair.from_seed(private_key_bytes)
+                            print(f"[wallet] ✅ Keypair created from 32-byte seed")
+                        elif len(private_key_bytes) == 64:
+                            # Full keypair bytes
+                            self.keypair = Keypair.from_bytes(private_key_bytes)
+                            print(f"[wallet] ✅ Keypair created from 64-byte data")
+                        else:
+                            raise ValueError(f"Invalid private key length: {len(private_key_bytes)}, expected 32 or 64")
+                            
+                    except Exception as b58_error:
+                        print(f"[wallet] ⚠️ Base58 decode failed: {b58_error}")
+                        
+                        # Try hex decoding as fallback
+                        try:
+                            if len(config.WALLET_PRIVATE_KEY) == 64:  # Hex encoded
+                                private_key_bytes = bytes.fromhex(config.WALLET_PRIVATE_KEY)
+                                self.keypair = Keypair.from_seed(private_key_bytes)
+                                print(f"[wallet] ✅ Hex private key decoded successfully")
+                            else:
+                                print(f"[wallet] ❌ Invalid private key format")
+                                raise ValueError("Invalid private key format")
+                        except Exception as hex_error:
+                            print(f"[wallet] ❌ Hex decode failed: {hex_error}")
+                            raise ValueError("Could not decode private key")
+                    
                     # Update address to match keypair
                     derived_address = str(self.keypair.pubkey())
                     if self.address and self.address != derived_address:

@@ -109,25 +109,32 @@ class JupiterAPI:
 
             # Use httpx if available, otherwise fallback to mock response
             if self.client:
-                response = await self.client.get(url, params=params)
+                try:
+                    response = await self.client.get(url, params=params)
 
-                if response.status_code == 200:
-                    quote = response.json()
-                    print(f"[jupiter] 📊 Quote: {amount} {input_mint[:8]}... -> {quote.get('outAmount', 0)} {output_mint[:8]}...")
-                    return quote
-                else:
-                    error_text = response.text if hasattr(response, 'text') else "Unknown error"
-                    print(f"[jupiter] ❌ Quote failed: {response.status_code} - {error_text}")
-                    return None
+                    if response.status_code == 200:
+                        quote = response.json()
+                        print(f"[jupiter] 📊 Quote: {amount} {input_mint[:8]}... -> {quote.get('outAmount', 0)} {output_mint[:8]}...")
+                        return quote
+                    else:
+                        error_text = response.text if hasattr(response, 'text') else "Unknown error"
+                        print(f"[jupiter] ❌ Quote failed: {response.status_code} - {error_text}")
+                        return None
+                except Exception as network_error:
+                    print(f"[jupiter] ❌ Network error during quote request: {network_error}")
+                    # Fall through to demo mode if network fails
+            
+            # Fallback to demo mode when no HTTP client or network fails
+            if config.get_demo_mode():
+                import random
+                print(f"[jupiter] 🔶 Demo mode fallback: generating mock quote")
+                return {
+                    "outAmount": str(int(amount * random.uniform(1000, 50000))),
+                    "routePlan": [{"swapInfo": {"ammKey": "demo"}}],
+                    "demo_fallback": True
+                }
             else:
-                # Fallback to demo mode when no HTTP client
-                if config.get_demo_mode():
-                    import random
-                    return {
-                        "outAmount": str(int(amount * random.uniform(1000, 50000))),
-                        "routePlan": [{"swapInfo": {"ammKey": "demo"}}],
-                        "demo_fallback": True
-                    }
+                print(f"[jupiter] ❌ Live mode but network unavailable")
                 return None
 
         except Exception as e:
@@ -181,25 +188,30 @@ class JupiterAPI:
             }
 
             url = f"{self.base_url}/swap"
-            response = await self.client.post(
-                url, 
-                json=payload,
-                headers={"Content-Type": "application/json"}
-            )
+            
+            try:
+                response = await self.client.post(
+                    url, 
+                    json=payload,
+                    headers={"Content-Type": "application/json"}
+                )
 
-            if response.status_code == 200:
-                data = response.json()
-                return data.get("swapTransaction")
-            else:
-                error_text = response.text if hasattr(response, 'text') else "Unknown error"
-                print(f"[jupiter] ❌ Swap transaction failed: {response.status_code} - {error_text}")
+                if response.status_code == 200:
+                    data = response.json()
+                    return data.get("swapTransaction")
+                else:
+                    error_text = response.text if hasattr(response, 'text') else "Unknown error"
+                    print(f"[jupiter] ❌ Swap transaction failed: {response.status_code} - {error_text}")
 
-                # Try to handle specific error cases
-                if response.status_code == 400:
-                    print(f"[jupiter] ⚠️ Bad request - check quote data and user public key")
-                elif response.status_code == 429:
-                    print(f"[jupiter] ⚠️ Rate limited - backing off")
+                    # Try to handle specific error cases
+                    if response.status_code == 400:
+                        print(f"[jupiter] ⚠️ Bad request - check quote data and user public key")
+                    elif response.status_code == 429:
+                        print(f"[jupiter] ⚠️ Rate limited - backing off")
 
+                    return None
+            except Exception as network_error:
+                print(f"[jupiter] ❌ Network error during swap transaction: {network_error}")
                 return None
 
         except Exception as e:
@@ -277,11 +289,8 @@ class JupiterAPI:
 
             # Sign transaction using the correct method for solders VersionedTransaction
             try:
-                # Get the message from the transaction
-                message = transaction.message
-
-                # Sign the transaction using the correct method
-                signed_transaction = VersionedTransaction(message, [wallet_keypair.sign_message(bytes(message))])
+                # Sign the transaction properly
+                transaction.sign([wallet_keypair])
                 print(f"[jupiter] ✅ Transaction signed successfully")
 
             except Exception as sign_error:
@@ -294,7 +303,7 @@ class JupiterAPI:
 
             try:
                 signature_result = await self.rpc_client.send_transaction(
-                    signed_transaction,
+                    transaction,
                     opts=TxOpts(skip_preflight=True, max_retries=3)
                 )
 
@@ -363,20 +372,29 @@ class JupiterAPI:
             }
 
     async def _wait_for_confirmation(self, signature: str, max_retries: int = 30) -> bool:
-        """Wait for transaction confirmation."""
+        """Wait for transaction confirmation with enhanced error handling."""
         for i in range(max_retries):
             try:
-                response = await self.rpc_client.get_signature_statuses([signature])
+                # Use get_signature_statuses to check transaction status
+                from solders.signature import Signature
+                sig_object = Signature.from_string(signature)
+                
+                response = await self.rpc_client.get_signature_statuses([sig_object])
                 if response.value and response.value[0]:
                     status = response.value[0]
                     if status.confirmation_status:
                         print(f"[jupiter] ✅ Transaction confirmed: {signature}")
                         return True
+                    elif status.err:
+                        print(f"[jupiter] ❌ Transaction failed: {status.err}")
+                        return False
 
                 await asyncio.sleep(2)  # Wait 2 seconds between checks
 
             except Exception as e:
                 print(f"[jupiter] ⚠️ Confirmation check error: {e}")
+                # Continue trying even if there's an error
+                await asyncio.sleep(2)
 
         print(f"[jupiter] ⚠️ Transaction confirmation timeout: {signature}")
         return False
@@ -501,13 +519,12 @@ class JupiterTradeExecutor:
                 transaction = VersionedTransaction.from_bytes(transaction_bytes)
 
                 # Sign transaction using the correct method
-                message = transaction.message
-                signed_transaction = VersionedTransaction(message, [self.wallet_keypair.sign_message(bytes(message))])
+                transaction.sign([self.wallet_keypair])
 
                 print(f"[jupiter_executor] 🚀 Sending sell transaction...")
 
                 signature_result = await self.jupiter.rpc_client.send_transaction(
-                    signed_transaction,
+                    transaction,
                     opts=TxOpts(skip_preflight=True, max_retries=3)
                 )
 
