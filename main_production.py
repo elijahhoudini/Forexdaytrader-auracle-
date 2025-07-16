@@ -62,10 +62,15 @@ class AuracleProductionBot:
         if not token or token == "DEMO_TOKEN_NOT_SET":
             logger.warning("⚠️ TELEGRAM_BOT_TOKEN not configured - running in local mode")
             # Run in local mode instead of failing
-            from telegram_bot import MinimalTelegramBot
-            minimal_bot = MinimalTelegramBot()
-            await minimal_bot.run_local_mode()
-            return True
+            try:
+                from local_bot import LocalBot
+                local_bot = LocalBot()
+                await local_bot.run_local_mode()
+                return True
+            except Exception as e:
+                logger.error(f"❌ Local bot error: {e}")
+                print("💡 To enable Telegram features, add TELEGRAM_BOT_TOKEN to your Replit Secrets")
+                return False
         
         # Initialize Telegram bot
         self.telegram_bot = AuracleTelegramBot(token)

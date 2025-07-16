@@ -137,10 +137,10 @@ JUPITER_API_URL = "https://quote-api.jup.ag/v6"
 JUPITER_SLIPPAGE_BPS = int(os.getenv("JUPITER_SLIPPAGE_BPS", "50"))  # 0.5% default slippage
 JUPITER_PRIORITY_FEE = int(os.getenv("JUPITER_PRIORITY_FEE", "1000"))  # 1000 microlamports
 
-# Wallet Configuration (Live trading enabled)
+# Wallet Configuration (Demo mode by default for safety)
 WALLET_ADDRESS = os.getenv("WALLET_ADDRESS", "")
 WALLET_PRIVATE_KEY = os.getenv("WALLET_PRIVATE_KEY", "")
-DEMO_MODE = os.getenv("DEMO_MODE", "false").lower() == "true"  # Enable live trading with wallet
+DEMO_MODE = os.getenv("DEMO_MODE", "true").lower() == "true"  # Enable demo mode by default
 
 # Runtime configuration state
 _runtime_config = {
@@ -310,16 +310,18 @@ def validate_config() -> bool:
     # Wallet configuration validation
     if not get_demo_mode():
         if not WALLET_ADDRESS:
-            print("❌ WALLET_ADDRESS required for live trading")
-            return False
-        if len(WALLET_ADDRESS) < 32:
-            print("❌ WALLET_ADDRESS seems invalid (too short)")
-            return False
-        if not WALLET_PRIVATE_KEY:
-            print("❌ WALLET_PRIVATE_KEY required for live trading")
-            return False
-        print("✅ Live trading enabled with wallet:", WALLET_ADDRESS[:8] + "...")
-    else:
+            print("⚠️  WALLET_ADDRESS not set - switching to demo mode")
+            set_demo_mode(True)
+        elif len(WALLET_ADDRESS) < 32:
+            print("⚠️  WALLET_ADDRESS seems invalid - switching to demo mode")
+            set_demo_mode(True)
+        elif not WALLET_PRIVATE_KEY:
+            print("⚠️  WALLET_PRIVATE_KEY not set - switching to demo mode")
+            set_demo_mode(True)
+        else:
+            print("✅ Live trading enabled with wallet:", WALLET_ADDRESS[:8] + "...")
+    
+    if get_demo_mode():
         print("✅ Demo mode enabled - safe for testing")
 
     # Solana network validation
