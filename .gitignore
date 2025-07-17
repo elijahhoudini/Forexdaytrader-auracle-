@@ -98,42 +98,13 @@ replit.nix
 /tmp/
 *.tmp
 *.bak
-*.swp
-*~
-*.swp
-*.swo
-*~
-
-# OS
-.DS_Store
-.DS_Store?
-._*
-.Spotlight-V100
-.Trashes
-ehthumbs.db
-Thumbs.db
-
-# Logs
-*.log
-
-# Temporary files
-*.tmp
-*.temp
-/tmp/
-
-# Pip artifacts
-=*
-# Local development files
-.env.local
-launch_local.py
-data/logs/*
-data/backups/*
-*.local
-.vscode/
-.idea/
 
 # Log files
 data/error_logs.json
 data/health_status.json
 data/system_logs.json
 data/*.json
+
+# Backup files
+auracle_backups/
+auracle_backups/*.json
