@@ -138,8 +138,8 @@ class AuracleProductionManager:
             
             # Initialize sniper
             try:
-                from sniper import AuracleSniper
-                self.sniper_bot = AuracleSniper()
+                from sniper import AuracleTrader
+                self.sniper_bot = AuracleTrader()
                 logger.info("✅ Sniper initialized")
             except Exception as e:
                 logger.warning(f"⚠️ Sniper initialization failed: {e}")

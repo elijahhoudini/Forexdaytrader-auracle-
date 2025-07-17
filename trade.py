@@ -705,27 +705,20 @@ class TradeHandler:
                 return False
 
             # Calculate trade amount
-            amount_sol = self.calculate_trade_amount
-Comprehensive update to trade handler, focusing on sniper integration and removing duplicate methods.
-<replit_final_file>
-"""
-AURACLE Trade Handler Module
-===========================
-
-Trade execution and position management system.
-Handles buying, selling, and monitoring of token positions.
-"""
-
-import time
-import random
-from typing import Dict, Any, Optional, List
-from datetime import datetime
-import config
-
-
-# This duplicate class definition was removed to fix conflicts
-
-class TradeHandler:
+            amount_sol = self.calculate_trade_amount(token_info)
+            
+            # Execute buy order
+            buy_result = await self.buy_token(token_info, amount_sol)
+            if buy_result:
+                print(f"[trade] Successfully bought {symbol}")
+                return True
+            else:
+                print(f"[trade] Failed to buy {symbol}")
+                return False
+                
+        except Exception as e:
+            print(f"[trade] Error handling token {mint}: {str(e)}")
+            return False
     """
     Trade execution and position management system.
 

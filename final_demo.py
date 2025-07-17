@@ -89,9 +89,9 @@ async def demo_sniper_functionality():
     print("\n🎯 SNIPER FUNCTIONALITY DEMO")
     print("=" * 40)
     
-    from sniper import AuracleSniper
+    from sniper import AuracleTrader
     
-    sniper = AuracleSniper()
+    sniper = AuracleTrader()
     
     # Manual snipe
     print("📱 Executing manual snipe...")

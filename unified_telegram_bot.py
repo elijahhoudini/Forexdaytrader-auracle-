@@ -322,10 +322,10 @@ class SniperManager:
         self.jupiter_executor = JupiterTradeExecutor()
 
         # Create individual sniper instances per user with trade handler integration
-        self.user_snipers = {}  # user_id -> AuracleSniper instance
+        self.user_snipers = {}  # user_id -> AuracleTrader instance
 
-    async def start_sniper(self, user_id: str, amount: float = 0.01) -> bool:
-        """Start sniper for user"""
+    async def start_trading(self, user_id: str, amount: float = 0.01) -> bool:
+        """Start AI trading for user"""
         try:
             if user_id in self.active_snipers:
                 return False  # Already running
@@ -334,8 +334,8 @@ class SniperManager:
             if not wallet:
                 return False  # No wallet
 
-            # Create sniper task
-            task = asyncio.create_task(self._sniper_loop(user_id, amount))
+            # Create trading task
+            task = asyncio.create_task(self._trading_loop(user_id, amount))
             self.active_snipers[user_id] = task
 
             return True
@@ -393,7 +393,7 @@ class SniperManager:
 
             # Log trade with sniper designation
             self.data_manager.log_trade(user_id, {
-                "action": "manual_snipe",
+                "action": "ai_trade",
                 "token": best_token.get('symbol', 'UNKNOWN'),
                 "token_name": best_token.get('name', 'Unknown Token'),
                 "token_mint": best_token.get('mint', ''),
@@ -566,7 +566,7 @@ class AuracleTelegramBot:
         keyboard = [
             [InlineKeyboardButton("💰 Generate Wallet", callback_data="generate_wallet")],
             [InlineKeyboardButton("🔗 Connect Wallet", callback_data="connect_wallet")],
-            [InlineKeyboardButton("🎯 Start Sniper", callback_data="start_sniper")],
+            [InlineKeyboardButton("🧠 Start AI Trading", callback_data="start_sniper")],
             [InlineKeyboardButton("📊 My Trades", callback_data="view_trades")],
             [InlineKeyboardButton("💰 Profit Analysis", callback_data="profit_analysis")],
             [InlineKeyboardButton("📊 Current Positions", callback_data="positions")],
@@ -996,16 +996,91 @@ Choose an option below to get started!
             await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
         elif update.callback_query:
             await update.callback_query.edit_message_text(message, reply_markup=reply_markup, parse_mode='Markdown')
+            
+    async def sniper_trades_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
+        """Handle /sniper_trades command to show AI-driven trading history"""
+        user_id = str(update.effective_user.id)
+
+        trades = self.data_manager.get_user_trades(user_id)
+        
+        # Filter only autonomous sniper trades
+        sniper_trades = [trade for trade in trades if trade.get('is_sniper', False)]
+
+        if not sniper_trades:
+            message_text = (
+                "📊 **No AI Trading History**\n\n"
+                "You haven't made any AI-driven trades yet.\n\n"
+                "💡 Use /start_sniper to begin automated AI trading!"
+            )
+            await update.message.reply_text(message_text, parse_mode='Markdown')
+            return
+
+        # Sort trades by timestamp (newest first)
+        sorted_trades = sorted(sniper_trades, key=lambda x: x.get('timestamp', ''), reverse=True)
+
+        # Show last 10 sniper trades
+        recent_trades = sorted_trades[:10]
+
+        mode = "🔶 DEMO" if config.get_demo_mode() else "🔥 LIVE"
+
+        message = f"� **AI-Driven Trading History** {mode}\n\n"
+        message += f"📈 **Total AI Trades:** {len(sniper_trades)}\n"
+        message += f"✅ **Successful:** {len([t for t in sniper_trades if t.get('success')])}\n"
+        message += f"❌ **Failed:** {len([t for t in sniper_trades if not t.get('success')])}\n\n"
+
+        message += "**📋 Last 10 AI Trades:**\n\n"
+
+        for i, trade in enumerate(recent_trades, 1):
+            timestamp = trade.get('timestamp', '')
+            if timestamp:
+                try:
+                    from datetime import datetime
+                    dt = datetime.fromisoformat(timestamp.replace('Z', '+00:00'))
+                    time_str = dt.strftime('%m/%d %H:%M')
+                except:
+                    time_str = timestamp[:16]
+            else:
+                time_str = "Unknown"
+
+            status = "✅" if trade.get('success') else "❌"
+            action = trade.get('action', 'trade').upper()
+            token = trade.get('token', 'Unknown')
+            amount = trade.get('amount', 0)
+            signature = trade.get('signature', '')
+
+            message += f"{i}. {status} **{action}** - {time_str}\n"
+            message += f"   🪙 Token: {token}\n"
+            message += f"   💰 Amount: {amount} SOL\n"
+
+            if signature and signature != 'N/A' and not signature.startswith('demo_'):
+                message += f"   🔗 [View on Solscan](https://solscan.io/tx/{signature})\n"
+            elif trade.get('demo_mode'):
+                message += f"   🔶 Demo Mode Transaction\n"
+
+            if not trade.get('success') and trade.get('error'):
+                message += f"   ❌ Error: {trade['error'][:50]}...\n"
+
+            message += "\n"
+
+        # Add keyboard for more options
+        keyboard = [
+            [InlineKeyboardButton("🔄 Refresh", callback_data="sniper_trades")],
+            [InlineKeyboardButton("📈 Full History", callback_data="full_ai_history")],
+            [InlineKeyboardButton("🔙 Back", callback_data="start")]
+        ]
+        reply_markup = InlineKeyboardMarkup(keyboard)
+
+        await update.message.reply_text(message, reply_markup=reply_markup, parse_mode='Markdown')
 
     async def help_command(self, update: Update, context: ContextTypes.DEFAULT_TYPE):
         """Handle /help command"""
         help_text = """
 🤖 **AURACLE Bot Commands**
 
-🎯 **Sniper Commands:**
-• `/start_sniper [amount]` - Start auto-sniper
-• `/stop_sniper` - Stop auto-sniper  
-• `/snipe [amount]` - Manual snipe
+🧠 **AI Trading Commands:**
+• `/start_sniper [amount]` - Start AI trading
+• `/stop_sniper` - Stop AI trading  
+• `/snipe [amount]` - Execute AI-recommended trade
 
 💰 **Wallet Commands:**
 • `/generate_wallet` - Generate new wallet
@@ -1016,7 +1091,7 @@ Choose an option below to get started!
 • `/view_trades` - View all recent trades
 • `/profit` - Detailed profit analysis
 • `/positions` - Current holdings & P&L
-• `/sniper_trades` - Sniper-specific trades
+• `/sniper_trades` - AI trading history
 • `/status` - Your bot status
 
 👥 **Referral Commands:**
@@ -1150,7 +1225,7 @@ Choose an option below to get started!
         if not TELEGRAM_AVAILABLE:
             logger.info("⚠️  Telegram not available - running in mock mode")
             logger.info("🤖 AURACLE Bot Commands Available:")
-            logger.info("• /start_sniper - Start auto-sniping")
+            logger.info("• /start_sniper - Start AI trading")
             logger.info("• /stop_sniper - Stop auto-sniping")
             logger.info("• /snipe <amount> - Manual snipe")
             logger.info("• /generate_wallet - Generate new wallet")

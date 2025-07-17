@@ -20,9 +20,9 @@ import logging
 
 logger = logging.getLogger(__name__)
 
-class AuracleSniper:
+class AuracleTrader:
     """
-    Advanced sniper for new token opportunities.
+    Advanced AI trading system for profitable token opportunities.
 
     Features:
     - Real-time token discovery
@@ -441,22 +441,22 @@ class AuracleSniper:
         await self.discovery.close()
         await self.jupiter_executor.close()
 
-# Global sniper instance
-sniper = AuracleSniper()
+# Global trader instance
+trader = AuracleTrader()
 
 # Compatibility functions for existing code
 async def start_sniper(amount_sol: float = 0.01, duration_minutes: int = 60):
-    """Start the sniper"""
-    return await sniper.start_sniping(amount_sol, duration_minutes)
+    """Start the AI trader"""
+    return await trader.start_sniping(amount_sol, duration_minutes)
 
 async def stop_sniper():
-    """Stop the sniper"""
-    return await sniper.stop_sniping()
+    """Stop the AI trader"""
+    return await trader.stop_sniping()
 
 async def manual_snipe(amount_sol: float = 0.01):
-    """Execute manual snipe"""
-    return await sniper.manual_snipe(amount_sol)
+    """Execute AI trade"""
+    return await trader.manual_snipe(amount_sol)
 
 def get_sniper_stats():
-    """Get sniper statistics"""
-    return sniper.get_stats()
+    """Get AI trader statistics"""
+    return trader.get_stats()

@@ -797,7 +797,6 @@ class Auracle:
                 asyncio.set_event_loop(loop)
 
                 # Close all open positions
-                ```python
                 for mint in list(self.tradehandler.open_positions.keys()):
                     try:
                         result = loop.run_until_complete(self.trade_handler.sell_token(mint, "shutdown"))
@@ -1215,11 +1214,9 @@ def main():
 
         # Initialize and start AURACLE
         bot = Auracle()
-        # Initialize the sniper with trade handler integration
-        self.sniper = AuracleSniper(self.wallet, self.trade_handler)
-
-        # Set up bidirectional integration
-        self.trade_handler.sniper = self.sniper
+        
+        # Initialize the AI trader with trade handler integration if needed
+        # Note: Trader initialization is now handled inside the Auracle class
         bot.run()
 
     except Exception as e:

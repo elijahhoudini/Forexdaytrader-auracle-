@@ -892,5 +892,23 @@
     "timestamp": "2025-07-15T04:32:12.965336",
     "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
     "error_data": {}
+  },
+  {
+    "session_id": "20250717_052153",
+    "timestamp": "2025-07-17T05:22:45.600566",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250717_052153",
+    "timestamp": "2025-07-17T05:23:46.251177",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
+  },
+  {
+    "session_id": "20250717_052153",
+    "timestamp": "2025-07-17T05:24:46.906387",
+    "error_message": "Advanced token scan failed: Expecting value: line 1 column 1 (char 0)",
+    "error_data": {}
   }
 ]
