@@ -35,13 +35,25 @@ This guide explains how to safely set up and run AURACLE in live trading mode. T
    - DEMO_MODE is set to false
    - Trading limits are set to conservative values
 
-2. Configure your wallet securely using the script:
+2. Configure your wallet securely using one of these methods:
+
+   **Option A: Terminal Method**
    ```
    ./setup_wallet.sh
    ```
-   - This will prompt for your private key
+   - This will prompt for your private key in the terminal
    - The key is only stored in memory, never in files
    - You will need to run this each time you start a new terminal session
+
+   **Option B: Telegram Method (More Secure)**
+   ```
+   ./start_telegram_wallet.sh
+   ```
+   - This starts a Telegram bot that allows you to set your key via Telegram
+   - Send `/set_wallet_key` to your bot in Telegram
+   - Follow the prompts to securely set your key
+   - Your message containing the key will be deleted immediately
+   - Ideal for remote management of the bot
 
 ### Step 3: Start Live Trading
 
@@ -49,6 +61,7 @@ This guide explains how to safely set up and run AURACLE in live trading mode. T
    ```
    ./start_secure.sh
    ```
+   - If no wallet key is configured, the script will prompt you to choose a setup method
 
 2. Monitor the initial execution closely:
    - Watch the first few scans to ensure tokens are being discovered correctly
