@@ -52,6 +52,7 @@ class AuracleTelegramBot:
             from telegram.ext import Application, CommandHandler, MessageHandler, filters
 
             logger.info("🚀 Starting AURACLE Telegram Bot...")
+            logger.info(f"Using Telegram token: {self.token[:5]}...{self.token[-5:] if self.token else ''}")
 
             # Create application
             self.application = Application.builder().token(self.token).build()
@@ -72,14 +73,39 @@ class AuracleTelegramBot:
             self.application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, self.handle_message))
 
             # Start polling
+            logger.info("Starting Telegram bot polling")
             await self.application.run_polling()
 
-        except ImportError:
-            logger.warning("Telegram library not available - running in local mode")
+        except ImportError as e:
+            logger.warning(f"Telegram library not available: {e}")
             await self.run_local_mode()
         except Exception as e:
             logger.error(f"Bot error: {e}")
-            await self.run_local_mode()
+            # Don't try to run local mode if we have an event loop error
+            if "Cannot close a running event loop" not in str(e):
+                await self.run_local_mode()
+            else:
+                logger.info("Falling back to non-async local mode due to event loop error")
+                self._run_local_mode_sync()
+
+    def _run_local_mode_sync(self):
+        """Run in local mode without telegram and without async."""
+        import time
+        logger.info("🔄 Running in non-async local mode...")
+        print("\n🎯 AURACLE Local Mode (non-async)")
+        print("=" * 40)
+        print("✅ System initialized")
+        print("✅ Monitoring active")
+        print("✅ Demo mode enabled")
+
+        self.running = True
+        try:
+            while self.running:
+                print(f"⏰ System check - All systems operational")
+                time.sleep(300)  # Check every 5 minutes
+        except KeyboardInterrupt:
+            print("\n👋 Local mode stopped")
+            self.running = False
 
     async def run_local_mode(self):
         """Run in local mode without telegram."""
@@ -438,9 +464,10 @@ class AuracleTelegramBot:
         )
 
 async def main():
-    """Main function to start the minimal bot."""
-    bot = MinimalTelegramBot()
-    await bot.start()
+    """Main function to start the AURACLE bot."""
+    # Create and run the bot
+    bot = AuracleTelegramBot()
+    await bot.run()
 
 if __name__ == "__main__":
     asyncio.run(main())

@@ -290,7 +290,14 @@ class JupiterAPI:
             # Sign transaction using the correct method for solders VersionedTransaction
             try:
                 # Sign the transaction properly
-                transaction.sign([wallet_keypair])
+                # Get the transaction message
+                message = transaction.message
+                
+                # Sign the message with the private key
+                signature = wallet_keypair.sign_message(message.serialize())
+                
+                # Create a new VersionedTransaction with the signature
+                transaction = VersionedTransaction.populate(message, [signature])
                 print(f"[jupiter] ✅ Transaction signed successfully")
 
             except Exception as sign_error:
