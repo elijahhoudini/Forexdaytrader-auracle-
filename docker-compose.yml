@@ -1,0 +1,147 @@
+version: '3.8'
+
+services:
+  # AURACLE Forex Trading Bot
+  auracle-forex:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auracle-forex
+    restart: unless-stopped
+    ports:
+      - "5000:5000"  # Dashboard port
+    volumes:
+      - ./data:/app/data
+      - ./strategies:/app/strategies
+      - ./logs:/app/logs
+      - ./.env:/app/.env:ro  # Mount environment file as read-only
+    environment:
+      - FOREX_DEMO_MODE=true
+      - DASHBOARD_ENABLED=true
+      - LOG_LEVEL=INFO
+    networks:
+      - auracle-network
+    depends_on:
+      - redis
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/status"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Redis for caching and session storage
+  redis:
+    image: redis:7-alpine
+    container_name: auracle-redis
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis-data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - auracle-network
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Optional: PostgreSQL database for advanced features
+  postgres:
+    image: postgres:15-alpine
+    container_name: auracle-postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql:ro
+    environment:
+      POSTGRES_DB: auracle
+      POSTGRES_USER: auracle
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-changeme123}
+    networks:
+      - auracle-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U auracle -d auracle"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+    profiles:
+      - database
+
+  # Nginx reverse proxy (optional)
+  nginx:
+    image: nginx:alpine
+    container_name: auracle-nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./ssl:/etc/nginx/ssl:ro
+    depends_on:
+      - auracle-forex
+    networks:
+      - auracle-network
+    profiles:
+      - proxy
+
+  # Prometheus monitoring (optional)
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: auracle-prometheus
+    restart: unless-stopped
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus-data:/prometheus
+    command:
+      - '--config.file=/etc/prometheus/prometheus.yml'
+      - '--storage.tsdb.path=/prometheus'
+      - '--web.console.libraries=/etc/prometheus/console_libraries'
+      - '--web.console.templates=/etc/prometheus/consoles'
+      - '--storage.tsdb.retention.time=200h'
+      - '--web.enable-lifecycle'
+    networks:
+      - auracle-network
+    profiles:
+      - monitoring
+
+  # Grafana dashboards (optional)
+  grafana:
+    image: grafana/grafana:latest
+    container_name: auracle-grafana
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./monitoring/grafana/dashboards:/etc/grafana/provisioning/dashboards:ro
+      - ./monitoring/grafana/datasources:/etc/grafana/provisioning/datasources:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=${GRAFANA_PASSWORD:-admin123}
+    depends_on:
+      - prometheus
+    networks:
+      - auracle-network
+    profiles:
+      - monitoring
+
+networks:
+  auracle-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
+  postgres-data:
+    driver: local
+  prometheus-data:
+    driver: local
+  grafana-data:
+    driver: local

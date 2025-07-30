@@ -15,7 +15,7 @@ Example usage in strategies directory.
 import pandas as pd
 import numpy as np
 from typing import Dict, List
-from .base_strategy import BaseStrategy
+from strategies.base_strategy import BaseStrategy
 
 
 class RSI_MACD_Strategy(BaseStrategy):

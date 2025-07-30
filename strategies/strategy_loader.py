@@ -9,7 +9,7 @@ import os
 import importlib.util
 import inspect
 from typing import Dict, List, Type
-from .base_strategy import BaseStrategy
+from strategies.base_strategy import BaseStrategy
 
 
 class StrategyLoader:

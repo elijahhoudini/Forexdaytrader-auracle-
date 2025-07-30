@@ -1,0 +1,115 @@
+# Docker ignore file for AURACLE Forex Trading Bot
+
+# Python cache and temp files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+ENV/
+env/
+.venv/
+
+# Environment files
+.env
+.env.local
+.env.production
+.env.development
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Logs
+*.log
+logs/
+data/logs/
+
+# Runtime data
+data/storage/
+data/temp/
+data/cache/
+*.pid
+*.seed
+
+# Test files
+.coverage
+.nyc_output
+coverage/
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Documentation
+docs/_build/
+
+# Backup files
+*.bak
+*.backup
+*.orig
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+
+# Git
+.git/
+.gitignore
+
+# Docker
+Dockerfile.dev
+docker-compose.override.yml
+docker-compose.*.yml
+
+# Sensitive data
+private_keys/
+ssl/
+secrets/
+
+# Large data files
+*.csv
+*.json
+data/backtests/*.png
+data/backtests/*.html
+
+# Build artifacts
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
