@@ -1,52 +1,57 @@
-# AURACLE + Solana Trading Bot: Unified Trading Platform
+# AURACLE Forex Trading Bot: Autonomous Currency Trading Platform
 
-🤖 **AURACLE** is an autonomous AI-powered Solana trading bot with an integrated Telegram-based Solana Trading Bot. This unified platform combines automated token discovery, risk assessment, and intelligent trading execution on the Solana blockchain with comprehensive Telegram-based controls.
+🤖 **AURACLE** is an autonomous AI-powered Forex trading bot designed for professional currency trading. This advanced platform combines real-time market analysis, technical indicators, and intelligent trade execution across major currency pairs with comprehensive risk management and alert systems.
 
-## 🎯 Two Bot Modes
+## 🎯 Trading Modes
 
-### 1. AURACLE Bot (Autonomous Mode)
-- **Fully Autonomous**: Automated trading with minimal user intervention
-- **AI-Powered**: Intelligent token discovery and risk assessment
-- **Advanced Risk Management**: Multi-layered fraud detection and safety mechanisms
+### 1. Autonomous Mode
+- **Fully Autonomous**: Automated Forex trading with minimal user intervention
+- **AI-Powered**: Intelligent currency pair analysis and signal generation
+- **Advanced Risk Management**: Multi-layered position sizing and safety mechanisms
+- **24/5 Operation**: Continuous monitoring during Forex market hours
 
-### 2. Solana Trading Bot (Telegram Mode)
+### 2. Manual/Interactive Mode
 - **Telegram Interface**: Full bot control via Telegram commands
-- **Multi-DEX Trading**: Buy and sell across multiple Solana DEXs
-- **Advanced Features**: Sniping, limit orders, portfolio tracking, and more
-- **User-Controlled**: Manual trading decisions with bot assistance
+- **Manual Execution**: User-controlled trade decisions with AI assistance
+- **Real-time Analysis**: Live technical analysis and recommendations
+- **Position Management**: Advanced portfolio tracking and management
 
 ## 🎯 Local Terminal Features
 
-### ✅ What's New for Local Usage
-- **Local Setup Script**: `python setup_local.py` - One-command setup wizard
-- **Local Launcher**: `python start_local.py` - Optimized for terminal usage
-- **Simplified Dependencies**: Uses `requirements.local.txt` for minimal setup
-- **File Storage**: No database required - uses local `./data/` directory
-- **Environment Configuration**: Uses `.env` file for all settings
-- **Make Commands**: `make test`, `make run`, `make setup` for easy development
+### ✅ What's New for Forex Trading
+- **Forex Market Integration**: Real-time data from Alpha Vantage, Twelve Data, and OANDA APIs
+- **Technical Analysis**: Advanced indicators including RSI, MACD, Bollinger Bands, ADX
+- **MetaTrader Support**: MT5 integration for professional trading platforms
+- **Currency Pairs**: Major pairs (EUR/USD, GBP/USD, USD/JPY, etc.)
+- **Risk Management**: Kelly criterion, position sizing, stop losses, take profits
+- **Demo Trading**: Safe testing with simulated trades before going live
 
-### ✅ Removed Replit Dependencies
-- No more Replit-specific startup scripts
-- No always-online requirements
-- No complex database setup
-- No premium API requirements for basic functionality
+### ✅ Removed Solana Dependencies
+- No more blockchain-specific operations
+- No token scanning or wallet management
+- No Jupiter aggregator dependencies
+- No Solana RPC requirements
+- Clean Forex-focused architecture
 
-### ✅ Local Optimizations
-- **Terminal Interface**: Clean progress indicators and colored output
-- **Local Data Persistence**: All data stored in `./data/` directory
-- **Environment Variables**: Automatic `.env` file loading
-- **Error Handling**: Graceful network failure handling
-- **Testing**: Built-in demo mode for safe testing
+### ✅ Forex Optimizations
+- **Terminal Interface**: Real-time price feeds and position monitoring
+- **Local Data Storage**: Historical data and trade logs in `./data/forex/`
+- **Environment Configuration**: Forex-specific `.env` setup
+- **Error Handling**: Robust API failover and connection management
+- **Testing Modes**: Demo, paper trading, and backtesting capabilities
 
 ## 🎯 Features
 
-### AURACLE Bot Features
-- **Autonomous Trading**: Fully automated buy/sell operations with configurable parameters
-- **Token Discovery**: Multi-DEX scanning for new tokens and trading opportunities
-- **Risk Management**: Advanced fraud detection and safety mechanisms
-- **Portfolio Management**: Automated position monitoring with profit targets and stop losses
-- **Comprehensive Logging**: Detailed trade, error, and performance logging
-- **Telegram Integration**: Live mode control and trade notifications via Telegram
+### AURACLE Forex Bot Features
+- **Autonomous Forex Trading**: Fully automated buy/sell operations with configurable parameters
+- **Currency Pair Analysis**: Real-time analysis of major currency pairs (EUR/USD, GBP/USD, USD/JPY, etc.)
+- **Technical Indicators**: RSI, MACD, Bollinger Bands, ADX, Stochastic, Moving Averages
+- **Risk Management**: Advanced position sizing, stop losses, take profits, daily loss limits
+- **Multiple API Support**: Alpha Vantage, Twelve Data, OANDA with automatic failover
+- **MetaTrader Integration**: MT5 support for professional trading platforms
+- **Portfolio Management**: Real-time PnL tracking, position monitoring, performance analytics
+- **Comprehensive Logging**: Detailed trade logs, performance metrics, and error tracking
+- **Telegram Integration**: Live notifications and manual control via Telegram
 
 ### Solana Trading Bot Features
 - **Telegram Interface**: Complete bot control via Telegram commands
@@ -57,62 +62,106 @@
 - **Referral System**: Built-in referral system for user engagement
 - **Token Watchlist**: Create and maintain watchlists to monitor price changes
 
-### Safety Features (Both Bots)
+### Safety Features (Forex Trading)
 - **Demo Mode**: Safe trading simulation (enabled by default)
-- **Blacklist Management**: Permanent and temporary token blacklisting
-- **Fraud Detection**: Pattern-based suspicious token identification
-- **Risk Assessment**: Multi-factor risk evaluation for each trade
-- **Position Limits**: Configurable maximum positions and daily trade limits
-- **Stop Loss Protection**: Automated loss prevention mechanisms
+- **Risk Management**: Advanced position sizing and stop losses
+- **Daily Loss Limits**: Configurable maximum daily losses
+- **Position Limits**: Maximum concurrent positions and trade frequency
+- **API Failover**: Multiple data sources for reliability
+- **Real-time Monitoring**: Continuous position and PnL tracking
 
-### Telegram Bot Features
-- **Demo Mode Toggle**: Switch between demo and live trading via `/demo` and `/live` commands
-- **Real-time Status**: Monitor bot performance and wallet balance with `/status`
-- **Configuration View**: Check current settings with `/config`
-- **Trade Notifications**: Receive instant alerts for all trades
-- **Safe by Default**: Always starts in demo mode for maximum safety
+### Forex Bot Features  
+- **Real-time Analysis**: Live technical indicator calculations and signal generation
+- **Multiple Timeframes**: Support for 1min to daily timeframes
+- **Currency Strength**: Advanced currency strength analysis across pairs
+- **Economic Calendar**: Integration with economic events and news
+- **Performance Tracking**: Detailed trade logs and PnL analysis
+- **MetaTrader Integration**: Professional platform connectivity
 
-## 🏗️ Architecture
+## 🏗️ Forex Architecture
 
-### Unified Architecture
+### AURACLE Forex Architecture
 ```
-start_unified.py     # Main entry point - choose which bot to run
-├── AURACLE Bot/
-│   ├── auracle.py          # Main system controller and trading loop
-│   ├── wallet.py           # Wallet interface and transaction signing
-│   ├── trade.py            # Trade execution engine and position management
-│   ├── scanner.py          # Token discovery and opportunity detection
-│   ├── risk.py             # Risk assessment and fraud detection
-│   ├── logger.py           # Comprehensive logging system
-│   └── config.py           # Global configuration and constants
-├── Solana Trading Bot/
-│   └── src/solbot/
-│       ├── main.py         # Telegram bot main controller
-│       ├── callback_handlers/  # Telegram callback handlers
-│       ├── command_handlers/   # Telegram command handlers
-│       ├── message_handlers/   # Telegram message handlers
-│       ├── web3/              # Web3 and blockchain interactions
-│       ├── database/          # Database operations
-│       └── utils/             # Utility functions
-└── data/                   # Log files and data storage
-    ├── trade_logs.json
-    ├── error_logs.json
-    ├── system_logs.json
-    └── performance_logs.json
+start_forex.py         # Main entry point for Forex trading
+├── AURACLE Forex Bot/
+│   ├── auracle_forex.py      # Main Forex trading controller
+│   ├── forex_market_data.py  # Market data from multiple APIs
+│   ├── forex_trading_engine.py # Trade execution and position management
+│   ├── forex_technical_indicators.py # Technical analysis indicators
+│   ├── forex_config.py       # Forex-specific configuration
+│   └── logger.py             # Logging system (reused)
+├── Legacy Solana Bot/ (DISABLED)
+│   └── *.py files            # Original Solana functionality (kept for reference)
+└── data/forex/               # Forex-specific data storage
+    ├── historical/           # Historical price data
+    ├── trades/              # Trade logs and history
+    └── performance/         # Performance analytics
 ```
 
-## 🚀 Quick Start
+## 🚀 Quick Start (Forex Trading)
 
-### For Local Development (Recommended)
+### Setup and Installation
 
-**New! Optimized for local laptop/terminal usage**
+1. **Setup the Forex Bot**:
+   ```bash
+   python start_forex.py --setup
+   ```
 
+2. **Configure API Keys** (Get free keys from):
+   ```bash
+   # Edit .env file with your credentials:
+   ALPHA_VANTAGE_API_KEY=your_free_api_key    # https://www.alphavantage.co/
+   TWELVE_DATA_API_KEY=your_free_api_key      # https://twelvedata.com/
+   OANDA_API_TOKEN=your_demo_token            # https://oanda.com/
+   ```
+
+3. **Install Dependencies**:
+   ```bash
+   pip install -r requirements.forex.txt
+   ```
+
+4. **Test the Bot**:
+   ```bash
+   python start_forex.py --mode test
+   ```
+
+### Trading Modes
+
+1. **Interactive Mode** (Recommended for beginners):
+   ```bash
+   python start_forex.py --mode manual
+   # Commands: analyze EURUSD, trade EURUSD long 0.01, status, quit
+   ```
+
+2. **Autonomous Mode** (Advanced users):
+   ```bash
+   python start_forex.py --mode auto
+   # Fully automated trading based on technical signals
+   ```
+
+### Supported Currency Pairs
+- **EUR/USD** - Euro/US Dollar (Most liquid)
+- **GBP/USD** - British Pound/US Dollar  
+- **USD/JPY** - US Dollar/Japanese Yen
+- **USD/CHF** - US Dollar/Swiss Franc
+- **AUD/USD** - Australian Dollar/US Dollar
+- **USD/CAD** - US Dollar/Canadian Dollar
+- **NZD/USD** - New Zealand Dollar/US Dollar
+
+### Key Configuration Options
 ```bash
-# Clone the repository
-git clone https://github.com/elijahhoudini/Final-.git
-cd Final-
+# Trading settings
+FOREX_DEMO_MODE=true              # Safe demo trading
+AUTONOMOUS_TRADING=false          # Manual control
+MAX_RISK_PER_TRADE=0.02          # 2% risk per trade
+MAX_DAILY_TRADES=10              # Daily trade limit
+DAILY_LOSS_LIMIT=200             # $200 daily loss limit
 
-# One-command setup
+# Technical analysis
+SIGNAL_CONFIDENCE_THRESHOLD=60   # Minimum signal strength
+PRIMARY_TIMEFRAME=1hour          # Analysis timeframe
+RSI_OVERSOLD_THRESHOLD=30        # RSI oversold level
+```
 python setup_local.py
 
 # Test the bot
