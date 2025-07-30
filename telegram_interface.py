@@ -30,6 +30,11 @@ try:
     TELEGRAM_AVAILABLE = True
 except ImportError:
     TELEGRAM_AVAILABLE = False
+    # Create mock classes for type hints
+    class Update:
+        pass
+    class ContextTypes:
+        DEFAULT_TYPE = None
 
 try:
     import config
