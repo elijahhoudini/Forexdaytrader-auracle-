@@ -25,8 +25,8 @@ python-telegram-bot>=20.0
 colorama>=0.4.6
 urllib3>=1.26.0
 
-# MetaTrader integration (optional)
-# MetaTrader5>=5.0.44  # Uncomment if using MT5
+# MetaTrader integration for LIVE TRADING
+MetaTrader5>=5.0.44  # Required for MT5 live trading integration
 
 # Technical analysis (optional - can use built-in)
 # TA-Lib>=0.4.0  # Uncomment for additional indicators

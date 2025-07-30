@@ -59,9 +59,9 @@ class AuracleForex:
         self.trading_engine = ForexTradingEngine()
         self.indicators = ForexTechnicalIndicators()
         
-        # Configuration
-        self.demo_mode = os.getenv('FOREX_DEMO_MODE', 'true').lower() == 'true'
-        self.autonomous_mode = os.getenv('AUTONOMOUS_TRADING', 'false').lower() == 'true'
+        # Configuration - LIVE TRADING DEFAULT
+        self.demo_mode = os.getenv('FOREX_DEMO_MODE', 'false').lower() == 'true'
+        self.autonomous_mode = os.getenv('AUTONOMOUS_TRADING', 'true').lower() == 'true'
         self.scan_interval = int(os.getenv('SCAN_INTERVAL_SECONDS', '300'))  # 5 minutes
         self.max_daily_trades = int(os.getenv('MAX_DAILY_TRADES', '10'))
         
@@ -103,6 +103,20 @@ class AuracleForex:
         """Initialize all components."""
         try:
             logger.info("🔄 Initializing AURACLE Forex components...")
+            
+            # LIVE TRADING SAFETY WARNING
+            if not self.demo_mode:
+                logger.warning("🚨" + "="*68 + "🚨")
+                logger.warning("🔴 LIVE TRADING MODE ENABLED - REAL MONEY AT RISK 🔴")
+                logger.warning("🚨 This bot will execute REAL trades with REAL money 🚨")
+                logger.warning("🚨 Ensure you have proper risk management configured 🚨")
+                logger.warning("🚨" + "="*68 + "🚨")
+                
+                # Verify live trading requirements
+                if not (self.trading_engine.mt5_enabled or self.trading_engine.webhook_enabled):
+                    logger.error("❌ LIVE TRADING ERROR: No live trading interface configured!")
+                    logger.error("❌ Enable MT5 or webhook for live trading")
+                    return False
             
             # Initialize trading engine
             success = await self.trading_engine.initialize()

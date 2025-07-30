@@ -20,9 +20,9 @@ except ImportError:
 
 # ==================== FOREX TRADING CONFIGURATION ====================
 
-# Core Trading Settings
-FOREX_DEMO_MODE = os.getenv('FOREX_DEMO_MODE', 'true').lower() == 'true'
-AUTONOMOUS_TRADING = os.getenv('AUTONOMOUS_TRADING', 'false').lower() == 'true'
+# Core Trading Settings - LIVE TRADING MODE
+FOREX_DEMO_MODE = os.getenv('FOREX_DEMO_MODE', 'false').lower() == 'true'
+AUTONOMOUS_TRADING = os.getenv('AUTONOMOUS_TRADING', 'true').lower() == 'true'
 
 # API Keys and Access
 ALPHA_VANTAGE_API_KEY = os.getenv('ALPHA_VANTAGE_API_KEY')
@@ -138,8 +138,8 @@ CALENDAR_API_KEY = os.getenv('CALENDAR_API_KEY')
 # ==================== TESTING AND DEVELOPMENT ====================
 
 BACKTESTING_ENABLED = os.getenv('BACKTESTING_ENABLED', 'false').lower() == 'true'
-PAPER_TRADING_ENABLED = os.getenv('PAPER_TRADING_ENABLED', 'true').lower() == 'true'
-FORWARD_TESTING_ENABLED = os.getenv('FORWARD_TESTING_ENABLED', 'true').lower() == 'true'
+PAPER_TRADING_ENABLED = os.getenv('PAPER_TRADING_ENABLED', 'false').lower() == 'true'
+FORWARD_TESTING_ENABLED = os.getenv('FORWARD_TESTING_ENABLED', 'false').lower() == 'true'
 
 DEBUG_MODE = os.getenv('DEBUG_MODE', 'false').lower() == 'true'
 VERBOSE_LOGGING = os.getenv('VERBOSE_LOGGING', 'false').lower() == 'true'
@@ -166,7 +166,7 @@ def get_trading_mode_string() -> str:
     if FOREX_DEMO_MODE:
         return "🔶 FOREX DEMO MODE (Safe - No real trades)"
     else:
-        return "🔴 FOREX LIVE MODE (Real money trading)"
+        return "🔴 FOREX LIVE MODE (REAL MONEY TRADING - LIVE EXECUTION)"
 
 def get_enabled_apis() -> List[str]:
     """Get list of enabled API providers."""

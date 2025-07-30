@@ -145,18 +145,52 @@ class ForexTradingEngine:
             return False
     
     async def _initialize_mt5(self):
-        """Initialize MetaTrader 5 connection."""
+        """Initialize MetaTrader 5 connection for LIVE TRADING."""
         try:
-            if not self.demo_mode:
-                logger.info("MT5 integration would be initialized here (live mode)")
-                # In a real implementation, this would connect to MT5
-                # import MetaTrader5 as mt5
-                # mt5.initialize()
-                # mt5.login(self.mt5_login, self.mt5_password, self.mt5_server)
+            if not self.demo_mode and self.mt5_enabled:
+                logger.info("🔴 Initializing MT5 for LIVE TRADING")
+                # Real MT5 implementation
+                try:
+                    import MetaTrader5 as mt5
+                    
+                    # Initialize the MT5 terminal
+                    if not mt5.initialize():
+                        logger.error("❌ MT5 initialize() failed")
+                        return False
+                    
+                    # Login to the trading account
+                    if not mt5.login(int(self.mt5_login), self.mt5_password, self.mt5_server):
+                        logger.error(f"❌ MT5 login failed for account {self.mt5_login}")
+                        mt5.shutdown()
+                        return False
+                    
+                    # Verify account info
+                    account_info = mt5.account_info()
+                    if account_info is None:
+                        logger.error("❌ Failed to get account info")
+                        mt5.shutdown()
+                        return False
+                    
+                    logger.info(f"✅ MT5 Connected - Account: {account_info.login}")
+                    logger.info(f"💰 Balance: ${account_info.balance}")
+                    logger.info(f"🏦 Server: {account_info.server}")
+                    
+                    return True
+                    
+                except ImportError:
+                    logger.error("❌ MetaTrader5 package not installed. Install with: pip install MetaTrader5")
+                    return False
+                
+            elif self.demo_mode:
+                logger.info("🔶 MT5 demo mode - simulated connection")
+                return True
             else:
-                logger.info("MT5 demo mode - simulated connection")
+                logger.info("ℹ️ MT5 not enabled")
+                return True
+                
         except Exception as e:
-            logger.error(f"MT5 initialization failed: {e}")
+            logger.error(f"❌ MT5 initialization failed: {e}")
+            return False
     
     async def _load_positions(self):
         """Load existing positions from storage."""
@@ -283,19 +317,22 @@ class ForexTradingEngine:
             execution_price = current_price['ask'] if direction == 'long' else current_price['bid']
             
             if self.demo_mode:
-                # Demo execution
+                # Demo execution - ONLY for explicit demo mode
+                logger.warning("🔶 DEMO MODE: Executing simulated trade")
                 result = await self._execute_demo_trade(pair, direction, size, execution_price, 
                                                       stop_loss, take_profit)
             elif self.mt5_enabled:
-                # MT5 execution
+                # LIVE MT5 execution
+                logger.info("🔴 LIVE TRADING: Executing real MT5 trade")
                 result = await self._execute_mt5_trade(pair, direction, size, execution_price,
                                                      stop_loss, take_profit)
             elif self.webhook_enabled:
-                # Webhook execution
+                # LIVE Webhook execution
+                logger.info("🔴 LIVE TRADING: Executing real webhook trade")
                 result = await self._execute_webhook_trade(pair, direction, size, execution_price,
                                                          stop_loss, take_profit)
             else:
-                return {'error': 'No trading interface configured'}
+                return {'error': 'No live trading interface configured - enable MT5 or webhook for real trading'}
             
             # Record trade in history
             if result.get('success'):
@@ -350,22 +387,78 @@ class ForexTradingEngine:
     async def _execute_mt5_trade(self, pair: str, direction: str, size: float,
                                price: float, stop_loss: float = None,
                                take_profit: float = None) -> Dict[str, Any]:
-        """Execute trade via MetaTrader 5."""
+        """Execute REAL trade via MetaTrader 5 - LIVE TRADING."""
         try:
-            # In a real implementation, this would use the MetaTrader5 library
-            logger.info(f"MT5 trade would be executed: {direction} {size} lots {pair}")
+            import MetaTrader5 as mt5
             
-            # Simulate MT5 execution for now
-            return await self._execute_demo_trade(pair, direction, size, price, stop_loss, take_profit)
+            # Prepare the trade request
+            symbol = pair.replace('/', '')  # Convert EUR/USD to EURUSD
+            action = mt5.TRADE_ACTION_DEAL
+            type_filling = mt5.ORDER_FILLING_IOC
             
+            # Determine order type
+            if direction.lower() == 'long':
+                order_type = mt5.ORDER_TYPE_BUY
+            else:
+                order_type = mt5.ORDER_TYPE_SELL
+            
+            # Build the trade request
+            request = {
+                "action": action,
+                "symbol": symbol,
+                "volume": size,
+                "type": order_type,
+                "price": price,
+                "type_filling": type_filling,
+                "magic": 234000,  # Magic number for identification
+                "comment": "AURACLE Forex Bot Live Trade",
+            }
+            
+            # Add stop loss and take profit if specified
+            if stop_loss:
+                request["sl"] = stop_loss
+            if take_profit:
+                request["tp"] = take_profit
+            
+            logger.info(f"🔴 EXECUTING LIVE MT5 TRADE: {direction} {size} lots {pair} @ {price:.5f}")
+            
+            # Execute the order
+            result = mt5.order_send(request)
+            
+            if result.retcode != mt5.TRADE_RETCODE_DONE:
+                error_msg = f"MT5 order failed: {result.retcode} - {result.comment}"
+                logger.error(error_msg)
+                return {'error': error_msg}
+            
+            # Create position tracking
+            position = ForexPosition(pair, direction, result.price, size)
+            position.stop_loss = stop_loss
+            position.take_profit = take_profit
+            position_id = f"MT5_{result.order}"
+            self.positions[position_id] = position
+            
+            logger.info(f"✅ LIVE MT5 TRADE EXECUTED: Order #{result.order}, Price: {result.price:.5f}")
+            
+            return {
+                'success': True,
+                'position_id': position_id,
+                'order_id': result.order,
+                'executed_price': result.price,
+                'volume': result.volume,
+                'type': 'live_mt5'
+            }
+            
+        except ImportError:
+            logger.error("❌ MetaTrader5 package not installed. Install with: pip install MetaTrader5")
+            return {'error': 'MetaTrader5 package not installed'}
         except Exception as e:
-            logger.error(f"MT5 trade execution failed: {e}")
+            logger.error(f"❌ LIVE MT5 trade execution failed: {e}")
             return {'error': str(e)}
     
     async def _execute_webhook_trade(self, pair: str, direction: str, size: float,
                                    price: float, stop_loss: float = None,
                                    take_profit: float = None) -> Dict[str, Any]:
-        """Execute trade via webhook to broker."""
+        """Execute REAL trade via webhook to live broker - LIVE TRADING."""
         try:
             trade_data = {
                 'pair': pair,
@@ -374,30 +467,40 @@ class ForexTradingEngine:
                 'price': price,
                 'stop_loss': stop_loss,
                 'take_profit': take_profit,
-                'timestamp': datetime.now().isoformat()
+                'timestamp': datetime.now().isoformat(),
+                'bot_id': 'AURACLE_FOREX_LIVE',
+                'trade_type': 'LIVE'
             }
             
+            logger.info(f"🔴 EXECUTING LIVE WEBHOOK TRADE: {direction} {size} lots {pair} @ {price:.5f}")
+            
             async with aiohttp.ClientSession() as session:
-                async with session.post(self.webhook_url, json=trade_data) as response:
+                async with session.post(self.webhook_url, json=trade_data, 
+                                      headers={'Content-Type': 'application/json'}) as response:
                     if response.status == 200:
                         result = await response.json()
-                        logger.info(f"Webhook trade executed: {result}")
+                        logger.info(f"✅ LIVE WEBHOOK TRADE EXECUTED: {result}")
                         
                         # Create local position tracking
                         position = ForexPosition(pair, direction, price, size)
-                        position_id = result.get('position_id', f"{pair}_{int(time.time())}")
+                        position.stop_loss = stop_loss
+                        position.take_profit = take_profit
+                        position_id = result.get('position_id', f"WEBHOOK_{pair}_{int(time.time())}")
                         self.positions[position_id] = position
                         
                         return {
                             'success': True,
                             'position_id': position_id,
-                            'broker_response': result
+                            'broker_response': result,
+                            'type': 'live_webhook'
                         }
                     else:
-                        return {'error': f'Webhook failed with status {response.status}'}
+                        error_msg = f'Live webhook trade failed with status {response.status}'
+                        logger.error(f"❌ {error_msg}")
+                        return {'error': error_msg}
             
         except Exception as e:
-            logger.error(f"Webhook trade execution failed: {e}")
+            logger.error(f"❌ LIVE webhook trade execution failed: {e}")
             return {'error': str(e)}
     
     async def close_position(self, position_id: str, reason: str = 'manual') -> Dict[str, Any]:

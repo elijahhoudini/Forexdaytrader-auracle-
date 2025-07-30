@@ -82,20 +82,30 @@ def check_configuration():
         return False
 
 async def run_autonomous_mode():
-    """Run in autonomous trading mode."""
+    """Run in autonomous trading mode - LIVE TRADING."""
     try:
         from auracle_forex import AuracleForex
         
         print("🚀 Starting Autonomous Trading Mode")
-        print("⚠️  This mode will execute real trades in live mode!")
+        print("🚨" + "="*68 + "🚨")
+        print("🔴 WARNING: LIVE TRADING MODE - REAL MONEY AT RISK 🔴")
+        print("🚨 This bot will execute REAL trades with REAL money 🚨")
+        print("🚨 You are responsible for all trading decisions and losses 🚨")
+        print("🚨" + "="*68 + "🚨")
         
-        # Confirm in non-demo mode
+        # Enhanced confirmation for live trading
         import forex_config
         if not forex_config.FOREX_DEMO_MODE:
-            confirm = input("⚠️  LIVE TRADING MODE - Type 'CONFIRM' to proceed: ")
-            if confirm != 'CONFIRM':
-                print("❌ Aborted")
+            print("\n🔴 LIVE TRADING MODE DETECTED")
+            print("💰 Real money will be used for trading")
+            print("📊 Review your risk settings before proceeding")
+            confirm = input("\n⚠️ Type 'LIVE TRADING CONFIRMED' to proceed with real money: ")
+            if confirm != 'LIVE TRADING CONFIRMED':
+                print("❌ Live trading confirmation failed. Exiting for safety.")
                 return
+            print("🔴 PROCEEDING WITH LIVE TRADING - REAL MONEY AT RISK")
+        else:
+            print("🔶 Demo mode detected - safe testing environment")
         
         auracle = AuracleForex()
         await auracle.run()
