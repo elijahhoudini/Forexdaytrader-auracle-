@@ -20,8 +20,7 @@ except ImportError:
 
 # ==================== FOREX TRADING CONFIGURATION ====================
 
-# Core Trading Settings - LIVE TRADING MODE
-FOREX_DEMO_MODE = os.getenv('FOREX_DEMO_MODE', 'false').lower() == 'true'
+# Core Trading Settings - LIVE TRADING ONLY (NO SIMULATIONS)
 AUTONOMOUS_TRADING = os.getenv('AUTONOMOUS_TRADING', 'true').lower() == 'true'
 
 # API Keys and Access
@@ -137,10 +136,7 @@ CALENDAR_API_KEY = os.getenv('CALENDAR_API_KEY')
 
 # ==================== TESTING AND DEVELOPMENT ====================
 
-BACKTESTING_ENABLED = os.getenv('BACKTESTING_ENABLED', 'false').lower() == 'true'
-PAPER_TRADING_ENABLED = os.getenv('PAPER_TRADING_ENABLED', 'false').lower() == 'true'
-FORWARD_TESTING_ENABLED = os.getenv('FORWARD_TESTING_ENABLED', 'false').lower() == 'true'
-
+# Live Trading Only - No Simulations
 DEBUG_MODE = os.getenv('DEBUG_MODE', 'false').lower() == 'true'
 VERBOSE_LOGGING = os.getenv('VERBOSE_LOGGING', 'false').lower() == 'true'
 SAVE_RAW_DATA = os.getenv('SAVE_RAW_DATA', 'false').lower() == 'true'
@@ -163,10 +159,7 @@ SOLANA_RPC_ENDPOINT = None
 
 def get_trading_mode_string() -> str:
     """Get human-readable trading mode description."""
-    if FOREX_DEMO_MODE:
-        return "🔶 FOREX DEMO MODE (Safe - No real trades)"
-    else:
-        return "🔴 FOREX LIVE MODE (REAL MONEY TRADING - LIVE EXECUTION)"
+    return "🔴 FOREX LIVE MODE (REAL MONEY TRADING - LIVE EXECUTION ONLY)"
 
 def get_enabled_apis() -> List[str]:
     """Get list of enabled API providers."""
@@ -258,7 +251,7 @@ if __name__ != "__main__":
 CONFIG_SUMMARY = {
     'bot_name': BOT_NAME,
     'bot_version': BOT_VERSION,
-    'demo_mode': FOREX_DEMO_MODE,
+    'live_trading_only': True,
     'autonomous': AUTONOMOUS_TRADING,
     'trading_pairs': TRADING_PAIRS,
     'account_balance': FOREX_ACCOUNT_BALANCE,

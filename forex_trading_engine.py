@@ -86,8 +86,7 @@ class ForexTradingEngine:
         self.market_data = ForexMarketData()
         self.indicators = ForexTechnicalIndicators()
         
-        # Trading configuration
-        self.demo_mode = os.getenv('FOREX_DEMO_MODE', 'true').lower() == 'true'
+        # Trading configuration - LIVE TRADING ONLY
         self.max_positions = int(os.getenv('MAX_FOREX_POSITIONS', '5'))
         self.max_risk_per_trade = float(os.getenv('MAX_RISK_PER_TRADE', '0.02'))  # 2% risk per trade
         self.account_balance = float(os.getenv('FOREX_ACCOUNT_BALANCE', '10000'))  # Default $10,000
@@ -115,7 +114,7 @@ class ForexTradingEngine:
         # Trading hours (24/5 market)
         self.trading_enabled = True
         
-        logger.info(f"ForexTradingEngine initialized - Demo: {self.demo_mode}")
+        logger.info(f"ForexTradingEngine initialized - LIVE TRADING ONLY")
         logger.info(f"Account balance: ${self.account_balance}")
         logger.info(f"Max positions: {self.max_positions}")
         logger.info(f"Max risk per trade: {self.max_risk_per_trade * 100}%")
@@ -145,9 +144,9 @@ class ForexTradingEngine:
             return False
     
     async def _initialize_mt5(self):
-        """Initialize MetaTrader 5 connection for LIVE TRADING."""
+        """Initialize MetaTrader 5 connection for LIVE TRADING ONLY."""
         try:
-            if not self.demo_mode and self.mt5_enabled:
+            if self.mt5_enabled:
                 logger.info("🔴 Initializing MT5 for LIVE TRADING")
                 # Real MT5 implementation
                 try:
@@ -180,10 +179,6 @@ class ForexTradingEngine:
                 except ImportError:
                     logger.error("❌ MetaTrader5 package not installed. Install with: pip install MetaTrader5")
                     return False
-                
-            elif self.demo_mode:
-                logger.info("🔶 MT5 demo mode - simulated connection")
-                return True
             else:
                 logger.info("ℹ️ MT5 not enabled")
                 return True
@@ -316,12 +311,7 @@ class ForexTradingEngine:
             # Use bid/ask spread for realistic execution
             execution_price = current_price['ask'] if direction == 'long' else current_price['bid']
             
-            if self.demo_mode:
-                # Demo execution - ONLY for explicit demo mode
-                logger.warning("🔶 DEMO MODE: Executing simulated trade")
-                result = await self._execute_demo_trade(pair, direction, size, execution_price, 
-                                                      stop_loss, take_profit)
-            elif self.mt5_enabled:
+            if self.mt5_enabled:
                 # LIVE MT5 execution
                 logger.info("🔴 LIVE TRADING: Executing real MT5 trade")
                 result = await self._execute_mt5_trade(pair, direction, size, execution_price,
@@ -332,7 +322,7 @@ class ForexTradingEngine:
                 result = await self._execute_webhook_trade(pair, direction, size, execution_price,
                                                          stop_loss, take_profit)
             else:
-                return {'error': 'No live trading interface configured - enable MT5 or webhook for real trading'}
+                return {'error': 'No live trading interface configured. Enable MT5 or webhook for real money trading. No simulation modes available.'}
             
             # Record trade in history
             if result.get('success'):
@@ -352,36 +342,6 @@ class ForexTradingEngine:
             
         except Exception as e:
             logger.error(f"Error executing trade: {e}")
-            return {'error': str(e)}
-    
-    async def _execute_demo_trade(self, pair: str, direction: str, size: float, 
-                                price: float, stop_loss: float = None, 
-                                take_profit: float = None) -> Dict[str, Any]:
-        """Execute a demo trade (simulation)."""
-        try:
-            # Create position
-            position = ForexPosition(pair, direction, price, size)
-            position.stop_loss = stop_loss
-            position.take_profit = take_profit
-            
-            # Generate unique position ID
-            position_id = f"{pair}_{direction}_{int(time.time())}"
-            self.positions[position_id] = position
-            
-            logger.info(f"Demo trade executed: {direction} {size} lots {pair} @ {price:.5f}")
-            
-            return {
-                'success': True,
-                'position_id': position_id,
-                'pair': pair,
-                'direction': direction,
-                'size': size,
-                'entry_price': price,
-                'type': 'demo'
-            }
-            
-        except Exception as e:
-            logger.error(f"Demo trade execution failed: {e}")
             return {'error': str(e)}
     
     async def _execute_mt5_trade(self, pair: str, direction: str, size: float,
@@ -696,7 +656,7 @@ class ForexTradingEngine:
                 'open_positions': len(self.positions),
                 'max_positions': self.max_positions,
                 'positions': open_positions,
-                'demo_mode': self.demo_mode,
+                'live_trading_only': True,
                 'last_update': datetime.now()
             }
             
@@ -722,14 +682,14 @@ async def test_forex_trading():
     else:
         print(f"❌ Analysis failed: {analysis['error']}")
     
-    # Test trade execution (demo)
+    # Test trade execution (live only)
     print("\n💹 Testing trade execution...")
     if analysis.get('overall_score', 0) > 20:
         direction = 'long' if analysis['overall_score'] > 0 else 'short'
         trade_result = await engine.execute_trade('EURUSD', direction, 0.01)
         
         if trade_result.get('success'):
-            print(f"✅ Demo trade executed: {trade_result}")
+            print(f"✅ Live trade executed: {trade_result}")
             
             # Test position update
             await engine.update_positions()
@@ -742,6 +702,8 @@ async def test_forex_trading():
                 print(f"✅ Position closed: PnL ${close_result['pnl']:.2f}")
         else:
             print(f"❌ Trade execution failed: {trade_result}")
+    else:
+        print("ℹ️ No strong signals for trade execution test")
     
     # Test opportunity scanning
     print("\n🔍 Testing opportunity scanning...")

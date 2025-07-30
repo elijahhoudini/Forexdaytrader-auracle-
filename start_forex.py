@@ -93,19 +93,16 @@ async def run_autonomous_mode():
         print("🚨 You are responsible for all trading decisions and losses 🚨")
         print("🚨" + "="*68 + "🚨")
         
-        # Enhanced confirmation for live trading
+        # Live trading confirmation - REAL MONEY ONLY
         import forex_config
-        if not forex_config.FOREX_DEMO_MODE:
-            print("\n🔴 LIVE TRADING MODE DETECTED")
-            print("💰 Real money will be used for trading")
-            print("📊 Review your risk settings before proceeding")
-            confirm = input("\n⚠️ Type 'LIVE TRADING CONFIRMED' to proceed with real money: ")
-            if confirm != 'LIVE TRADING CONFIRMED':
-                print("❌ Live trading confirmation failed. Exiting for safety.")
-                return
-            print("🔴 PROCEEDING WITH LIVE TRADING - REAL MONEY AT RISK")
-        else:
-            print("🔶 Demo mode detected - safe testing environment")
+        print("\n🔴 LIVE TRADING MODE - REAL MONEY EXECUTION")
+        print("💰 Real money will be used for trading")
+        print("📊 Review your risk settings before proceeding")
+        confirm = input("\n⚠️ Type 'LIVE TRADING CONFIRMED' to proceed with real money: ")
+        if confirm != 'LIVE TRADING CONFIRMED':
+            print("❌ Live trading confirmation failed. Exiting for safety.")
+            return
+        print("🔴 PROCEEDING WITH LIVE TRADING - REAL MONEY AT RISK")
         
         auracle = AuracleForex()
         await auracle.run()

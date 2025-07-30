@@ -59,8 +59,7 @@ class AuracleForex:
         self.trading_engine = ForexTradingEngine()
         self.indicators = ForexTechnicalIndicators()
         
-        # Configuration - LIVE TRADING DEFAULT
-        self.demo_mode = os.getenv('FOREX_DEMO_MODE', 'false').lower() == 'true'
+        # Configuration - LIVE TRADING ONLY
         self.autonomous_mode = os.getenv('AUTONOMOUS_TRADING', 'true').lower() == 'true'
         self.scan_interval = int(os.getenv('SCAN_INTERVAL_SECONDS', '300'))  # 5 minutes
         self.max_daily_trades = int(os.getenv('MAX_DAILY_TRADES', '10'))
@@ -93,8 +92,7 @@ class AuracleForex:
         self.daily_loss_limit = float(os.getenv('DAILY_LOSS_LIMIT', '200'))  # $200 daily loss limit
         self.max_position_size = float(os.getenv('MAX_POSITION_SIZE', '0.10'))  # 0.10 lots max
         
-        logger.info(f"AURACLE Forex initialized")
-        logger.info(f"Demo mode: {self.demo_mode}")
+        logger.info(f"AURACLE Forex initialized - LIVE TRADING ONLY")
         logger.info(f"Autonomous mode: {self.autonomous_mode}")
         logger.info(f"Trading pairs: {', '.join(self.trading_pairs)}")
         logger.info(f"Scan interval: {self.scan_interval} seconds")
@@ -105,18 +103,18 @@ class AuracleForex:
             logger.info("🔄 Initializing AURACLE Forex components...")
             
             # LIVE TRADING SAFETY WARNING
-            if not self.demo_mode:
-                logger.warning("🚨" + "="*68 + "🚨")
-                logger.warning("🔴 LIVE TRADING MODE ENABLED - REAL MONEY AT RISK 🔴")
-                logger.warning("🚨 This bot will execute REAL trades with REAL money 🚨")
-                logger.warning("🚨 Ensure you have proper risk management configured 🚨")
-                logger.warning("🚨" + "="*68 + "🚨")
-                
-                # Verify live trading requirements
-                if not (self.trading_engine.mt5_enabled or self.trading_engine.webhook_enabled):
-                    logger.error("❌ LIVE TRADING ERROR: No live trading interface configured!")
-                    logger.error("❌ Enable MT5 or webhook for live trading")
-                    return False
+            logger.warning("🚨" + "="*68 + "🚨")
+            logger.warning("🔴 LIVE TRADING MODE - REAL MONEY AT RISK 🔴")
+            logger.warning("🚨 This bot will execute REAL trades with REAL money 🚨")
+            logger.warning("🚨 Ensure you have proper risk management configured 🚨")
+            logger.warning("🚨" + "="*68 + "🚨")
+            
+            # Verify live trading requirements
+            if not (self.trading_engine.mt5_enabled or self.trading_engine.webhook_enabled):
+                logger.error("❌ LIVE TRADING ERROR: No live trading interface configured!")
+                logger.error("❌ Enable MT5 or webhook for real money trading")
+                logger.error("❌ No simulation modes available - live trading setup required")
+                return False
             
             # Initialize trading engine
             success = await self.trading_engine.initialize()
@@ -134,7 +132,7 @@ class AuracleForex:
             # Initialize Telegram if enabled
             if self.telegram_enabled:
                 await self._send_telegram_message("🤖 AURACLE Forex Bot Started\n" +
-                                                f"Mode: {'Demo' if self.demo_mode else 'Live'}\n" +
+                                                f"Mode: Live Trading (Real Money)\n" +
                                                 f"Pairs: {', '.join(self.trading_pairs)}")
             
             logger.info("✅ AURACLE Forex initialization complete")
@@ -382,10 +380,9 @@ class AuracleForex:
         try:
             logger.info("🔄 Shutting down AURACLE Forex...")
             
-            # Close all open positions in demo mode
-            if self.demo_mode:
-                for position_id in list(self.trading_engine.positions.keys()):
-                    await self.trading_engine.close_position(position_id, 'shutdown')
+            # Close all open positions for safe shutdown
+            for position_id in list(self.trading_engine.positions.keys()):
+                await self.trading_engine.close_position(position_id, 'shutdown')
             
             # Final performance report
             final_stats = self.performance_stats
