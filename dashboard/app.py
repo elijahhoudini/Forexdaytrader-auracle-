@@ -36,8 +36,8 @@ class AuracleDashboard:
         """
         self.config = config
         self.app = Flask(__name__, 
-                        template_folder='dashboard/templates',
-                        static_folder='dashboard/static')
+                        template_folder=os.path.join(os.path.dirname(__file__), 'templates'),
+                        static_folder=os.path.join(os.path.dirname(__file__), 'static'))
         CORS(self.app)
         
         # Configuration
